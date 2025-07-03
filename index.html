@@ -50,8 +50,8 @@
             100% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* Login Page Styles */
-        .login-container {
+        /* Enhanced Login Page Styles */
+        .auth-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -59,16 +59,18 @@
             padding: 2rem;
         }
 
-        .login-card {
+        .auth-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 3rem;
             border-radius: 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             text-align: center;
-            max-width: 400px;
+            max-width: 500px;
             width: 100%;
             animation: slideInUp 0.8s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes slideInUp {
@@ -76,7 +78,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .login-logo {
+        .auth-logo {
             font-family: 'Fredoka One', cursive;
             font-size: 2.5rem;
             color: #ff6b6b;
@@ -84,14 +86,52 @@
             animation: bounce 2s infinite;
         }
 
-        .login-form {
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background: rgba(0,0,0,0.1);
+            border-radius: 25px;
+            padding: 0.5rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .auth-tab.active {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .auth-form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
         .form-group {
             position: relative;
+            flex: 1;
         }
 
         .form-input {
@@ -120,7 +160,19 @@
             font-size: 1.2rem;
         }
 
-        .login-btn {
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .auth-btn {
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             color: white;
             padding: 1rem 2rem;
@@ -134,9 +186,137 @@
             animation: glow 2s infinite alternate;
         }
 
-        .login-btn:hover {
+        @keyframes glow {
+            0% { box-shadow: 0 5px 15px rgba(255,107,107,0.4); }
+            100% { box-shadow: 0 5px 25px rgba(255,107,107,0.8); }
+        }
+
+        .auth-btn:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .auth-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Avatar Selection Styles */
+        .avatar-section {
+            margin: 1.5rem 0;
+        }
+
+        .avatar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .avatar-option {
+            aspect-ratio: 1;
+            border: 3px solid transparent;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .avatar-option.selected {
+            border-color: #ff6b6b;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(255,107,107,0.4);
+        }
+
+        .avatar-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.2rem;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .gender-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+            background: rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 0.3rem;
+        }
+
+        .gender-tab {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            background: transparent;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .gender-tab.active {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+        }
+
+        /* Form Validation */
+        .form-error {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            text-align: left;
+        }
+
+        .form-input.error {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .form-success {
+            color: #4ecdc4;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Navigation */
@@ -165,12 +345,6 @@
             color: #ff6b6b;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
         }
 
         .nav-links {
@@ -210,8 +384,8 @@
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             display: flex;
@@ -219,6 +393,9 @@
             justify-content: center;
             color: white;
             font-weight: 700;
+            font-size: 1.5rem;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logout-btn {
@@ -724,6 +901,19 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .auth-card {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .avatar-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
             .nav-links {
                 gap: 0.5rem;
             }
@@ -777,11 +967,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
-        @keyframes glow {
-            0% { box-shadow: 0 5px 15px rgba(255,107,107,0.4); }
-            100% { box-shadow: 0 5px 25px rgba(255,107,107,0.8); }
-        }
-
         @keyframes rotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -792,7 +977,7 @@
             display: none;
         }
 
-        .login-page {
+        .auth-page {
             display: block;
         }
     </style>
@@ -801,34 +986,185 @@
     <!-- Animated Background Stars -->
     <div class="bg-stars" id="stars"></div>
 
-    <!-- Login Page -->
-    <div class="login-page" id="loginPage">
-        <div class="login-container">
-            <div class="login-card">
-                <div class="login-logo">
+    <!-- Authentication Page -->
+    <div class="auth-page" id="authPage">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-logo">
                     <i class="fas fa-cross"></i> Bible Adventures
                 </div>
-                <p style="color: #666; margin-bottom: 2rem;">Welcome back, young explorer!</p>
+                <p style="color: #666; margin-bottom: 2rem;">Join the ultimate Bible learning adventure!</p>
                 
-                <form class="login-form" onsubmit="login(event)">
+                <!-- Auth Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthMode('login')">Login</button>
+                    <button class="auth-tab" onclick="switchAuthMode('register')">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form">
                     <div class="form-group">
-                        <i class="fas fa-user form-icon"></i>
-                        <input type="text" class="form-input" placeholder="Enter your name" id="username" required>
+                        <i class="fas fa-envelope form-icon"></i>
+                        <input type="email" class="form-input" placeholder="Email address" id="loginEmail" required>
+                        <div class="form-error" id="loginEmailError"></div>
                     </div>
                     
                     <div class="form-group">
-                        <i class="fas fa-birthday-cake form-icon"></i>
-                        <input type="number" class="form-input" placeholder="Your age" id="age" min="5" max="35" required>
+                        <i class="fas fa-lock form-icon"></i>
+                        <input type="password" class="form-input" placeholder="Password" id="loginPassword" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="form-error" id="loginPasswordError"></div>
                     </div>
                     
-                    <button type="submit" class="login-btn">
-                        <i class="fas fa-play"></i> Start Adventure!
+                    <button type="button" class="auth-btn" onclick="loginUser()" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login to Adventure!
                     </button>
-                </form>
-                
-                <p style="color: #999; font-size: 0.9rem; margin-top: 1rem;">
-                    New here? Just enter your name and age to begin!
-                </p>
+                    
+                    <p style="color: #999; font-size: 0.9rem; margin-top: 1rem;">
+                        Forgot your password? <a href="#" style="color: #ff6b6b;">Reset it here</a>
+                    </p>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="registerForm" class="auth-form" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <i class="fas fa-user form-icon"></i>
+                            <input type="text" class="form-input" placeholder="Username" id="registerUsername" required>
+                            <div class="form-error" id="registerUsernameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <i class="fas fa-birthday-cake form-icon"></i>
+                            <input type="number" class="form-input" placeholder="Age" id="registerAge" min="10" required>
+                            <div class="form-error" id="registerAgeError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <i class="fas fa-envelope form-icon"></i>
+                        <input type="email" class="form-input" placeholder="Email address" id="registerEmail" required>
+                        <div class="form-error" id="registerEmailError"></div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <i class="fas fa-lock form-icon"></i>
+                            <input type="password" class="form-input" placeholder="Password" id="registerPassword" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="form-error" id="registerPasswordError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <i class="fas fa-lock form-icon"></i>
+                            <input type="password" class="form-input" placeholder="Confirm Password" id="confirmPassword" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="form-error" id="confirmPasswordError"></div>
+                        </div>
+                    </div>
+
+                    <!-- Avatar Selection -->
+                    <div class="avatar-section">
+                        <div class="avatar-title">Choose Your Bible Character Avatar</div>
+                        
+                        <div class="gender-tabs">
+                            <button class="gender-tab active" onclick="switchGender('male')">
+                                <i class="fas fa-mars"></i> Male Characters
+                            </button>
+                            <button class="gender-tab" onclick="switchGender('female')">
+                                <i class="fas fa-venus"></i> Female Characters
+                            </button>
+                        </div>
+
+                        <!-- Male Avatars -->
+                        <div class="avatar-grid" id="maleAvatars">
+                            <div class="avatar-option" data-avatar="david" onclick="selectAvatar('david', '👑')">
+                                <div>👑</div>
+                                <div class="avatar-name">David</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="moses" onclick="selectAvatar('moses', '🏔️')">
+                                <div>🏔️</div>
+                                <div class="avatar-name">Moses</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="noah" onclick="selectAvatar('noah', '🚢')">
+                                <div>🚢</div>
+                                <div class="avatar-name">Noah</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="daniel" onclick="selectAvatar('daniel', '🦁')">
+                                <div>🦁</div>
+                                <div class="avatar-name">Daniel</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="abraham" onclick="selectAvatar('abraham', '⭐')">
+                                <div>⭐</div>
+                                <div class="avatar-name">Abraham</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="jonah" onclick="selectAvatar('jonah', '🐋')">
+                                <div>🐋</div>
+                                <div class="avatar-name">Jonah</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="joshua" onclick="selectAvatar('joshua', '⚔️')">
+                                <div>⚔️</div>
+                                <div class="avatar-name">Joshua</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="solomon" onclick="selectAvatar('solomon', '🏛️')">
+                                <div>🏛️</div>
+                                <div class="avatar-name">Solomon</div>
+                            </div>
+                        </div>
+
+                        <!-- Female Avatars -->
+                        <div class="avatar-grid" id="femaleAvatars" style="display: none;">
+                            <div class="avatar-option" data-avatar="mary" onclick="selectAvatar('mary', '🌹')">
+                                <div>🌹</div>
+                                <div class="avatar-name">Mary</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="esther" onclick="selectAvatar('esther', '👸')">
+                                <div>👸</div>
+                                <div class="avatar-name">Esther</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="ruth" onclick="selectAvatar('ruth', '🌾')">
+                                <div>🌾</div>
+                                <div class="avatar-name">Ruth</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="deborah" onclick="selectAvatar('deborah', '⚖️')">
+                                <div>⚖️</div>
+                                <div class="avatar-name">Deborah</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="sarah" onclick="selectAvatar('sarah', '🏠')">
+                                <div>🏠</div>
+                                <div class="avatar-name">Sarah</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="miriam" onclick="selectAvatar('miriam', '🎵')">
+                                <div>🎵</div>
+                                <div class="avatar-name">Miriam</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="hannah" onclick="selectAvatar('hannah', '🙏')">
+                                <div>🙏</div>
+                                <div class="avatar-name">Hannah</div>
+                            </div>
+                            <div class="avatar-option" data-avatar="lydia" onclick="selectAvatar('lydia', '💜')">
+                                <div>💜</div>
+                                <div class="avatar-name">Lydia</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-error" id="avatarError"></div>
+                    </div>
+                    
+                    <button type="button" class="auth-btn" onclick="registerUser()" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Start My Adventure!
+                    </button>
+                    
+                    <p style="color: #999; font-size: 0.9rem; margin-top: 1rem;">
+                        By signing up, you agree to our <a href="#" style="color: #ff6b6b;">Terms of Service</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -852,7 +1188,7 @@
                     <li><a href="#" onclick="showSection('rewards')"><i class="fas fa-gift"></i> Rewards</a></li>
                 </ul>
                 <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-avatar" id="userAvatar">👑</div>
                     <div>
                         <div style="font-weight: 700;" id="userName">Player</div>
                         <div style="font-size: 0.8rem; color: #666;">Level <span id="userLevel">1</span></div>
@@ -1185,11 +1521,14 @@
         // Game State
         let gameState = {
             user: {
-                name: '',
+                id: '',
+                username: '',
+                email: '',
                 age: 0,
                 level: 1,
                 xp: 0,
-                avatar: ''
+                avatar: '',
+                avatarEmoji: '👑'
             },
             score: 0,
             coins: 0,
@@ -1219,6 +1558,30 @@
                 currentStory: [],
                 correctOrder: []
             }
+        };
+
+        // User Database (simulated)
+        let userDatabase = JSON.parse(localStorage.getItem('bibleGameUsers') || '{}');
+        let selectedAvatar = { name: '', emoji: '' };
+
+        // Avatar Data
+        const avatarData = {
+            david: { emoji: '👑', name: 'David' },
+            moses: { emoji: '🏔️', name: 'Moses' },
+            noah: { emoji: '🚢', name: 'Noah' },
+            daniel: { emoji: '🦁', name: 'Daniel' },
+            abraham: { emoji: '⭐', name: 'Abraham' },
+            jonah: { emoji: '🐋', name: 'Jonah' },
+            joshua: { emoji: '⚔️', name: 'Joshua' },
+            solomon: { emoji: '🏛️', name: 'Solomon' },
+            mary: { emoji: '🌹', name: 'Mary' },
+            esther: { emoji: '👸', name: 'Esther' },
+            ruth: { emoji: '🌾', name: 'Ruth' },
+            deborah: { emoji: '⚖️', name: 'Deborah' },
+            sarah: { emoji: '🏠', name: 'Sarah' },
+            miriam: { emoji: '🎵', name: 'Miriam' },
+            hannah: { emoji: '🙏', name: 'Hannah' },
+            lydia: { emoji: '💜', name: 'Lydia' }
         };
 
         // Enhanced Bible Questions Database with difficulty levels
@@ -1369,44 +1732,347 @@
             }
         }
 
-        // Login function
-        function login(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const age = parseInt(document.getElementById('age').value);
+        // Authentication Functions
+        function switchAuthMode(mode) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.auth-tab');
             
-            if (username && age >= 5 && age <= 18) {
-                gameState.user.name = username;
-                gameState.user.age = age;
-                gameState.user.avatar = username.charAt(0).toUpperCase();
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            if (mode === 'login') {
+                loginForm.style.display = 'flex';
+                registerForm.style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'flex';
+                tabs[1].classList.add('active');
+            }
+            
+            clearErrors();
+            playSound('click');
+        }
+
+        function switchGender(gender) {
+            const maleAvatars = document.getElementById('maleAvatars');
+            const femaleAvatars = document.getElementById('femaleAvatars');
+            const genderTabs = document.querySelectorAll('.gender-tab');
+            
+            genderTabs.forEach(tab => tab.classList.remove('active'));
+            
+            if (gender === 'male') {
+                maleAvatars.style.display = 'grid';
+                femaleAvatars.style.display = 'none';
+                genderTabs[0].classList.add('active');
+            } else {
+                maleAvatars.style.display = 'none';
+                femaleAvatars.style.display = 'grid';
+                genderTabs[1].classList.add('active');
+            }
+            
+            playSound('click');
+        }
+
+        function selectAvatar(avatarName, emoji) {
+            // Remove previous selection
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Select new avatar
+            document.querySelector(`[data-avatar="${avatarName}"]`).classList.add('selected');
+            selectedAvatar = { name: avatarName, emoji: emoji };
+            
+            clearError('avatarError');
+            playSound('select');
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            const inputElement = document.getElementById(elementId.replace('Error', ''));
+            
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+            
+            if (inputElement) {
+                inputElement.classList.add('error');
+            }
+        }
+
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            const inputElement = document.getElementById(elementId.replace('Error', ''));
+            
+            if (errorElement) {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+            
+            if (inputElement) {
+                inputElement.classList.remove('error');
+            }
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.form-error');
+            const inputElements = document.querySelectorAll('.form-input');
+            
+            errorElements.forEach(element => {
+                element.textContent = '';
+                element.style.display = 'none';
+            });
+            
+            inputElements.forEach(element => {
+                element.classList.remove('error');
+            });
+        }
+
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            clearErrors();
+            
+            // Validation
+            let isValid = true;
+            
+            if (!email) {
+                showError('loginEmailError', 'Email is required');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                showError('loginEmailError', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            if (!password) {
+                showError('loginPasswordError', 'Password is required');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Show loading
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<div class="loading-spinner"></div> Logging in...';
+            
+            // Simulate login process
+            setTimeout(() => {
+                const user = userDatabase[email];
+                
+                if (user && user.password === password) {
+                    // Successful login
+                    gameState.user = {
+                        id: user.id,
+                        username: user.username,
+                        email: user.email,
+                        age: user.age,
+                        level: user.level || 1,
+                        xp: user.xp || 0,
+                        avatar: user.avatar,
+                        avatarEmoji: user.avatarEmoji
+                    };
+                    
+                    // Load user's game progress
+                    if (user.gameProgress) {
+                        gameState = { ...gameState, ...user.gameProgress };
+                    }
+                    
+                    // Update UI
+                    document.getElementById('userName').textContent = user.username;
+                    document.getElementById('userAvatar').textContent = user.avatarEmoji;
+                    document.getElementById('userLevel').textContent = user.level || 1;
+                    
+                    // Hide auth, show app
+                    document.getElementById('authPage').style.display = 'none';
+                    document.getElementById('appContent').style.display = 'block';
+                    
+                    updateAllDisplays();
+                    saveGameState();
+                    
+                    playSound('login');
+                    
+                    setTimeout(() => {
+                        alert(`🎉 Welcome back, ${user.username}! Ready to continue your Bible adventure?`);
+                    }, 500);
+                } else {
+                    // Failed login
+                    showError('loginPasswordError', 'Invalid email or password');
+                    playSound('error');
+                }
+                
+                // Reset button
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Adventure!';
+            }, 1500);
+        }
+
+        function registerUser() {
+            const username = document.getElementById('registerUsername').value.trim();
+            const age = parseInt(document.getElementById('registerAge').value);
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const registerBtn = document.getElementById('registerBtn');
+            
+            clearErrors();
+            
+            // Validation
+            let isValid = true;
+            
+            if (!username) {
+                showError('registerUsernameError', 'Username is required');
+                isValid = false;
+            } else if (username.length < 3) {
+                showError('registerUsernameError', 'Username must be at least 3 characters');
+                isValid = false;
+            }
+            
+            if (!age || age < 10) {
+                showError('registerAgeError', 'Age must be 10 or older');
+                isValid = false;
+            }
+            
+            if (!email) {
+                showError('registerEmailError', 'Email is required');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                showError('registerEmailError', 'Please enter a valid email address');
+                isValid = false;
+            } else if (userDatabase[email]) {
+                showError('registerEmailError', 'Email already registered');
+                isValid = false;
+            }
+            
+            if (!password) {
+                showError('registerPasswordError', 'Password is required');
+                isValid = false;
+            } else if (!validatePassword(password)) {
+                showError('registerPasswordError', 'Password must be at least 6 characters');
+                isValid = false;
+            }
+            
+            if (password !== confirmPassword) {
+                showError('confirmPasswordError', 'Passwords do not match');
+                isValid = false;
+            }
+            
+            if (!selectedAvatar.name) {
+                showError('avatarError', 'Please select an avatar');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Show loading
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<div class="loading-spinner"></div> Creating Account...';
+            
+            // Simulate registration process
+            setTimeout(() => {
+                const userId = 'user_' + Date.now();
+                
+                // Create new user
+                const newUser = {
+                    id: userId,
+                    username: username,
+                    email: email,
+                    password: password,
+                    age: age,
+                    avatar: selectedAvatar.name,
+                    avatarEmoji: selectedAvatar.emoji,
+                    level: 1,
+                    xp: 0,
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Save to database
+                userDatabase[email] = newUser;
+                localStorage.setItem('bibleGameUsers', JSON.stringify(userDatabase));
+                
+                // Set game state
+                gameState.user = {
+                    id: userId,
+                    username: username,
+                    email: email,
+                    age: age,
+                    level: 1,
+                    xp: 0,
+                    avatar: selectedAvatar.name,
+                    avatarEmoji: selectedAvatar.emoji
+                };
                 
                 // Update UI
                 document.getElementById('userName').textContent = username;
-                document.getElementById('userAvatar').textContent = gameState.user.avatar;
+                document.getElementById('userAvatar').textContent = selectedAvatar.emoji;
+                document.getElementById('userLevel').textContent = 1;
                 
-                // Hide login, show app
-                document.getElementById('loginPage').style.display = 'none';
+                // Hide auth, show app
+                document.getElementById('authPage').style.display = 'none';
                 document.getElementById('appContent').style.display = 'block';
                 
-                // Save user data
-                saveGameState();
                 updateAllDisplays();
+                saveGameState();
                 
                 playSound('login');
                 
-                // Welcome message
                 setTimeout(() => {
-                    alert(`🎉 Welcome to Bible Adventures, ${username}! Let's start your spiritual journey!`);
+                    alert(`🎉 Welcome to Bible Adventures, ${username}! Your account has been created successfully. Let's start your spiritual journey!`);
                 }, 500);
-            }
+                
+                // Reset button
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Start My Adventure!';
+            }, 2000);
         }
 
         // Logout function
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
+                // Save current progress to user database
+                if (gameState.user.email && userDatabase[gameState.user.email]) {
+                    userDatabase[gameState.user.email].gameProgress = {
+                        score: gameState.score,
+                        coins: gameState.coins,
+                        gamesPlayed: gameState.gamesPlayed,
+                        correctAnswers: gameState.correctAnswers,
+                        currentStreak: gameState.currentStreak,
+                        achievements: gameState.achievements,
+                        level: gameState.user.level,
+                        xp: gameState.user.xp
+                    };
+                    localStorage.setItem('bibleGameUsers', JSON.stringify(userDatabase));
+                }
+                
                 // Reset game state
                 gameState = {
-                    user: { name: '', age: 0, level: 1, xp: 0, avatar: '' },
+                    user: { id: '', username: '', email: '', age: 0, level: 1, xp: 0, avatar: '', avatarEmoji: '👑' },
                     score: 0, coins: 0, gamesPlayed: 0, correctAnswers: 0,
                     currentStreak: 0, achievements: 0, soundEnabled: true,
                     currentQuestion: null, questionNumber: 1, difficulty: 'easy',
@@ -1417,15 +2083,29 @@
                 };
                 
                 // Clear localStorage
-                localStorage.clear();
+                localStorage.removeItem('bibleGameState');
                 
-                // Show login, hide app
-                document.getElementById('loginPage').style.display = 'block';
+                // Show auth, hide app
+                document.getElementById('authPage').style.display = 'block';
                 document.getElementById('appContent').style.display = 'none';
                 
-                // Reset form
-                document.getElementById('username').value = '';
-                document.getElementById('age').value = '';
+                // Reset forms
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('registerUsername').value = '';
+                document.getElementById('registerAge').value = '';
+                document.getElementById('registerEmail').value = '';
+                document.getElementById('registerPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+                
+                // Reset avatar selection
+                selectedAvatar = { name: '', emoji: '' };
+                document.querySelectorAll('.avatar-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                clearErrors();
+                switchAuthMode('login');
                 
                 playSound('logout');
             }
@@ -1463,9 +2143,9 @@
             document.getElementById('questionNumber').textContent = gameState.questionNumber;
             
             // User info
-            if (gameState.user.name) {
-                document.getElementById('userName').textContent = gameState.user.name;
-                document.getElementById('userAvatar').textContent = gameState.user.avatar;
+            if (gameState.user.username) {
+                document.getElementById('userName').textContent = gameState.user.username;
+                document.getElementById('userAvatar').textContent = gameState.user.avatarEmoji;
                 document.getElementById('userLevel').textContent = gameState.user.level;
             }
         }
@@ -1524,6 +2204,23 @@
         // Save game state to localStorage
         function saveGameState() {
             localStorage.setItem('bibleGameState', JSON.stringify(gameState));
+            
+            // Also save to user database if logged in
+            if (gameState.user.email && userDatabase[gameState.user.email]) {
+                userDatabase[gameState.user.email].gameProgress = {
+                    score: gameState.score,
+                    coins: gameState.coins,
+                    gamesPlayed: gameState.gamesPlayed,
+                    correctAnswers: gameState.correctAnswers,
+                    currentStreak: gameState.currentStreak,
+                    achievements: gameState.achievements,
+                    level: gameState.user.level,
+                    xp: gameState.user.xp
+                };
+                userDatabase[gameState.user.email].level = gameState.user.level;
+                userDatabase[gameState.user.email].xp = gameState.user.xp;
+                localStorage.setItem('bibleGameUsers', JSON.stringify(userDatabase));
+            }
         }
 
         // Load game state from localStorage
@@ -2058,6 +2755,10 @@
                     frequency = 500;
                     duration = 0.15;
                     break;
+                case 'select':
+                    frequency = 700;
+                    duration = 0.2;
+                    break;
                 default:
                     return;
             }
@@ -2100,22 +2801,24 @@
             const saved = localStorage.getItem('bibleGameState');
             if (saved) {
                 const loadedState = JSON.parse(saved);
-                if (loadedState.user && loadedState.user.name) {
+                if (loadedState.user && loadedState.user.email && userDatabase[loadedState.user.email]) {
                     // Auto-login
                     gameState.user = loadedState.user;
-                    document.getElementById('userName').textContent = gameState.user.name;
-                    document.getElementById('userAvatar').textContent = gameState.user.avatar;
+                    document.getElementById('userName').textContent = gameState.user.username;
+                    document.getElementById('userAvatar').textContent = gameState.user.avatarEmoji;
                     document.getElementById('userLevel').textContent = gameState.user.level;
                     
-                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('authPage').style.display = 'none';
                     document.getElementById('appContent').style.display = 'block';
+                    
+                    updateAllDisplays();
                 }
             }
         });
 
         // Auto-save every 30 seconds
         setInterval(() => {
-            if (gameState.user.name) {
+            if (gameState.user.email) {
                 saveGameState();
             }
         }, 30000);
