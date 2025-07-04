@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bible Adventures - Fun Games for Kids!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Sign-In API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@300;400;700&display=swap');
         
@@ -202,6 +204,57 @@
             transform: none;
         }
 
+        /* Google Sign-In Button */
+        .google-signin-btn {
+            background: white;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .google-signin-btn:hover {
+            border-color: #4285f4;
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZD0iTTE3LjY0IDkuMjA0NTQ1NDVjMC0uNjM5NzI3MjctLjA1NzI3MjczLTEuMjUyMjcyNzMtLjE2MzYzNjM2LTEuODQwOTA5MDlIOXY0LjQ2MzYzNjM2aDQuODQ0MDkwOTFjLS4yMDQ1NDU0NSAxLjEyNzI3MjczLS44MjcyNzI3MyAyLjA4MTgxODE4LTEuNzU5MDkwOTEgMi43MjI3MjcyN3YyLjI1OTA5MDkxaDIuODQwOTA5MDljMS42NTQ1NDU0NS0xLjUyNzI3MjczIDIuNjA5MDkwOTEtMy43NzI3MjcyNyAyLjYwOTA5MDkxLTYuNDM2MzYzNjR6IiBmaWxsPSIjNDI4NUY0Ii8+CiAgICA8cGF0aCBkPSJNOSAxOGMxLjYzNjM2MzY0IDAgMy4wMDkwOTA5MS0uNTQ1NDU0NTUgNC4wMDkwOTA5MS0xLjQ3NzI3MjczTDEwLjE2ODEgMTQuMjVDOS40NTQ1NDU0NSAxNC42MzYzNjM2NCA4LjU5MDkwOTA5IDE0Ljg2MzYzNjM2IDkgMTQuODYzNjM2MzZjLTEuNzU5MDkwOTEgMC0zLjI0NTQ1NDU1LTEuMTkwOTA5MDktMy43NzcyNzI3My0yLjc5NTQ1NDU1SDIuMzE4MTgxODJ2Mi4zNDA5MDkwOUM0LjMxODE4MTgyIDE2LjY4MTgxODE4IDYuNDc3MjcyNzMgMTggOSAxOHoiIGZpbGw9IiMzNEE4NTMiLz4KICAgIDxwYXRoIGQ9Ik01LjIyMjcyNzI3IDEyLjA2ODE4MThDNS4wMjI3MjcyNyAxMS40NTQ1NDU0IDQuOTA5MDkwOTEgMTAuODE4MTgxOCA0LjkwOTA5MDkxIDEwLjE4MTgxODJzLjExMzYzNjM2LTEuMjcyNzI3MjcuMzEzNjM2MzYtMS44ODYzNjM2NFY2LjI5NTQ1NDU1SDIuMzE4MTgxODJDMS42ODYzNjM2NCA3LjU1OTA5MDkxIDEuMzYzNjM2MzYgOC44NDA5MDkwOSAxLjM2MzYzNjM2IDEwLjE4MTgxODJzLjMyMjcyNzI3IDIuNjIyNzI3MjcuOTU0NTQ1NDYgMy44ODYzNjM2NGwyLjkwNDU0NTQ1LTIuMjcyNzI3Mjd6IiBmaWxsPSIjRkJCQzA0Ii8+CiAgICA8cGF0aCBkPSJNOSA0LjM2MzYzNjM2YzEuMDIyNzI3MjcgMCAxLjk1NDU0NTQ1LjM2MzYzNjM2IDIuNjgxODE4MTggMS4wNjgxODE4MmwyLjAwOTA5MDkxLTIuMDA5MDkwOTFDMTIuMDA5MDkwOTEgMS45NTQ1NDU0NSAxMC42MzYzNjM2IDEuMzYzNjM2MzYgOSAxLjM2MzYzNjM2Yy0yLjUyMjcyNzI3IDAtNC42ODE4MTgxOCAxLjMxODE4MTgyLTUuNjgxODE4MTggMy4yNzI3MjcyN2wyLjkwNDU0NTQ1IDIuMjcyNzI3MjdDNi43NTQ1NDU0NSA1LjU1NDU0NTQ1IDcuNzU5MDkwOTEgNC4zNjM2MzYzNiA5IDQuMzYzNjM2MzZ6IiBmaWxsPSIjRUE0MzM1Ii8+CiAgPC9nPgo8L3N2Zz4K') no-repeat center;
+            background-size: contain;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .auth-divider span {
+            padding: 0 1rem;
+        }
+
         /* Avatar Selection Styles */
         .avatar-section {
             margin: 1.5rem 0;
@@ -317,6 +370,96 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        /* Instructions Modal */
+        .instructions-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 2rem;
+        }
+
+        .instructions-content {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .instructions-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .instructions-close:hover {
+            background: #ff5252;
+            transform: scale(1.1);
+        }
+
+        .instructions-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .instructions-step {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            padding: 1rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 5px solid #4ecdc4;
+        }
+
+        .instructions-step h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .instructions-step p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .instructions-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .instructions-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         /* Navigation */
@@ -943,6 +1086,11 @@
                 grid-template-columns: repeat(3, 1fr);
                 max-width: 300px;
             }
+
+            .instructions-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
         }
 
         /* Sound Toggle */
@@ -986,6 +1134,16 @@
     <!-- Animated Background Stars -->
     <div class="bg-stars" id="stars"></div>
 
+    <!-- Instructions Modal -->
+    <div class="instructions-modal" id="instructionsModal">
+        <div class="instructions-content">
+            <button class="instructions-close" onclick="closeInstructions()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="instructionsText"></div>
+        </div>
+    </div>
+
     <!-- Authentication Page -->
     <div class="auth-page" id="authPage">
         <div class="auth-container">
@@ -1003,6 +1161,16 @@
 
                 <!-- Login Form -->
                 <div id="loginForm" class="auth-form">
+                    <!-- Google Sign-In Button -->
+                    <button class="google-signin-btn" onclick="signInWithGoogle()">
+                        <div class="google-icon"></div>
+                        Continue with Google
+                    </button>
+                    
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+
                     <div class="form-group">
                         <i class="fas fa-envelope form-icon"></i>
                         <input type="email" class="form-input" placeholder="Email address" id="loginEmail" required>
@@ -1029,6 +1197,16 @@
 
                 <!-- Registration Form -->
                 <div id="registerForm" class="auth-form" style="display: none;">
+                    <!-- Google Sign-In Button -->
+                    <button class="google-signin-btn" onclick="signInWithGoogle()">
+                        <div class="google-icon"></div>
+                        Sign up with Google
+                    </button>
+                    
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group">
                             <i class="fas fa-user form-icon"></i>
@@ -1284,6 +1462,9 @@
                         <div class="game-icon"><i class="fas fa-question-circle"></i></div>
                         <div class="game-name">Bible Quiz Challenge</div>
                         <div class="game-description">Test your Bible knowledge with progressive difficulty levels!</div>
+                        <button class="instructions-btn" onclick="showInstructions('quiz')">
+                            <i class="fas fa-info-circle"></i> How to Play
+                        </button>
                         <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
                     </div>
                     
@@ -1291,6 +1472,9 @@
                         <div class="game-icon"><i class="fas fa-brain"></i></div>
                         <div class="game-name">Memory Match</div>
                         <div class="game-description">Match Bible characters, verses, and stories!</div>
+                        <button class="instructions-btn" onclick="showInstructions('memory')">
+                            <i class="fas fa-info-circle"></i> How to Play
+                        </button>
                         <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
                     </div>
                     
@@ -1298,6 +1482,9 @@
                         <div class="game-icon"><i class="fas fa-spell-check"></i></div>
                         <div class="game-name">Word Scramble</div>
                         <div class="game-description">Unscramble Bible words and verses!</div>
+                        <button class="instructions-btn" onclick="showInstructions('scramble')">
+                            <i class="fas fa-info-circle"></i> How to Play
+                        </button>
                         <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
                     </div>
                     
@@ -1305,6 +1492,9 @@
                         <div class="game-icon"><i class="fas fa-hand-rock"></i></div>
                         <div class="game-name">Bible Match</div>
                         <div class="game-description">Drag and drop to match Bible facts!</div>
+                        <button class="instructions-btn" onclick="showInstructions('dragdrop')">
+                            <i class="fas fa-info-circle"></i> How to Play
+                        </button>
                         <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
                     </div>
                     
@@ -1312,6 +1502,9 @@
                         <div class="game-icon"><i class="fas fa-book-open"></i></div>
                         <div class="game-name">Story Builder</div>
                         <div class="game-description">Put Bible stories in the right order!</div>
+                        <button class="instructions-btn" onclick="showInstructions('story')">
+                            <i class="fas fa-info-circle"></i> How to Play
+                        </button>
                         <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
                     </div>
                 </div>
@@ -1320,1515 +1513,4 @@
             <!-- Bible Quiz Section -->
             <section id="quiz" class="section">
                 <div class="game-container">
-                    <div class="game-header">
-                        <h2 class="game-title">
-                            <i class="fas fa-question-circle"></i> Bible Quiz Challenge
-                        </h2>
-                        <div class="difficulty-indicator" id="currentDifficulty">Easy Mode</div>
-                        <p>Question <span id="questionNumber">1</span> | Score: <span id="currentScore">0</span> | Streak: <span id="streakCounter">0</span></p>
-                    </div>
-                    
-                    <div id="quizArea">
-                        <div class="question-card" id="questionCard">
-                            <div class="question-number">Question <span id="qNum">1</span></div>
-                            <h3 class="question-text" id="questionText">Click "Next Question" to start your adventure!</h3>
-                            <div class="answers" id="answersContainer"></div>
-                        </div>
-                        
-                        <div style="text-align: center; margin-top: 2rem;">
-                            <button class="play-btn" onclick="nextQuestion()" id="nextQuestionBtn">
-                                <i class="fas fa-forward"></i> Next Question
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Memory Game Section -->
-            <section id="memory" class="section">
-                <div class="game-container">
-                    <div class="game-header">
-                        <h2 class="game-title">
-                            <i class="fas fa-brain"></i> Bible Memory Match
-                        </h2>
-                        <p>Moves: <span id="moveCount">0</span> | Matches: <span id="matchCount">0</span> | Time: <span id="gameTime">0</span>s</p>
-                    </div>
-                    
-                    <div class="memory-grid" id="memoryGrid"></div>
-                    
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <button class="play-btn" onclick="startMemoryGame()">
-                            <i class="fas fa-refresh"></i> New Game
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Word Scramble Section -->
-            <section id="scramble" class="section">
-                <div class="game-container">
-                    <div class="scramble-container">
-                        <div class="game-header">
-                            <h2 class="game-title">
-                                <i class="fas fa-spell-check"></i> Bible Word Scramble
-                            </h2>
-                            <p>Unscramble the Bible word!</p>
-                        </div>
-                        
-                        <div class="scrambled-word" id="scrambledWord">CLICK START</div>
-                        <div style="color: #666; margin: 1rem 0;" id="scrambleHint">Click "New Word" to begin!</div>
-                        
-                        <input type="text" class="scramble-input" id="scrambleInput" placeholder="Type your answer here..." onkeypress="checkScrambleEnter(event)">
-                        
-                        <div style="text-align: center; margin-top: 2rem;">
-                            <button class="play-btn" onclick="checkScrambleAnswer()" style="margin: 0.5rem;">
-                                <i class="fas fa-check"></i> Check Answer
-                            </button>
-                            <button class="play-btn" onclick="newScrambleWord()" style="margin: 0.5rem;">
-                                <i class="fas fa-refresh"></i> New Word
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Drag and Drop Section -->
-            <section id="dragdrop" class="section">
-                <div class="game-container">
-                    <div class="game-header">
-                        <h2 class="game-title">
-                            <i class="fas fa-hand-rock"></i> Bible Match Challenge
-                        </h2>
-                        <p>Drag items from the left to match them on the right!</p>
-                    </div>
-                    
-                    <div class="drag-container">
-                        <div class="drag-source" id="dragSource">
-                            <h3 style="text-align: center; color: #ff6b6b; margin-bottom: 1rem;">Bible Characters</h3>
-                            <div id="dragItems"></div>
-                        </div>
-                        
-                        <div class="drag-target" id="dragTarget">
-                            <h3 style="text-align: center; color: #4ecdc4; margin-bottom: 1rem;">Their Stories</h3>
-                            <div id="dropZones"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <button class="play-btn" onclick="startDragDropGame()">
-                            <i class="fas fa-refresh"></i> New Challenge
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Story Builder Section -->
-            <section id="story" class="section">
-                <div class="game-container">
-                    <div class="game-header">
-                        <h2 class="game-title">
-                            <i class="fas fa-book-open"></i> Bible Story Builder
-                        </h2>
-                        <p>Put the Bible story events in the correct order!</p>
-                    </div>
-                    
-                    <div id="storyContainer">
-                        <div style="background: rgba(255,107,107,0.1); padding: 2rem; border-radius: 20px; margin: 2rem 0;">
-                            <h3 style="color: #ff6b6b; text-align: center; margin-bottom: 1rem;">Story Events (Drag to reorder)</h3>
-                            <div id="storyEvents"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <button class="play-btn" onclick="checkStoryOrder()" style="margin: 0.5rem;">
-                            <i class="fas fa-check"></i> Check Order
-                        </button>
-                        <button class="play-btn" onclick="newStoryChallenge()" style="margin: 0.5rem;">
-                            <i class="fas fa-refresh"></i> New Story
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Rewards Section -->
-            <section id="rewards" class="section">
-                <div class="game-container">
-                    <div class="game-header">
-                        <h2 class="game-title">
-                            <i class="fas fa-gift"></i> Amazing Rewards Store
-                        </h2>
-                        <p>Spend your coins on awesome rewards!</p>
-                        <div style="background: linear-gradient(45deg, #feca57, #ff9ff3); color: white; padding: 1rem; border-radius: 20px; margin: 1rem 0; display: inline-block;">
-                            <i class="fas fa-coins"></i> Your Coins: <span id="rewardCoins">0</span>
-                        </div>
-                    </div>
-                    
-                    <div class="games-grid">
-                        <div class="game-card">
-                            <div class="game-icon"><i class="fas fa-medal"></i></div>
-                            <div class="game-name">Bronze Badge</div>
-                            <div class="game-description">Your first achievement badge!</div>
-                            <div style="color: #feca57; font-weight: 700; margin: 1rem 0;"><i class="fas fa-coins"></i> 50 Coins</div>
-                            <button class="play-btn" onclick="buyReward('bronze', 50)">Buy Now</button>
-                        </div>
-                        
-                        <div class="game-card">
-                            <div class="game-icon"><i class="fas fa-crown"></i></div>
-                            <div class="game-name">Golden Crown</div>
-                            <div class="game-description">Become Bible royalty!</div>
-                            <div style="color: #feca57; font-weight: 700; margin: 1rem 0;"><i class="fas fa-coins"></i> 200 Coins</div>
-                            <button class="play-btn" onclick="buyReward('crown', 200)">Buy Now</button>
-                        </div>
-                        
-                        <div class="game-card">
-                            <div class="game-icon"><i class="fas fa-star"></i></div>
-                            <div class="game-name">Super Star</div>
-                            <div class="game-description">Shine bright like a star!</div>
-                            <div style="color: #feca57; font-weight: 700; margin: 1rem 0;"><i class="fas fa-coins"></i> 100 Coins</div>
-                            <button class="play-btn" onclick="buyReward('star', 100)">Buy Now</button>
-                        </div>
-                        
-                        <div class="game-card">
-                            <div class="game-icon"><i class="fas fa-shield-alt"></i></div>
-                            <div class="game-name">Faith Shield</div>
-                            <div class="game-description">Protected by faith!</div>
-                            <div style="color: #feca57; font-weight: 700; margin: 1rem 0;"><i class="fas fa-coins"></i> 150 Coins</div>
-                            <button class="play-btn" onclick="buyReward('shield', 150)">Buy Now</button>
-                        </div>
-                        
-                        <div class="game-card">
-                            <div class="game-icon"><i class="fas fa-heart"></i></div>
-                            <div class="game-name">Love Heart</div>
-                            <div class="game-description">Spread God's love!</div>
-                            <div style="color: #feca57; font-weight: 700; margin: 1rem 0;"><i class="fas fa-coins"></i> 75 Coins</div>
-                            <button class="play-btn" onclick="buyReward('heart', 75)">Buy Now</button>
-                        </div>
-                        
-                        <div class="game-card">
-                            <div class="game-icon"><i class="fas fa-dove"></i></div>
-                            <div class="game-name">Peace Dove</div>
-                            <div class="game-description">Symbol of God's peace!</div>
-                            <div style="color: #feca57; font-weight: 700; margin: 1rem 0;"><i class="fas fa-coins"></i> 300 Coins</div>
-                            <button class="play-btn" onclick="buyReward('dove', 300)">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <script>
-        // Game State
-        let gameState = {
-            user: {
-                id: '',
-                username: '',
-                email: '',
-                age: 0,
-                level: 1,
-                xp: 0,
-                avatar: '',
-                avatarEmoji: '👑'
-            },
-            score: 0,
-            coins: 0,
-            gamesPlayed: 0,
-            correctAnswers: 0,
-            currentStreak: 0,
-            achievements: 0,
-            soundEnabled: true,
-            currentQuestion: null,
-            questionNumber: 1,
-            difficulty: 'easy',
-            memoryGame: {
-                moves: 0,
-                matches: 0,
-                startTime: null,
-                cards: [],
-                flippedCards: []
-            },
-            scrambleGame: {
-                currentWord: '',
-                currentHint: ''
-            },
-            dragDropGame: {
-                matches: []
-            },
-            storyGame: {
-                currentStory: [],
-                correctOrder: []
-            }
-        };
-
-        // User Database (simulated)
-        let userDatabase = JSON.parse(localStorage.getItem('bibleGameUsers') || '{}');
-        let selectedAvatar = { name: '', emoji: '' };
-
-        // Avatar Data
-        const avatarData = {
-            david: { emoji: '👑', name: 'David' },
-            moses: { emoji: '🏔️', name: 'Moses' },
-            noah: { emoji: '🚢', name: 'Noah' },
-            daniel: { emoji: '🦁', name: 'Daniel' },
-            abraham: { emoji: '⭐', name: 'Abraham' },
-            jonah: { emoji: '🐋', name: 'Jonah' },
-            joshua: { emoji: '⚔️', name: 'Joshua' },
-            solomon: { emoji: '🏛️', name: 'Solomon' },
-            mary: { emoji: '🌹', name: 'Mary' },
-            esther: { emoji: '👸', name: 'Esther' },
-            ruth: { emoji: '🌾', name: 'Ruth' },
-            deborah: { emoji: '⚖️', name: 'Deborah' },
-            sarah: { emoji: '🏠', name: 'Sarah' },
-            miriam: { emoji: '🎵', name: 'Miriam' },
-            hannah: { emoji: '🙏', name: 'Hannah' },
-            lydia: { emoji: '💜', name: 'Lydia' }
-        };
-
-        // Enhanced Bible Questions Database with difficulty levels
-        const questionsDatabase = {
-            easy: [
-                { question: "Who built the ark?", answers: ["Noah", "Moses", "Abraham", "David"], correct: 0, hint: "He saved animals from the flood" },
-                { question: "How many days did it rain during the flood?", answers: ["30 days", "40 days", "50 days", "60 days"], correct: 1, hint: "Same number as Jesus fasted" },
-                { question: "Who was swallowed by a big fish?", answers: ["Peter", "Paul", "Jonah", "John"], correct: 2, hint: "He tried to run from God" },
-                { question: "What did God create on the first day?", answers: ["Animals", "Plants", "Light", "Water"], correct: 2, hint: "Let there be..." },
-                { question: "Who was the strongest man in the Bible?", answers: ["David", "Samson", "Goliath", "Joshua"], correct: 1, hint: "His strength was in his hair" },
-                { question: "How many disciples did Jesus have?", answers: ["10", "11", "12", "13"], correct: 2, hint: "Same as months in a year" },
-                { question: "Who led the Israelites out of Egypt?", answers: ["Aaron", "Moses", "Joshua", "Caleb"], correct: 1, hint: "He parted the Red Sea" },
-                { question: "What did Jesus turn water into?", answers: ["Milk", "Juice", "Wine", "Oil"], correct: 2, hint: "At a wedding celebration" },
-                { question: "Who was thrown into the lion's den?", answers: ["Daniel", "David", "Elijah", "Elisha"], correct: 0, hint: "He prayed three times a day" },
-                { question: "What did David use to defeat Goliath?", answers: ["Sword", "Spear", "Bow", "Sling"], correct: 3, hint: "A simple shepherd's weapon" }
-            ],
-            medium: [
-                { question: "How many books are in the New Testament?", answers: ["25", "26", "27", "28"], correct: 2, hint: "Three cubed" },
-                { question: "Who was the first king of Israel?", answers: ["David", "Solomon", "Saul", "Samuel"], correct: 2, hint: "He was tall and handsome" },
-                { question: "What was the name of Abraham's wife?", answers: ["Rachel", "Sarah", "Rebecca", "Ruth"], correct: 1, hint: "She laughed when told she'd have a baby" },
-                { question: "How many plagues did God send to Egypt?", answers: ["7", "8", "9", "10"], correct: 3, hint: "Same as commandments" },
-                { question: "Who wrote most of the Psalms?", answers: ["Solomon", "David", "Moses", "Samuel"], correct: 1, hint: "The shepherd king" },
-                { question: "What was the name of the garden where Adam and Eve lived?", answers: ["Paradise", "Heaven", "Eden", "Zion"], correct: 2, hint: "A place of perfect peace" },
-                { question: "How many days was Lazarus dead before Jesus raised him?", answers: ["2", "3", "4", "5"], correct: 2, hint: "Jesus said he was sleeping" },
-                { question: "What did the wise men bring to baby Jesus?", answers: ["Gold, silver, bronze", "Gold, frankincense, myrrh", "Jewels, spices, cloth", "Food, water, blankets"], correct: 1, hint: "Three precious gifts" },
-                { question: "Who betrayed Jesus for 30 pieces of silver?", answers: ["Peter", "John", "Judas", "Thomas"], correct: 2, hint: "He kissed Jesus to identify him" },
-                { question: "On which mountain did Moses receive the Ten Commandments?", answers: ["Mount Olive", "Mount Zion", "Mount Sinai", "Mount Carmel"], correct: 2, hint: "A mountain in the wilderness" }
-            ],
-            hard: [
-                { question: "How many years did the Israelites wander in the wilderness?", answers: ["30", "35", "40", "45"], correct: 2, hint: "A generation" },
-                { question: "Who was the oldest person mentioned in the Bible?", answers: ["Adam", "Noah", "Methuselah", "Abraham"], correct: 2, hint: "He lived 969 years" },
-                { question: "What was the name of the place where Jesus was crucified?", answers: ["Calvary", "Bethany", "Bethlehem", "Capernaum"], correct: 0, hint: "Also called Golgotha" },
-                { question: "How many times did Peter deny Jesus?", answers: ["2", "3", "4", "5"], correct: 1, hint: "Before the rooster crowed" },
-                { question: "Who was the prophet that was taken up to heaven in a whirlwind?", answers: ["Elijah", "Elisha", "Enoch", "Ezekiel"], correct: 0, hint: "He never died" },
-                { question: "What was the name of the city where Jesus was born?", answers: ["Nazareth", "Jerusalem", "Bethlehem", "Capernaum"], correct: 2, hint: "City of David" },
-                { question: "How many sons did Jacob have?", answers: ["10", "11", "12", "13"], correct: 2, hint: "They became the tribes of Israel" },
-                { question: "Who was the Roman governor who sentenced Jesus to death?", answers: ["Herod", "Caesar", "Pilate", "Felix"], correct: 2, hint: "He washed his hands" },
-                { question: "What was the name of the mountain where Jesus was transfigured?", answers: ["Mount Sinai", "Mount Olive", "Mount Hermon", "Mount Tabor"], correct: 3, hint: "He appeared with Moses and Elijah" },
-                { question: "How many chapters are in the book of Psalms?", answers: ["147", "148", "149", "150"], correct: 3, hint: "The last one says 'Let everything praise the Lord'" }
-            ]
-        };
-
-        // Memory Game Data
-        const memoryCards = [
-            { id: 1, content: '🙏', pair: 2 },
-            { id: 2, content: 'Prayer', pair: 1 },
-            { id: 3, content: '✝️', pair: 4 },
-            { id: 4, content: 'Cross', pair: 3 },
-            { id: 5, content: '📖', pair: 6 },
-            { id: 6, content: 'Bible', pair: 5 },
-            { id: 7, content: '🕊️', pair: 8 },
-            { id: 8, content: 'Peace', pair: 7 },
-            { id: 9, content: '❤️', pair: 10 },
-            { id: 10, content: 'Love', pair: 9 },
-            { id: 11, content: '🌟', pair: 12 },
-            { id: 12, content: 'Star', pair: 11 },
-            { id: 13, content: '🐑', pair: 14 },
-            { id: 14, content: 'Sheep', pair: 13 },
-            { id: 15, content: '🏔️', pair: 16 },
-            { id: 16, content: 'Mountain', pair: 15 }
-        ];
-
-        // Word Scramble Data
-        const scrambleWords = [
-            { word: 'JESUS', hint: 'The Son of God' },
-            { word: 'BIBLE', hint: 'God\'s Holy Book' },
-            { word: 'PRAYER', hint: 'Talking to God' },
-            { word: 'FAITH', hint: 'Believing in God' },
-            { word: 'LOVE', hint: 'God\'s greatest commandment' },
-            { word: 'PEACE', hint: 'What Jesus gives us' },
-            { word: 'GRACE', hint: 'God\'s undeserved favor' },
-            { word: 'HOPE', hint: 'Trust in God\'s promises' },
-            { word: 'MOSES', hint: 'Led Israel out of Egypt' },
-            { word: 'DAVID', hint: 'The shepherd king' },
-            { word: 'NOAH', hint: 'Built the ark' },
-            { word: 'ABRAHAM', hint: 'Father of many nations' },
-            { word: 'DANIEL', hint: 'Survived the lion\'s den' },
-            { word: 'JONAH', hint: 'Swallowed by a big fish' }
-        ];
-
-        // Drag and Drop Data
-        const dragDropData = [
-            { character: 'Moses', story: 'Parted the Red Sea' },
-            { character: 'David', story: 'Defeated Goliath' },
-            { character: 'Noah', story: 'Built the Ark' },
-            { character: 'Daniel', story: 'Lion\'s Den' },
-            { character: 'Jonah', story: 'Swallowed by Fish' },
-            { character: 'Abraham', story: 'Father of Nations' }
-        ];
-
-        // Story Builder Data
-        const storyData = [
-            {
-                title: "Noah's Ark",
-                events: [
-                    "God tells Noah to build an ark",
-                    "Noah builds the ark",
-                    "Animals enter the ark two by two",
-                    "It rains for 40 days and nights",
-                    "The ark lands on Mount Ararat",
-                    "Noah sends out a dove",
-                    "God makes a rainbow covenant"
-                ]
-            },
-            {
-                title: "David and Goliath",
-                events: [
-                    "Goliath challenges the Israelites",
-                    "David volunteers to fight",
-                    "David chooses five smooth stones",
-                    "David faces Goliath with his sling",
-                    "David defeats Goliath with one stone",
-                    "The Philistines flee in fear"
-                ]
-            },
-            {
-                title: "Jesus Feeds 5000",
-                events: [
-                    "Large crowd follows Jesus",
-                    "Disciples worry about feeding everyone",
-                    "A boy offers his lunch",
-                    "Jesus blesses the five loaves and two fish",
-                    "Everyone eats and is satisfied",
-                    "Twelve baskets of leftovers remain"
-                ]
-            }
-        ];
-
-        // Initialize the game
-        function initGame() {
-            createStars();
-            loadGameState();
-            updateAllDisplays();
-        }
-
-        // Create animated stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            starsContainer.innerHTML = '';
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.innerHTML = '✨';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 2 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
-        // Authentication Functions
-        function switchAuthMode(mode) {
-            const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
-            const tabs = document.querySelectorAll('.auth-tab');
-            
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            if (mode === 'login') {
-                loginForm.style.display = 'flex';
-                registerForm.style.display = 'none';
-                tabs[0].classList.add('active');
-            } else {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'flex';
-                tabs[1].classList.add('active');
-            }
-            
-            clearErrors();
-            playSound('click');
-        }
-
-        function switchGender(gender) {
-            const maleAvatars = document.getElementById('maleAvatars');
-            const femaleAvatars = document.getElementById('femaleAvatars');
-            const genderTabs = document.querySelectorAll('.gender-tab');
-            
-            genderTabs.forEach(tab => tab.classList.remove('active'));
-            
-            if (gender === 'male') {
-                maleAvatars.style.display = 'grid';
-                femaleAvatars.style.display = 'none';
-                genderTabs[0].classList.add('active');
-            } else {
-                maleAvatars.style.display = 'none';
-                femaleAvatars.style.display = 'grid';
-                genderTabs[1].classList.add('active');
-            }
-            
-            playSound('click');
-        }
-
-        function selectAvatar(avatarName, emoji) {
-            // Remove previous selection
-            document.querySelectorAll('.avatar-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // Select new avatar
-            document.querySelector(`[data-avatar="${avatarName}"]`).classList.add('selected');
-            selectedAvatar = { name: avatarName, emoji: emoji };
-            
-            clearError('avatarError');
-            playSound('select');
-        }
-
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const button = input.nextElementSibling;
-            const icon = button.querySelector('i');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fas fa-eye-slash';
-            } else {
-                input.type = 'password';
-                icon.className = 'fas fa-eye';
-            }
-        }
-
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        function validatePassword(password) {
-            return password.length >= 6;
-        }
-
-        function showError(elementId, message) {
-            const errorElement = document.getElementById(elementId);
-            const inputElement = document.getElementById(elementId.replace('Error', ''));
-            
-            if (errorElement) {
-                errorElement.textContent = message;
-                errorElement.style.display = 'block';
-            }
-            
-            if (inputElement) {
-                inputElement.classList.add('error');
-            }
-        }
-
-        function clearError(elementId) {
-            const errorElement = document.getElementById(elementId);
-            const inputElement = document.getElementById(elementId.replace('Error', ''));
-            
-            if (errorElement) {
-                errorElement.textContent = '';
-                errorElement.style.display = 'none';
-            }
-            
-            if (inputElement) {
-                inputElement.classList.remove('error');
-            }
-        }
-
-        function clearErrors() {
-            const errorElements = document.querySelectorAll('.form-error');
-            const inputElements = document.querySelectorAll('.form-input');
-            
-            errorElements.forEach(element => {
-                element.textContent = '';
-                element.style.display = 'none';
-            });
-            
-            inputElements.forEach(element => {
-                element.classList.remove('error');
-            });
-        }
-
-        function loginUser() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            const loginBtn = document.getElementById('loginBtn');
-            
-            clearErrors();
-            
-            // Validation
-            let isValid = true;
-            
-            if (!email) {
-                showError('loginEmailError', 'Email is required');
-                isValid = false;
-            } else if (!validateEmail(email)) {
-                showError('loginEmailError', 'Please enter a valid email address');
-                isValid = false;
-            }
-            
-            if (!password) {
-                showError('loginPasswordError', 'Password is required');
-                isValid = false;
-            }
-            
-            if (!isValid) return;
-            
-            // Show loading
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<div class="loading-spinner"></div> Logging in...';
-            
-            // Simulate login process
-            setTimeout(() => {
-                const user = userDatabase[email];
-                
-                if (user && user.password === password) {
-                    // Successful login
-                    gameState.user = {
-                        id: user.id,
-                        username: user.username,
-                        email: user.email,
-                        age: user.age,
-                        level: user.level || 1,
-                        xp: user.xp || 0,
-                        avatar: user.avatar,
-                        avatarEmoji: user.avatarEmoji
-                    };
-                    
-                    // Load user's game progress
-                    if (user.gameProgress) {
-                        gameState = { ...gameState, ...user.gameProgress };
-                    }
-                    
-                    // Update UI
-                    document.getElementById('userName').textContent = user.username;
-                    document.getElementById('userAvatar').textContent = user.avatarEmoji;
-                    document.getElementById('userLevel').textContent = user.level || 1;
-                    
-                    // Hide auth, show app
-                    document.getElementById('authPage').style.display = 'none';
-                    document.getElementById('appContent').style.display = 'block';
-                    
-                    updateAllDisplays();
-                    saveGameState();
-                    
-                    playSound('login');
-                    
-                    setTimeout(() => {
-                        alert(`🎉 Welcome back, ${user.username}! Ready to continue your Bible adventure?`);
-                    }, 500);
-                } else {
-                    // Failed login
-                    showError('loginPasswordError', 'Invalid email or password');
-                    playSound('error');
-                }
-                
-                // Reset button
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Adventure!';
-            }, 1500);
-        }
-
-        function registerUser() {
-            const username = document.getElementById('registerUsername').value.trim();
-            const age = parseInt(document.getElementById('registerAge').value);
-            const email = document.getElementById('registerEmail').value.trim();
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const registerBtn = document.getElementById('registerBtn');
-            
-            clearErrors();
-            
-            // Validation
-            let isValid = true;
-            
-            if (!username) {
-                showError('registerUsernameError', 'Username is required');
-                isValid = false;
-            } else if (username.length < 3) {
-                showError('registerUsernameError', 'Username must be at least 3 characters');
-                isValid = false;
-            }
-            
-            if (!age || age < 10) {
-                showError('registerAgeError', 'Age must be 10 or older');
-                isValid = false;
-            }
-            
-            if (!email) {
-                showError('registerEmailError', 'Email is required');
-                isValid = false;
-            } else if (!validateEmail(email)) {
-                showError('registerEmailError', 'Please enter a valid email address');
-                isValid = false;
-            } else if (userDatabase[email]) {
-                showError('registerEmailError', 'Email already registered');
-                isValid = false;
-            }
-            
-            if (!password) {
-                showError('registerPasswordError', 'Password is required');
-                isValid = false;
-            } else if (!validatePassword(password)) {
-                showError('registerPasswordError', 'Password must be at least 6 characters');
-                isValid = false;
-            }
-            
-            if (password !== confirmPassword) {
-                showError('confirmPasswordError', 'Passwords do not match');
-                isValid = false;
-            }
-            
-            if (!selectedAvatar.name) {
-                showError('avatarError', 'Please select an avatar');
-                isValid = false;
-            }
-            
-            if (!isValid) return;
-            
-            // Show loading
-            registerBtn.disabled = true;
-            registerBtn.innerHTML = '<div class="loading-spinner"></div> Creating Account...';
-            
-            // Simulate registration process
-            setTimeout(() => {
-                const userId = 'user_' + Date.now();
-                
-                // Create new user
-                const newUser = {
-                    id: userId,
-                    username: username,
-                    email: email,
-                    password: password,
-                    age: age,
-                    avatar: selectedAvatar.name,
-                    avatarEmoji: selectedAvatar.emoji,
-                    level: 1,
-                    xp: 0,
-                    createdAt: new Date().toISOString()
-                };
-                
-                // Save to database
-                userDatabase[email] = newUser;
-                localStorage.setItem('bibleGameUsers', JSON.stringify(userDatabase));
-                
-                // Set game state
-                gameState.user = {
-                    id: userId,
-                    username: username,
-                    email: email,
-                    age: age,
-                    level: 1,
-                    xp: 0,
-                    avatar: selectedAvatar.name,
-                    avatarEmoji: selectedAvatar.emoji
-                };
-                
-                // Update UI
-                document.getElementById('userName').textContent = username;
-                document.getElementById('userAvatar').textContent = selectedAvatar.emoji;
-                document.getElementById('userLevel').textContent = 1;
-                
-                // Hide auth, show app
-                document.getElementById('authPage').style.display = 'none';
-                document.getElementById('appContent').style.display = 'block';
-                
-                updateAllDisplays();
-                saveGameState();
-                
-                playSound('login');
-                
-                setTimeout(() => {
-                    alert(`🎉 Welcome to Bible Adventures, ${username}! Your account has been created successfully. Let's start your spiritual journey!`);
-                }, 500);
-                
-                // Reset button
-                registerBtn.disabled = false;
-                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Start My Adventure!';
-            }, 2000);
-        }
-
-        // Logout function
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                // Save current progress to user database
-                if (gameState.user.email && userDatabase[gameState.user.email]) {
-                    userDatabase[gameState.user.email].gameProgress = {
-                        score: gameState.score,
-                        coins: gameState.coins,
-                        gamesPlayed: gameState.gamesPlayed,
-                        correctAnswers: gameState.correctAnswers,
-                        currentStreak: gameState.currentStreak,
-                        achievements: gameState.achievements,
-                        level: gameState.user.level,
-                        xp: gameState.user.xp
-                    };
-                    localStorage.setItem('bibleGameUsers', JSON.stringify(userDatabase));
-                }
-                
-                // Reset game state
-                gameState = {
-                    user: { id: '', username: '', email: '', age: 0, level: 1, xp: 0, avatar: '', avatarEmoji: '👑' },
-                    score: 0, coins: 0, gamesPlayed: 0, correctAnswers: 0,
-                    currentStreak: 0, achievements: 0, soundEnabled: true,
-                    currentQuestion: null, questionNumber: 1, difficulty: 'easy',
-                    memoryGame: { moves: 0, matches: 0, startTime: null, cards: [], flippedCards: [] },
-                    scrambleGame: { currentWord: '', currentHint: '' },
-                    dragDropGame: { matches: [] },
-                    storyGame: { currentStory: [], correctOrder: [] }
-                };
-                
-                // Clear localStorage
-                localStorage.removeItem('bibleGameState');
-                
-                // Show auth, hide app
-                document.getElementById('authPage').style.display = 'block';
-                document.getElementById('appContent').style.display = 'none';
-                
-                // Reset forms
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                document.getElementById('registerUsername').value = '';
-                document.getElementById('registerAge').value = '';
-                document.getElementById('registerEmail').value = '';
-                document.getElementById('registerPassword').value = '';
-                document.getElementById('confirmPassword').value = '';
-                
-                // Reset avatar selection
-                selectedAvatar = { name: '', emoji: '' };
-                document.querySelectorAll('.avatar-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                
-                clearErrors();
-                switchAuthMode('login');
-                
-                playSound('logout');
-            }
-        }
-
-        // Show section
-        function showSection(sectionName) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
-            document.getElementById(sectionName).classList.add('active');
-            playSound('click');
-            
-            // Update rewards coins display
-            if (sectionName === 'rewards') {
-                document.getElementById('rewardCoins').textContent = gameState.coins;
-            }
-        }
-
-        // Update all displays
-        function updateAllDisplays() {
-            // Dashboard stats
-            document.getElementById('totalScore').textContent = gameState.score;
-            document.getElementById('totalCoins').textContent = gameState.coins;
-            document.getElementById('gamesPlayed').textContent = gameState.gamesPlayed;
-            document.getElementById('correctAnswers').textContent = gameState.correctAnswers;
-            document.getElementById('currentStreak').textContent = gameState.currentStreak;
-            document.getElementById('achievements').textContent = gameState.achievements;
-            
-            // Level progress
-            updateLevelProgress();
-            
-            // Quiz display
-            document.getElementById('currentScore').textContent = gameState.score;
-            document.getElementById('streakCounter').textContent = gameState.currentStreak;
-            document.getElementById('questionNumber').textContent = gameState.questionNumber;
-            
-            // User info
-            if (gameState.user.username) {
-                document.getElementById('userName').textContent = gameState.user.username;
-                document.getElementById('userAvatar').textContent = gameState.user.avatarEmoji;
-                document.getElementById('userLevel').textContent = gameState.user.level;
-            }
-        }
-
-        // Update level progress
-        function updateLevelProgress() {
-            const xpNeeded = gameState.user.level * 100;
-            const progressPercent = (gameState.user.xp / xpNeeded) * 100;
-            
-            document.getElementById('currentLevel').textContent = gameState.user.level;
-            document.getElementById('currentXP').textContent = gameState.user.xp;
-            document.getElementById('nextLevelXP').textContent = xpNeeded;
-            document.getElementById('levelFill').style.width = progressPercent + '%';
-            
-            // Update difficulty based on level
-            if (gameState.user.level <= 3) {
-                gameState.difficulty = 'easy';
-                document.getElementById('difficultyLevel').textContent = 'Easy Mode';
-                document.getElementById('difficultyLevel').className = 'difficulty-indicator difficulty-easy';
-            } else if (gameState.user.level <= 7) {
-                gameState.difficulty = 'medium';
-                document.getElementById('difficultyLevel').textContent = 'Medium Mode';
-                document.getElementById('difficultyLevel').className = 'difficulty-indicator difficulty-medium';
-            } else {
-                gameState.difficulty = 'hard';
-                document.getElementById('difficultyLevel').textContent = 'Hard Mode';
-                document.getElementById('difficultyLevel').className = 'difficulty-indicator difficulty-hard';
-            }
-            
-            document.getElementById('currentDifficulty').textContent = document.getElementById('difficultyLevel').textContent;
-            document.getElementById('currentDifficulty').className = document.getElementById('difficultyLevel').className;
-            
-            // Check for level up
-            if (gameState.user.xp >= xpNeeded) {
-                levelUp();
-            }
-        }
-
-        // Level up function
-        function levelUp() {
-            gameState.user.level++;
-            gameState.user.xp = 0;
-            gameState.achievements++;
-            
-            createConfetti();
-            playSound('levelup');
-            
-            setTimeout(() => {
-                alert(`🎉 LEVEL UP! You're now Level ${gameState.user.level}! Keep up the great work!`);
-            }, 500);
-            
-            updateAllDisplays();
-            saveGameState();
-        }
-
-        // Save game state to localStorage
-        function saveGameState() {
-            localStorage.setItem('bibleGameState', JSON.stringify(gameState));
-            
-            // Also save to user database if logged in
-            if (gameState.user.email && userDatabase[gameState.user.email]) {
-                userDatabase[gameState.user.email].gameProgress = {
-                    score: gameState.score,
-                    coins: gameState.coins,
-                    gamesPlayed: gameState.gamesPlayed,
-                    correctAnswers: gameState.correctAnswers,
-                    currentStreak: gameState.currentStreak,
-                    achievements: gameState.achievements,
-                    level: gameState.user.level,
-                    xp: gameState.user.xp
-                };
-                userDatabase[gameState.user.email].level = gameState.user.level;
-                userDatabase[gameState.user.email].xp = gameState.user.xp;
-                localStorage.setItem('bibleGameUsers', JSON.stringify(userDatabase));
-            }
-        }
-
-        // Load game state from localStorage
-        function loadGameState() {
-            const saved = localStorage.getItem('bibleGameState');
-            if (saved) {
-                const loadedState = JSON.parse(saved);
-                // Merge with default state to handle new properties
-                gameState = { ...gameState, ...loadedState };
-            }
-        }
-
-        // Next Question function (infinite quiz)
-        function nextQuestion() {
-            const questions = questionsDatabase[gameState.difficulty];
-            const randomIndex = Math.floor(Math.random() * questions.length);
-            gameState.currentQuestion = questions[randomIndex];
-            
-            const questionText = document.getElementById('questionText');
-            const answersContainer = document.getElementById('answersContainer');
-            const qNum = document.getElementById('qNum');
-            
-            questionText.textContent = gameState.currentQuestion.question;
-            qNum.textContent = gameState.questionNumber;
-            answersContainer.innerHTML = '';
-            
-            gameState.currentQuestion.answers.forEach((answer, index) => {
-                const button = document.createElement('button');
-                button.className = 'answer-btn';
-                button.textContent = answer;
-                button.onclick = () => checkAnswer(index, button);
-                answersContainer.appendChild(button);
-            });
-            
-            playSound('question');
-        }
-
-        // Check answer function
-        function checkAnswer(selectedIndex, buttonElement) {
-            const isCorrect = selectedIndex === gameState.currentQuestion.correct;
-            const allButtons = document.querySelectorAll('.answer-btn');
-            
-            // Disable all buttons
-            allButtons.forEach(btn => btn.style.pointerEvents = 'none');
-            
-            if (isCorrect) {
-                buttonElement.classList.add('correct');
-                
-                // Calculate points based on difficulty and streak
-                let points = 50;
-                if (gameState.difficulty === 'medium') points = 75;
-                if (gameState.difficulty === 'hard') points = 100;
-                
-                // Streak bonus
-                if (gameState.currentStreak >= 5) points *= 1.5;
-                if (gameState.currentStreak >= 10) points *= 2;
-                
-                points = Math.floor(points);
-                
-                gameState.score += points;
-                gameState.coins += Math.floor(points / 10);
-                gameState.correctAnswers++;
-                gameState.currentStreak++;
-                gameState.user.xp += Math.floor(points / 5);
-                
-                // Create coin animation
-                createCoinAnimation(buttonElement);
-                createConfetti();
-                playSound('correct');
-                
-                setTimeout(() => {
-                    alert(`🎉 Correct! You earned ${points} points and ${Math.floor(points / 10)} coins! Streak: ${gameState.currentStreak}`);
-                }, 500);
-            } else {
-                buttonElement.classList.add('incorrect');
-                allButtons[gameState.currentQuestion.correct].classList.add('correct');
-                gameState.currentStreak = 0;
-                
-                playSound('incorrect');
-                
-                setTimeout(() => {
-                    alert(`❌ Oops! The correct answer was: ${gameState.currentQuestion.answers[gameState.currentQuestion.correct]}\nHint: ${gameState.currentQuestion.hint}`);
-                }, 500);
-            }
-            
-            gameState.gamesPlayed++;
-            gameState.questionNumber++;
-            updateAllDisplays();
-            saveGameState();
-            
-            // Re-enable buttons after delay
-            setTimeout(() => {
-                allButtons.forEach(btn => {
-                    btn.style.pointerEvents = 'auto';
-                    btn.classList.remove('correct', 'incorrect');
-                });
-            }, 3000);
-        }
-
-        // Memory Game Functions
-        function startMemoryGame() {
-            gameState.memoryGame = {
-                moves: 0,
-                matches: 0,
-                startTime: Date.now(),
-                cards: [...memoryCards].sort(() => Math.random() - 0.5).slice(0, 16),
-                flippedCards: []
-            };
-            
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = '';
-            
-            gameState.memoryGame.cards.forEach((card, index) => {
-                const cardElement = document.createElement('div');
-                cardElement.className = 'memory-card';
-                cardElement.innerHTML = '?';
-                cardElement.dataset.cardId = card.id;
-                cardElement.dataset.index = index;
-                cardElement.onclick = () => flipCard(cardElement, card);
-                grid.appendChild(cardElement);
-            });
-            
-            updateMemoryStats();
-            playSound('start');
-        }
-
-        function flipCard(cardElement, card) {
-            if (gameState.memoryGame.flippedCards.length >= 2 || cardElement.classList.contains('flipped')) {
-                return;
-            }
-            
-            cardElement.classList.add('flipped');
-            cardElement.innerHTML = card.content;
-            gameState.memoryGame.flippedCards.push({ element: cardElement, card: card });
-            
-            if (gameState.memoryGame.flippedCards.length === 2) {
-                gameState.memoryGame.moves++;
-                updateMemoryStats();
-                
-                setTimeout(() => {
-                    checkMemoryMatch();
-                }, 1000);
-            }
-            
-            playSound('flip');
-        }
-
-        function checkMemoryMatch() {
-            const [first, second] = gameState.memoryGame.flippedCards;
-            
-            if (first.card.pair === second.card.id || second.card.pair === first.card.id) {
-                // Match found
-                first.element.classList.add('matched');
-                second.element.classList.add('matched');
-                gameState.memoryGame.matches++;
-                
-                // Award points
-                gameState.score += 25;
-                gameState.coins += 3;
-                gameState.user.xp += 5;
-                
-                playSound('correct');
-                createCoinAnimation(first.element);
-                
-                // Check if game complete
-                if (gameState.memoryGame.matches === 8) {
-                    const timeBonus = Math.max(100 - Math.floor((Date.now() - gameState.memoryGame.startTime) / 1000), 10);
-                    gameState.score += timeBonus;
-                    gameState.coins += Math.floor(timeBonus / 10);
-                    
-                    setTimeout(() => {
-                        alert(`🎉 Memory Game Complete! Time bonus: ${timeBonus} points!`);
-                    }, 500);
-                    
-                    createConfetti();
-                }
-            } else {
-                // No match
-                first.element.classList.remove('flipped');
-                second.element.classList.remove('flipped');
-                first.element.innerHTML = '?';
-                second.element.innerHTML = '?';
-                
-                playSound('incorrect');
-            }
-            
-            gameState.memoryGame.flippedCards = [];
-            updateAllDisplays();
-            saveGameState();
-        }
-
-        function updateMemoryStats() {
-            document.getElementById('moveCount').textContent = gameState.memoryGame.moves;
-            document.getElementById('matchCount').textContent = gameState.memoryGame.matches;
-            
-            if (gameState.memoryGame.startTime) {
-                const elapsed = Math.floor((Date.now() - gameState.memoryGame.startTime) / 1000);
-                document.getElementById('gameTime').textContent = elapsed;
-            }
-        }
-
-        // Word Scramble Functions
-        function newScrambleWord() {
-            const randomWord = scrambleWords[Math.floor(Math.random() * scrambleWords.length)];
-            gameState.scrambleGame.currentWord = randomWord.word;
-            gameState.scrambleGame.currentHint = randomWord.hint;
-            
-            // Scramble the word
-            const scrambled = randomWord.word.split('').sort(() => Math.random() - 0.5).join('');
-            
-            document.getElementById('scrambledWord').textContent = scrambled;
-            document.getElementById('scrambleHint').textContent = `Hint: ${randomWord.hint}`;
-            document.getElementById('scrambleInput').value = '';
-            document.getElementById('scrambleInput').focus();
-            
-            playSound('start');
-        }
-
-        function checkScrambleAnswer() {
-            const userAnswer = document.getElementById('scrambleInput').value.toUpperCase().trim();
-            
-            if (userAnswer === gameState.scrambleGame.currentWord) {
-                // Correct answer
-                gameState.score += 30;
-                gameState.coins += 5;
-                gameState.user.xp += 6;
-                gameState.correctAnswers++;
-                
-                createConfetti();
-                playSound('correct');
-                
-                alert(`🎉 Correct! The word was "${gameState.scrambleGame.currentWord}"! You earned 30 points!`);
-                
-                // Auto-generate new word
-                setTimeout(() => {
-                    newScrambleWord();
-                }, 1000);
-            } else {
-                playSound('incorrect');
-                alert(`❌ Try again! Hint: ${gameState.scrambleGame.currentHint}`);
-            }
-            
-            updateAllDisplays();
-            saveGameState();
-        }
-
-        function checkScrambleEnter(event) {
-            if (event.key === 'Enter') {
-                checkScrambleAnswer();
-            }
-        }
-
-        // Drag and Drop Functions
-        function startDragDropGame() {
-            const shuffledData = [...dragDropData].sort(() => Math.random() - 0.5).slice(0, 4);
-            gameState.dragDropGame.matches = shuffledData;
-            
-            const dragItems = document.getElementById('dragItems');
-            const dropZones = document.getElementById('dropZones');
-            
-            dragItems.innerHTML = '';
-            dropZones.innerHTML = '';
-            
-            // Create draggable items
-            shuffledData.forEach((item, index) => {
-                const dragItem = document.createElement('div');
-                dragItem.className = 'drag-item';
-                dragItem.textContent = item.character;
-                dragItem.draggable = true;
-                dragItem.dataset.character = item.character;
-                dragItem.dataset.story = item.story;
-                
-                dragItem.ondragstart = (e) => {
-                    e.dataTransfer.setData('text/plain', JSON.stringify(item));
-                    dragItem.classList.add('dragging');
-                };
-                
-                dragItem.ondragend = () => {
-                    dragItem.classList.remove('dragging');
-                };
-                
-                dragItems.appendChild(dragItem);
-            });
-            
-            // Create drop zones
-            const shuffledStories = shuffledData.map(item => item.story).sort(() => Math.random() - 0.5);
-            shuffledStories.forEach((story, index) => {
-                const dropZone = document.createElement('div');
-                dropZone.className = 'drag-item';
-                dropZone.textContent = story;
-                dropZone.style.backgroundColor = 'rgba(78, 205, 196, 0.2)';
-                dropZone.dataset.story = story;
-                
-                dropZone.ondragover = (e) => {
-                    e.preventDefault();
-                    dropZone.style.backgroundColor = 'rgba(78, 205, 196, 0.4)';
-                };
-                
-                dropZone.ondragleave = () => {
-                    dropZone.style.backgroundColor = 'rgba(78, 205, 196, 0.2)';
-                };
-                
-                dropZone.ondrop = (e) => {
-                    e.preventDefault();
-                    const draggedItem = JSON.parse(e.dataTransfer.getData('text/plain'));
-                    
-                    if (draggedItem.story === story) {
-                        // Correct match
-                        dropZone.style.backgroundColor = '#4ecdc4';
-                        dropZone.style.color = 'white';
-                        dropZone.innerHTML = `✅ ${draggedItem.character} - ${story}`;
-                        
-                        // Remove dragged item
-                        const draggedElement = document.querySelector(`[data-character="${draggedItem.character}"]`);
-                        if (draggedElement) {
-                            draggedElement.remove();
-                        }
-                        
-                        // Award points
-                        gameState.score += 40;
-                        gameState.coins += 6;
-                        gameState.user.xp += 8;
-                        
-                        createCoinAnimation(dropZone);
-                        playSound('correct');
-                        
-                        // Check if all matched
-                        if (document.querySelectorAll('#dragItems .drag-item').length === 0) {
-                            setTimeout(() => {
-                                alert('🎉 Perfect! You matched all the Bible characters with their stories!');
-                                createConfetti();
-                            }, 500);
-                        }
-                    } else {
-                        // Incorrect match
-                        dropZone.style.backgroundColor = '#ff6b6b';
-                        setTimeout(() => {
-                            dropZone.style.backgroundColor = 'rgba(78, 205, 196, 0.2)';
-                        }, 1000);
-                        
-                        playSound('incorrect');
-                    }
-                    
-                    updateAllDisplays();
-                    saveGameState();
-                };
-                
-                dropZones.appendChild(dropZone);
-            });
-            
-            playSound('start');
-        }
-
-        // Story Builder Functions
-        function newStoryChallenge() {
-            const randomStory = storyData[Math.floor(Math.random() * storyData.length)];
-            gameState.storyGame.correctOrder = [...randomStory.events];
-            gameState.storyGame.currentStory = [...randomStory.events].sort(() => Math.random() - 0.5);
-            
-            const container = document.getElementById('storyEvents');
-            container.innerHTML = '';
-            
-            gameState.storyGame.currentStory.forEach((event, index) => {
-                const eventElement = document.createElement('div');
-                eventElement.className = 'drag-item';
-                eventElement.textContent = `${index + 1}. ${event}`;
-                eventElement.draggable = true;
-                eventElement.dataset.event = event;
-                eventElement.dataset.index = index;
-                
-                eventElement.ondragstart = (e) => {
-                    e.dataTransfer.setData('text/plain', index);
-                    eventElement.classList.add('dragging');
-                };
-                
-                eventElement.ondragend = () => {
-                    eventElement.classList.remove('dragging');
-                };
-                
-                eventElement.ondragover = (e) => {
-                    e.preventDefault();
-                };
-                
-                eventElement.ondrop = (e) => {
-                    e.preventDefault();
-                    const draggedIndex = parseInt(e.dataTransfer.getData('text/plain'));
-                    const targetIndex = parseInt(eventElement.dataset.index);
-                    
-                    if (draggedIndex !== targetIndex) {
-                        // Swap elements
-                        const temp = gameState.storyGame.currentStory[draggedIndex];
-                        gameState.storyGame.currentStory[draggedIndex] = gameState.storyGame.currentStory[targetIndex];
-                        gameState.storyGame.currentStory[targetIndex] = temp;
-                        
-                        // Refresh display
-                        newStoryChallenge();
-                    }
-                };
-                
-                container.appendChild(eventElement);
-            });
-            
-            playSound('start');
-        }
-
-        function checkStoryOrder() {
-            const isCorrect = JSON.stringify(gameState.storyGame.currentStory) === JSON.stringify(gameState.storyGame.correctOrder);
-            
-            if (isCorrect) {
-                // Correct order
-                gameState.score += 100;
-                gameState.coins += 15;
-                gameState.user.xp += 20;
-                gameState.correctAnswers++;
-                
-                createConfetti();
-                playSound('correct');
-                
-                alert('🎉 Perfect! You got the Bible story events in the correct order! Great job!');
-            } else {
-                playSound('incorrect');
-                alert('❌ Not quite right. Try rearranging the events. Think about what happened first, second, and so on.');
-            }
-            
-            updateAllDisplays();
-            saveGameState();
-        }
-
-        // Reward System
-        function buyReward(rewardType, cost) {
-            if (gameState.coins >= cost) {
-                gameState.coins -= cost;
-                gameState.achievements++;
-                
-                createCoinAnimation(event.target);
-                playSound('purchase');
-                
-                alert(`🎉 Congratulations! You bought the ${rewardType}! It's been added to your collection!`);
-                
-                updateAllDisplays();
-                saveGameState();
-            } else {
-                alert(`💰 You need ${cost - gameState.coins} more coins to buy this reward! Keep playing to earn more!`);
-                playSound('error');
-            }
-        }
-
-        // Animation Functions
-        function createCoinAnimation(sourceElement) {
-            const rect = sourceElement.getBoundingClientRect();
-            
-            for (let i = 0; i < 5; i++) {
-                const coin = document.createElement('div');
-                coin.className = 'coin';
-                coin.innerHTML = '🪙';
-                coin.style.left = (rect.left + rect.width / 2) + 'px';
-                coin.style.top = (rect.top + rect.height / 2) + 'px';
-                coin.style.animationDelay = (i * 0.1) + 's';
-                
-                document.body.appendChild(coin);
-                
-                setTimeout(() => {
-                    coin.remove();
-                }, 2000);
-            }
-        }
-
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'];
-            
-            for (let i = 0; i < 30; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDelay = Math.random() * 0.5 + 's';
-                
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => {
-                    confetti.remove();
-                }, 3000);
-            }
-        }
-
-        // Sound Functions
-        function playSound(type) {
-            if (!gameState.soundEnabled) return;
-            
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            let frequency, duration;
-            
-            switch (type) {
-                case 'correct':
-                    frequency = 800;
-                    duration = 0.3;
-                    break;
-                case 'incorrect':
-                    frequency = 200;
-                    duration = 0.5;
-                    break;
-                case 'click':
-                    frequency = 600;
-                    duration = 0.1;
-                    break;
-                case 'purchase':
-                    frequency = 1000;
-                    duration = 0.4;
-                    break;
-                case 'question':
-                case 'start':
-                    frequency = 400;
-                    duration = 0.2;
-                    break;
-                case 'error':
-                    frequency = 150;
-                    duration = 0.6;
-                    break;
-                case 'login':
-                    frequency = 900;
-                    duration = 0.5;
-                    break;
-                case 'logout':
-                    frequency = 300;
-                    duration = 0.3;
-                    break;
-                case 'levelup':
-                    frequency = 1200;
-                    duration = 0.8;
-                    break;
-                case 'flip':
-                    frequency = 500;
-                    duration = 0.15;
-                    break;
-                case 'select':
-                    frequency = 700;
-                    duration = 0.2;
-                    break;
-                default:
-                    return;
-            }
-            
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
-        }
-
-        function toggleSound() {
-            gameState.soundEnabled = !gameState.soundEnabled;
-            const soundBtn = document.getElementById('soundBtn');
-            
-            if (gameState.soundEnabled) {
-                soundBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-            } else {
-                soundBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            }
-            
-            saveGameState();
-            playSound('click');
-        }
-
-        // Initialize game when page loads
-        window.addEventListener('load', () => {
-            initGame();
-            
-            // Check if user is already logged in
-            const saved = localStorage.getItem('bibleGameState');
-            if (saved) {
-                const loadedState = JSON.parse(saved);
-                if (loadedState.user && loadedState.user.email && userDatabase[loadedState.user.email]) {
-                    // Auto-login
-                    gameState.user = loadedState.user;
-                    document.getElementById('userName').textContent = gameState.user.username;
-                    document.getElementById('userAvatar').textContent = gameState.user.avatarEmoji;
-                    document.getElementById('userLevel').textContent = gameState.user.level;
-                    
-                    document.getElementById('authPage').style.display = 'none';
-                    document.getElementById('appContent').style.display = 'block';
-                    
-                    updateAllDisplays();
-                }
-            }
-        });
-
-        // Auto-save every 30 seconds
-        setInterval(() => {
-            if (gameState.user.email) {
-                saveGameState();
-            }
-        }, 30000);
-
-        // Update memory game timer
-        setInterval(() => {
-            if (gameState.memoryGame.startTime && document.getElementById('memory').classList.contains('active')) {
-                updateMemoryStats();
-            }
-        }, 1000);
-    </script>
-</body>
-</html>
+                    <div class="game
