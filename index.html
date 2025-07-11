@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheng Bible - Book of John | Youth for Christ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Sheng Bible - Kitabu cha Yohana | Youth for Christ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,121 +13,138 @@
         }
 
         :root {
-            --primary-neon: #00ff88;
-            --secondary-neon: #ff0080;
-            --accent-blue: #00d4ff;
-            --accent-purple: #8b00ff;
-            --dark-bg: #0a0a0a;
-            --card-bg: #1a1a1a;
+            /* YouVersion-inspired colors */
+            --primary-red: #d32f2f;
+            --primary-dark: #b71c1c;
+            --secondary-blue: #1976d2;
+            --accent-orange: #ff9800;
+            --success-green: #4caf50;
+            --background-light: #f5f5f5;
+            --background-white: #ffffff;
+            --text-primary: #212121;
+            --text-secondary: #757575;
             --text-light: #ffffff;
-            --text-gray: #cccccc;
+            --border-light: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Kenyan-inspired colors */
+            --kenya-red: #ce1126;
+            --kenya-green: #006b3f;
+            --kenya-black: #000000;
+            --sheng-orange: #ff6b35;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(45deg, var(--dark-bg), #1a0a1a, #0a1a1a);
-            color: var(--text-light);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background-light);
+            color: var(--text-primary);
+            line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Animated Background */
-        .bg-animation {
+        /* Loading Screen */
+        .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            opacity: 0.1;
-        }
-
-        .bg-animation::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--primary-neon) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Header */
-        .header {
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px var(--primary-neon);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px var(--primary-neon)); }
-            to { filter: drop-shadow(0 0 40px var(--secondary-neon)); }
-        }
-
-        .tagline {
-            margin-top: 10px;
-            font-size: 1.1rem;
-            color: var(--text-gray);
-            font-weight: 300;
-        }
-
-        /* Login Section */
-        .login-section {
+            background: linear-gradient(135deg, var(--primary-red), var(--kenya-green));
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 80vh;
-            padding: 40px 0;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
 
-        .login-card {
-            background: var(--card-bg);
-            border-radius: 20px;
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Authentication Screens */
+        .auth-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 16px;
             padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            max-width: 400px;
             width: 100%;
-            transform: translateY(20px);
-            animation: slideUp 0.8s ease-out forwards;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.6s ease-out;
         }
 
         @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
             to {
-                transform: translateY(0);
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        .login-title {
+        .auth-logo {
             text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
             margin-bottom: 30px;
-            color: var(--primary-neon);
+        }
+
+        .auth-logo h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-red), var(--kenya-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .auth-logo p {
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
 
         .form-group {
@@ -137,256 +154,598 @@
         .form-label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-gray);
+            font-weight: 500;
+            color: var(--text-primary);
         }
 
         .form-input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid rgba(0, 255, 136, 0.3);
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            color: var(--text-light);
+            padding: 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            background: white;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--primary-neon);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
         }
 
         .btn {
-            padding: 15px 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 24px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            text-decoration: none;
+            gap: 8px;
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, var(--primary-neon), var(--accent-blue));
-            color: var(--dark-bg);
+            background: var(--primary-red);
+            color: white;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .btn-primary:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+            box-shadow: 0 8px 25px rgba(211, 47, 47, 0.3);
         }
 
         .btn-google {
-            background: linear-gradient(45deg, #db4437, #ff6b6b);
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border-light);
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .btn-google:hover {
+            background: #f8f9fa;
+            border-color: #dadce0;
+        }
+
+        .btn-facebook {
+            background: #1877f2;
             color: white;
             width: 100%;
         }
 
-        .btn-google:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(219, 68, 55, 0.4);
+        .btn-facebook:hover {
+            background: #166fe5;
         }
 
-        /* Dashboard */
-        .dashboard {
+        .auth-divider {
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .auth-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-light);
+        }
+
+        .auth-divider span {
+            background: white;
+            padding: 0 16px;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .auth-footer a {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Main App Layout */
+        .app-container {
             display: none;
+            min-height: 100vh;
+            background: var(--background-light);
+        }
+
+        .app-container.active {
+            display: block;
+        }
+
+        /* Header */
+        .app-header {
+            background: white;
+            border-bottom: 1px solid var(--border-light);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: var(--background-light);
+        }
+
+        .app-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-btn, .profile-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover, .profile-btn:hover {
+            background: var(--background-light);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px var(--shadow);
+            transition: left 0.3s ease;
+            z-index: 200;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .user-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav {
             padding: 20px 0;
         }
 
-        .dashboard.active {
-            display: block;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .nav-bar {
+        .nav-item {
             display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(211, 47, 47, 0.1);
+            color: var(--primary-red);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
             justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--primary-red);
+        }
+
+        /* Daily Verse Card */
+        .daily-verse {
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-blue));
+            color: white;
+            text-align: center;
+        }
+
+        .daily-verse .card-title {
+            color: white;
+        }
+
+        .verse-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .verse-reference {
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* Reading Progress */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--background-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-green);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .quick-action {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             padding: 20px;
-            background: var(--card-bg);
-            border-radius: 15px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            background: var(--background-light);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
         }
 
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+        .quick-action:hover {
+            background: rgba(211, 47, 47, 0.1);
+            transform: translateY(-2px);
         }
 
-        .nav-btn {
-            padding: 10px 20px;
-            background: transparent;
-            border: 2px solid var(--primary-neon);
-            color: var(--primary-neon);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
+        .quick-action-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--primary-red);
         }
 
-        .nav-btn:hover, .nav-btn.active {
-            background: var(--primary-neon);
-            color: var(--dark-bg);
-            transform: scale(1.05);
+        .quick-action-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
         }
 
-        .logout-btn {
-            background: var(--secondary-neon);
+        /* Bible Reader */
+        .bible-reader {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .reader-header {
+            background: var(--primary-red);
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
-        }
-
-        /* Bible Section */
-        .bible-section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(0, 255, 136, 0.2);
-        }
-
-        .bible-controls {
+            padding: 20px 24px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
+            justify-content: space-between;
         }
 
-        .version-toggle {
-            display: flex;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 25px;
-            padding: 5px;
-        }
-
-        .version-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 20px;
-            background: transparent;
-            color: var(--text-gray);
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .reader-title {
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
-        .version-btn.active {
-            background: var(--primary-neon);
-            color: var(--dark-bg);
+        .reader-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .version-selector {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
         }
 
         .chapter-nav {
             display: flex;
-            gap: 10px;
             align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
         }
 
         .chapter-btn {
-            padding: 8px 15px;
-            background: var(--accent-purple);
-            color: white;
+            background: none;
             border: none;
-            border-radius: 20px;
+            color: white;
+            font-size: 1.2rem;
             cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .chapter-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .chapter-display {
             font-weight: 600;
-            transition: all 0.3s ease;
+            min-width: 80px;
+            text-align: center;
         }
 
-        .chapter-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .bible-text {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            color: var(--text-light);
+        .reader-content {
+            padding: 32px 24px;
+            max-height: 70vh;
+            overflow-y: auto;
         }
 
         .verse {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+            line-height: 1.7;
         }
 
         .verse:hover {
-            background: rgba(0, 255, 136, 0.1);
-            transform: translateX(10px);
+            background: rgba(211, 47, 47, 0.05);
+        }
+
+        .verse.highlighted {
+            background: rgba(255, 193, 7, 0.2);
+            border-left: 4px solid var(--accent-orange);
         }
 
         .verse-number {
-            color: var(--primary-neon);
-            font-weight: 700;
-            margin-right: 10px;
+            display: inline-block;
+            background: var(--primary-red);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-right: 12px;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .verse-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Verse Actions */
+        .verse-actions {
+            display: none;
+            margin-top: 12px;
+            gap: 8px;
+        }
+
+        .verse.selected .verse-actions {
+            display: flex;
+        }
+
+        .verse-action {
+            background: var(--background-light);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .verse-action:hover {
+            background: var(--border-light);
         }
 
         /* Games Section */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
         }
 
         .game-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
             text-align: center;
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px var(--shadow);
         }
 
         .game-icon {
             font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
+            margin-bottom: 16px;
+            color: var(--primary-red);
         }
 
         .game-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--primary-neon);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
         }
 
         .game-description {
-            color: var(--text-gray);
+            color: var(--text-secondary);
             margin-bottom: 20px;
+            line-height: 1.5;
         }
 
-        /* Game Modals */
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: var(--background-light);
+            border-radius: 8px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-red);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -394,10 +753,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .modal.active {
@@ -411,344 +771,483 @@
         }
 
         .modal-content {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
             max-width: 600px;
-            width: 90%;
+            width: 100%;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid rgba(0, 255, 136, 0.2);
             position: relative;
+            animation: modalSlideUp 0.3s ease-out;
         }
 
-        .close-btn {
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
             position: absolute;
-            top: 15px;
+            top: 16px;
             right: 20px;
             background: none;
             border: none;
-            color: var(--text-gray);
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .close-btn:hover {
-            color: var(--secondary-neon);
-            transform: scale(1.2);
-        }
-
-        .game-content {
-            text-align: center;
-        }
-
-        .question {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            color: var(--text-light);
-        }
-
-        .options {
-            display: grid;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .option {
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(0, 255, 136, 0.3);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-light);
-        }
-
-        .option:hover {
-            border-color: var(--primary-neon);
-            background: rgba(0, 255, 136, 0.1);
-        }
-
-        .option.correct {
-            background: rgba(0, 255, 136, 0.3);
-            border-color: var(--primary-neon);
-        }
-
-        .option.wrong {
-            background: rgba(255, 0, 128, 0.3);
-            border-color: var(--secondary-neon);
-        }
-
-        .score {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-neon);
-            margin-bottom: 20px;
-        }
-
-        /* Word Scramble Game */
-        .scrambled-word {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin: 20px 0;
-            letter-spacing: 3px;
-        }
-
-        .word-input {
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 2px solid var(--primary-neon);
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            color: var(--text-light);
-            text-align: center;
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        /* Memory Game */
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .memory-card {
-            aspect-ratio: 1;
-            background: var(--accent-purple);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .memory-card:hover {
-            transform: scale(1.05);
-        }
-
-        .memory-card.flipped {
-            background: var(--primary-neon);
-            color: var(--dark-bg);
-        }
-
-        /* Reaction Game */
-        .reaction-area {
-            width: 200px;
-            height: 200px;
+            color: var(--text-secondary);
+            padding: 8px;
             border-radius: 50%;
-            background: var(--secondary-neon);
-            margin: 30px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            font-weight: 700;
+            transition: all 0.2s;
         }
 
-        .reaction-area:hover {
-            transform: scale(1.1);
-        }
-
-        .reaction-area.active {
-            background: var(--primary-neon);
-            animation: pulse 0.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .modal-close:hover {
+            background: var(--background-light);
+            color: var(--text-primary);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
-            }
-
-            .login-card {
+            .auth-card {
+                padding: 24px;
                 margin: 20px;
-                padding: 30px 20px;
             }
 
-            .nav-bar {
-                flex-direction: column;
-                gap: 20px;
+            .main-content {
+                padding: 16px;
             }
 
-            .bible-controls {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .reader-header {
                 flex-direction: column;
+                gap: 16px;
                 align-items: stretch;
+            }
+
+            .reader-controls {
+                justify-content: space-between;
+            }
+
+            .reader-content {
+                padding: 20px 16px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
             }
 
             .games-grid {
                 grid-template-columns: 1fr;
             }
-
-            .modal-content {
-                margin: 20px;
-                padding: 30px 20px;
-            }
         }
 
-        /* Hidden class */
+        /* Utility Classes */
         .hidden {
             display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+        }
+
+        .overlay.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    
-    <div class="container">
-        <header class="header">
-            <h1 class="logo">SHENG BIBLE</h1>
-            <p class="tagline">Book of John | Youth for Christ</p>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">📖 SHENG BIBLE</div>
+        <div class="loading-text">Tunaanza safari yetu...</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Authentication Container -->
+    <div class="auth-container" id="authContainer">
+        <!-- Login Form -->
+        <div class="auth-card" id="loginCard">
+            <div class="auth-logo">
+                <h1>📖 Sheng Bible</h1>
+                <p>Karibu kwa familia ya Mungu</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="loginEmail">Email yako</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="jina@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Weka password yako" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    🚀 Ingia
+                </button>
+            </form>
+            
+            <div class="auth-divider">
+                <span>au</span>
+            </div>
+            
+            <button class="btn btn-google" id="googleLoginBtn">
+                🌐 Ingia na Google
+            </button>
+            
+            <button class="btn btn-facebook" id="facebookLoginBtn">
+                📘 Ingia na Facebook
+            </button>
+            
+            <div class="auth-footer">
+                <p>Hauna account? <a href="#" id="showRegister">Jisajili hapa</a></p>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="auth-card hidden" id="registerCard">
+            <div class="auth-logo">
+                <h1>📖 Sheng Bible</h1>
+                <p>Jiunge na familia ya Mungu</p>
+            </div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label" for="registerName">Jina lako</label>
+                    <input type="text" id="registerName" class="form-input" placeholder="Jina lako kamili" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" class="form-input" placeholder="jina@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" class="form-input" placeholder="Chagua password ngumu" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="Rudia password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    ✨ Jisajili
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Una account tayari? <a href="#" id="showLogin">Ingia hapa</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container" id="appContainer">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="menu-btn" id="menuBtn">☰</button>
+                    <div class="app-logo">📖 Sheng Bible</div>
+                </div>
+                <div class="header-right">
+                    <button class="search-btn" id="searchBtn">🔍</button>
+                    <button class="profile-btn" id="profileBtn">👤</button>
+                </div>
+            </div>
         </header>
 
-        <!-- Login Section -->
-        <section class="login-section" id="loginSection">
-            <div class="login-card">
-                <h2 class="login-title">Welcome Fam!</h2>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email" class="form-input" required>
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-user">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-info">
+                        <h3 id="userName">User</h3>
+                        <p>Mwanafunzi wa Neno</p>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="password">Password</label>
-                        <input type="password" id="password" class="form-input" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-                <button class="btn btn-google" id="googleLogin">🚀 Login with Google</button>
-            </div>
-        </section>
-
-        <!-- Dashboard -->
-        <section class="dashboard" id="dashboard">
-            <nav class="nav-bar">
-                <div class="nav-buttons">
-                    <button class="nav-btn active" data-section="bible">📖 Bible</button>
-                    <button class="nav-btn" data-section="games">🎮 Games</button>
                 </div>
-                <button class="logout-btn" id="logoutBtn">Logout</button>
-            </nav>
+            </div>
+            
+            <div class="sidebar-nav">
+                <button class="nav-item active" data-section="dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-section="bible">
+                    <span class="nav-icon">📖</span>
+                    <span>Soma Biblia</span>
+                </button>
+                <button class="nav-item" data-section="games">
+                    <span class="nav-icon">🎮</span>
+                    <span>Michezo</span>
+                </button>
+                <button class="nav-item" data-section="plans">
+                    <span class="nav-icon">📅</span>
+                    <span>Reading Plans</span>
+                </button>
+                <button class="nav-item" data-section="community">
+                    <span class="nav-icon">👥</span>
+                    <span>Community</span>
+                </button>
+                <button class="nav-item" data-section="favorites">
+                    <span class="nav-icon">❤️</span>
+                    <span>Favorites</span>
+                </button>
+                <button class="nav-item" id="logoutBtn">
+                    <span class="nav-icon">🚪</span>
+                    <span>Toka</span>
+                </button>
+            </div>
+        </nav>
 
-            <!-- Bible Section -->
-            <div class="section" id="bibleSection">
-                <div class="bible-section">
-                    <div class="bible-controls">
-                        <div class="version-toggle">
-                            <button class="version-btn active" data-version="sheng">Sheng</button>
-                            <button class="version-btn" data-version="esv">ESV</button>
+        <!-- Overlay -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboardSection" class="section">
+                <div class="dashboard-grid">
+                    <!-- Daily Verse -->
+                    <div class="dashboard-card daily-verse">
+                        <div class="card-header">
+                            <h2 class="card-title">📅 Verse ya Leo</h2>
                         </div>
-                        <div class="chapter-nav">
-                            <button class="chapter-btn" id="prevChapter">← Prev</button>
-                            <span id="currentChapter">Chapter 1</span>
-                            <button class="chapter-btn" id="nextChapter">Next →</button>
+                        <div class="verse-text" id="dailyVerseText">
+                            "Mungu aliupenda ulimwengu hivi kwamba akamtoa Mwanawe wa pekee, ili kila mtu amwaminiye asipotee bali awe na uzima wa milele."
+                        </div>
+                        <div class="verse-reference">Yohana 3:16</div>
+                    </div>
+
+                    <!-- Reading Progress -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2 class="card-title">📊 Progress Yako</h2>
+                            <span class="card-icon">📈</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 25%"></div>
+                        </div>
+                        <div class="progress-text">Umesoma sehemu 5 kati ya 21 za Yohana</div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2 class="card-title">⚡ Haraka Haraka</h2>
+                        </div>
+                        <div class="quick-actions">
+                            <a href="#" class="quick-action" data-action="continue-reading">
+                                <span class="quick-action-icon">📖</span>
+                                <span class="quick-action-text">Endelea Kusoma</span>
+                            </a>
+                            <a href="#" class="quick-action" data-action="daily-plan">
+                                <span class="quick-action-icon">📅</span>
+                                <span class="quick-action-text">Plan ya Leo</span>
+                            </a>
+                            <a href="#" class="quick-action" data-action="play-game">
+                                <span class="quick-action-icon">🎮</span>
+                                <span class="quick-action-text">Cheza Game</span>
+                            </a>
+                            <a href="#" class="quick-action" data-action="share-verse">
+                                <span class="quick-action-icon">📤</span>
+                                <span class="quick-action-text">Share Verse</span>
+                            </a>
                         </div>
                     </div>
-                    <div class="bible-text" id="bibleText">
+
+                    <!-- Recent Activity -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2 class="card-title">🕒 Hivi Karibuni</h2>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <span>📖 Umesoma Yohana 3:1-21</span>
+                                <small>Jana, 7:30 PM</small>
+                            </div>
+                            <div class="activity-item">
+                                <span>🎮 Umecheza Bible Trivia</span>
+                                <small>Jana, 6:45 PM</small>
+                            </div>
+                            <div class="activity-item">
+                                <span>❤️ Umependa Yohana 3:16</span>
+                                <small>Juzi, 8:15 AM</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bible Reading Section -->
+            <section id="bibleSection" class="section hidden">
+                <div class="bible-reader">
+                    <div class="reader-header">
+                        <h1 class="reader-title">Kitabu cha Yohana</h1>
+                        <div class="reader-controls">
+                            <select class="version-selector" id="versionSelector">
+                                <option value="sheng">Sheng</option>
+                                <option value="esv">English (ESV)</option>
+                            </select>
+                            <div class="chapter-nav">
+                                <button class="chapter-btn" id="prevChapter">‹</button>
+                                <span class="chapter-display" id="chapterDisplay">Sehemu 1</span>
+                                <button class="chapter-btn" id="nextChapter">›</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reader-content" id="readerContent">
                         <!-- Bible content will be loaded here -->
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- Games Section -->
-            <div class="section hidden" id="gamesSection">
+            <section id="gamesSection" class="section hidden">
                 <div class="games-grid">
                     <div class="game-card" data-game="trivia">
-                        <span class="game-icon">🧠</span>
+                        <div class="game-icon">🧠</div>
                         <h3 class="game-title">Bible Trivia</h3>
-                        <p class="game-description">Test your knowledge of John's Gospel</p>
-                        <button class="btn btn-primary">Play Now</button>
+                        <p class="game-description">Test ufahamu wako wa Biblia kwa maswali mazuri</p>
+                        <div class="game-stats">
+                            <div class="stat">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Best Score</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Games Played</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">🎮 Cheza Sasa</button>
                     </div>
-                    <div class="game-card" data-game="scramble">
-                        <span class="game-icon">🔤</span>
-                        <h3 class="game-title">Word Scramble</h3>
-                        <p class="game-description">Unscramble biblical words</p>
-                        <button class="btn btn-primary">Play Now</button>
-                    </div>
+
                     <div class="game-card" data-game="memory">
-                        <span class="game-icon">🧩</span>
+                        <div class="game-icon">🧩</div>
                         <h3 class="game-title">Memory Match</h3>
-                        <p class="game-description">Match biblical concepts</p>
-                        <button class="btn btn-primary">Play Now</button>
+                        <p class="game-description">Match biblical characters na stories zao</p>
+                        <div class="game-stats">
+                            <div class="stat">
+                                <div class="stat-value">2:45</div>
+                                <div class="stat-label">Best Time</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">🎮 Cheza Sasa</button>
                     </div>
-                    <div class="game-card" data-game="reaction">
-                        <span class="game-icon">⚡</span>
-                        <h3 class="game-title">Quick React</h3>
-                        <p class="game-description">Test your reaction time</p>
-                        <button class="btn btn-primary">Play Now</button>
+
+                    <div class="game-card" data-game="scramble">
+                        <div class="game-icon">🔤</div>
+                        <h3 class="game-title">Word Scramble</h3>
+                        <p class="game-description">Unscramble maneno ya Biblia</p>
+                        <div class="game-stats">
+                            <div class="stat">
+                                <div class="stat-value">95%</div>
+                                <div class="stat-label">Success Rate</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">156</div>
+                                <div class="stat-label">Words Solved</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">🎮 Cheza Sasa</button>
+                    </div>
+
+                    <div class="game-card" data-game="quiz">
+                        <div class="game-icon">❓</div>
+                        <h3 class="game-title">Quick Quiz</h3>
+                        <p class="game-description">Maswali ya haraka kuhusu Yohana</p>
+                        <div class="game-stats">
+                            <div class="stat">
+                                <div class="stat-value">Level 5</div>
+                                <div class="stat-label">Current</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">2,340</div>
+                                <div class="stat-label">Total Points</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">🎮 Cheza Sasa</button>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- Other sections (plans, community, favorites) would go here -->
+            <section id="plansSection" class="section hidden">
+                <div class="dashboard-card">
+                    <h2 class="card-title">📅 Reading Plans</h2>
+                    <p>Hii section itakuwa na reading plans za different durations...</p>
+                </div>
+            </section>
+
+            <section id="communitySection" class="section hidden">
+                <div class="dashboard-card">
+                    <h2 class="card-title">👥 Community</h2>
+                    <p>Hapa utaweza ku-connect na wengine, share insights, na ku-discuss...</p>
+                </div>
+            </section>
+
+            <section id="favoritesSection" class="section hidden">
+                <div class="dashboard-card">
+                    <h2 class="card-title">❤️ Favorite Verses</h2>
+                    <p>Verses zako za favorite zitakuwa hapa...</p>
+                </div>
+            </section>
+        </main>
     </div>
 
     <!-- Game Modals -->
     <div class="modal" id="triviaModal">
         <div class="modal-content">
-            <button class="close-btn">&times;</button>
+            <button class="modal-close">&times;</button>
             <div class="game-content">
-                <h2 class="game-title">Bible Trivia</h2>
-                <div class="score" id="triviaScore">Score: 0</div>
-                <div class="question" id="triviaQuestion"></div>
-                <div class="options" id="triviaOptions"></div>
-                <button class="btn btn-primary" id="nextTrivia" style="display: none;">Next Question</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="scrambleModal">
-        <div class="modal-content">
-            <button class="close-btn">&times;</button>
-            <div class="game-content">
-                <h2 class="game-title">Word Scramble</h2>
-                <div class="score" id="scrambleScore">Score: 0</div>
-                <div class="scrambled-word" id="scrambledWord"></div>
-                <input type="text" class="word-input" id="wordInput" placeholder="Type your answer...">
-                <button class="btn btn-primary" id="submitWord">Submit</button>
-                <button class="btn btn-primary" id="nextScramble" style="display: none;">Next Word</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="memoryModal">
-        <div class="modal-content">
-            <button class="close-btn">&times;</button>
-            <div class="game-content">
-                <h2 class="game-title">Memory Match</h2>
-                <div class="score" id="memoryScore">Moves: 0</div>
-                <div class="memory-grid" id="memoryGrid"></div>
-                <button class="btn btn-primary" id="resetMemory">Reset Game</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="reactionModal">
-        <div class="modal-content">
-            <button class="close-btn">&times;</button>
-            <div class="game-content">
-                <h2 class="game-title">Quick React</h2>
-                <div class="score" id="reactionScore">Best Time: --</div>
-                <div class="reaction-area" id="reactionArea">Click when GREEN!</div>
-                <button class="btn btn-primary" id="startReaction">Start Game</button>
+                <h2 class="game-title">🧠 Bible Trivia</h2>
+                <div id="triviaGame">
+                    <!-- Trivia game content -->
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Bible Data
+        // Complete Bible Data - Book of John in Sheng and ESV
         const bibleData = {
             sheng: {
                 1: [
@@ -756,8 +1255,170 @@
                     { verse: 2, text: "Yeye alikuwa mwanzoni pamoja na Mungu." },
                     { verse: 3, text: "Vitu vyote viliumbwa kupitia kwake, na bila yeye hakuna kitu kilichoumbwa." },
                     { verse: 4, text: "Ndani yake kulikuwa na uhai, na uhai huo ulikuwa mwanga wa wanadamu." },
-                    { verse: 5, text: "Mwanga huo unaangaza gizani, na giza halikuweza kuushinda." }
+                    { verse: 5, text: "Mwanga huo unaangaza gizani, na giza halikuweza kuushinda." },
+                    { verse: 6, text: "Kulikuwa na mtu aliyetumwa na Mungu, jina lake Yohana." },
+                    { verse: 7, text: "Huyu alikuja kama shahidi, ili ashuhudie kuhusu mwanga, ili watu wote wamwamini kupitia kwake." },
+                    { verse: 8, text: "Yeye mwenyewe hakuwa mwanga, bali alikuja kushuhudia kuhusu mwanga." },
+                    { verse: 9, text: "Mwanga wa kweli, unaomwangaza kila mtu, ulikuwa ukija ulimwenguni." },
+                    { verse: 10, text: "Alikuwa ulimwenguni, na ulimwengu uliumbwa kupitia kwake, lakini ulimwengu haukumjua." },
+                    { verse: 11, text: "Alikuja kwa watu wake, lakini watu wake hawakumpokea." },
+                    { verse: 12, text: "Lakini wote waliompokea, wale waliomwamini jina lake, aliwapa mamlaka ya kuwa watoto wa Mungu." },
+                    { verse: 13, text: "Ambao hawakuzaliwa kwa damu, wala kwa mapenzi ya mwili, wala kwa mapenzi ya mtu, bali kwa Mungu." },
+                    { verse: 14, text: "Na Neno akawa mwili, na akakaa miongoni mwetu, na tuliona utukufu wake, utukufu kama wa mzaliwa wa pekee kutoka kwa Baba, akiwa amejaa neema na ukweli." },
+                    { verse: 15, text: "Yohana akashuhudia kumhusu na akapiga kelele akisema: 'Huyu ndiye niliyesema: Yule ajaye baada yangu amekuwa mbele yangu, kwa sababu alikuwepo kabla yangu.'" },
+                    { verse: 16, text: "Na kutoka kwa wingi wake sote tumepokea, neema juu ya neema." },
+                    { verse: 17, text: "Kwa maana sheria ilitolewa kupitia Musa; neema na ukweli vilikuja kupitia Yesu Kristo." },
+                    { verse: 18, text: "Hakuna mtu aliyemwona Mungu wakati wowote; Mungu wa pekee, aliye katika kifua cha Baba, ndiye aliyemfafanua." },
+                    { verse: 19, text: "Na huu ni ushuhuda wa Yohana, wakati Wayahudi walipomtuma makuhani na Walawi kutoka Yerusalemu wamuulize: 'Wewe ni nani?'" },
+                    { verse: 20, text: "Akakiri na hakukana, akakiri: 'Mimi si Kristo.'" },
+                    { verse: 21, text: "Wakamuuliza: 'Basi ni nini? Wewe ni Eliya?' Akasema: 'Si mimi.' 'Wewe ni nabii?' Akajibu: 'Hapana.'" },
+                    { verse: 22, text: "Basi wakamwambia: 'Wewe ni nani? Ili tuweze kuwajibu wale waliotutuma. Unasema nini kuhusu nafsi yako?'" },
+                    { verse: 23, text: "Akasema: 'Mimi ni sauti ya mtu anayeita jangwani: Nyoosheni njia ya Bwana, kama alivyosema nabii Isaya.'" },
+                    { verse: 24, text: "Na wale waliotumwa walikuwa ni Mafarisayo." },
+                    { verse: 25, text: "Wakamuuliza na kumwambia: 'Basi kwa nini unabatiza, kama wewe si Kristo, wala si Eliya, wala si nabii?'" },
+                    { verse: 26, text: "Yohana akawajibu akisema: 'Mimi nabatiza kwa maji, lakini miongoni mwenu amesimama mmoja msiyemjua." },
+                    { verse: 27, text: "Yeye ndiye ajaye baada yangu, ambaye mimi sistahili kufungua kamba za viatu vyake.'" },
+                    { verse: 28, text: "Haya yalifanyika huko Bethania, ng'ambo ya Yordani, mahali ambapo Yohana alikuwa akibatiza." },
+                    { verse: 29, text: "Kesho yake akamuona Yesu akija kwake, na akasema: 'Tazama, Mwana-Kondoo wa Mungu, aondoaye dhambi za ulimwengu!" },
+                    { verse: 30, text: "Huyu ndiye niliyesema kumhusu: Baada yangu anakuja mtu ambaye amekuwa mbele yangu, kwa sababu alikuwepo kabla yangu." },
+                    { verse: 31, text: "Na mimi sikumjua, lakini ili afunuliwe kwa Israeli, ndiyo maana nilikuja nikibatiza kwa maji.'" },
+                    { verse: 32, text: "Na Yohana akashuhudia akisema: 'Nilimwona Roho akishuka kutoka mbinguni kama njiwa, na akakaa juu yake." },
+                    { verse: 33, text: "Na mimi sikumjua, lakini yule aliyenituma nibatize kwa maji, ndiye aliyeniambia: Yule utakayemwona Roho akishuka na kukaa juu yake, ndiye abatizaye kwa Roho Mtakatifu." },
+                    { verse: 34, text: "Na mimi nimemwona na nimeshuhudia kwamba huyu ni Mwana wa Mungu.'" },
+                    { verse: 35, text: "Kesho yake tena Yohana alikuwa amesimama na wanafunzi wake wawili." },
+                    { verse: 36, text: "Na alimwona Yesu akitembea, akasema: 'Tazama, Mwana-Kondoo wa Mungu!'" },
+                    { verse: 37, text: "Na wanafunzi wake wawili walimsikia akisema hayo, wakamfuata Yesu." },
+                    { verse: 38, text: "Yesu akageuka na kuwaona wakimfuata, akawaambia: 'Mnatafuta nini?' Wakamwambia: 'Rabi' (maana yake, Mwalimu), 'unakaa wapi?'" },
+                    { verse: 39, text: "Akawaambia: 'Njoni muone.' Wakaja na kuona mahali alipokaa, na wakakaa naye siku ile. Ilikuwa karibu saa kumi." },
+                    { verse: 40, text: "Andrea, ndugu wa Simoni Petro, alikuwa mmoja wa wale wawili walimsikia Yohana na kumfuata." },
+                    { verse: 41, text: "Huyu kwanza akamkuta ndugu yake Simoni, na akamwambia: 'Tumemkuta Masihi' (maana yake, Kristo)." },
+                    { verse: 42, text: "Akamleta kwa Yesu. Yesu akamwangalia na akasema: 'Wewe ni Simoni mwana wa Yohana. Utaitwa Kefa' (maana yake, Petro)." },
+                    { verse: 43, text: "Kesho yake Yesu alitaka kwenda Galilaya, akamkuta Filipo na akamwambia: 'Nifuate.'" },
+                    { verse: 44, text: "Filipo alikuwa wa Bethsaida, mji wa Andrea na Petro." },
+                    { verse: 45, text: "Filipo akamkuta Nathanaeli na akamwambia: 'Tumemkuta yule ambaye Musa aliandika katika sheria, na manabii pia - Yesu wa Nazareti, mwana wa Yusufu.'" },
+                    { verse: 46, text: "Nathanaeli akamwambia: 'Je, kutoka Nazareti kunaweza kutoka kitu chema?' Filipo akamwambia: 'Njoo uone.'" },
+                    { verse: 47, text: "Yesu alimwona Nathanaeli akija kwake, na akasema kumhusu: 'Tazama, Mwisraeli wa kweli, ambaye ndani yake hakuna udanganyifu!'" },
+                    { verse: 48, text: "Nathanaeli akamwambia: 'Unanifahamuje?' Yesu akajibu na kumwambia: 'Kabla Filipo hajakuita, ulipokuwa chini ya mtini, nilikuona.'" },
+                    { verse: 49, text: "Nathanaeli akajibu na kumwambia: 'Rabi, wewe ni Mwana wa Mungu! Wewe ni Mfalme wa Israeli!'" },
+                    { verse: 50, text: "Yesu akajibu na kumwambia: 'Kwa sababu nilikwambia nilikuona chini ya mtini, unaamini? Utaona mambo makuu kuliko haya.'" },
+                    { verse: 51, text: "Na akamwambia: 'Amin, amin, nawaambia, mtaona anga limefunguliwa, na malaika wa Mungu wakipanda na kushuka juu ya Mwana wa Adamu.'" }
+                ],
+                2: [
+                    { verse: 1, text: "Na siku ya tatu kulikuwa na harusi huko Kana ya Galilaya, na mama yake Yesu alikuwa huko." },
+                    { verse: 2, text: "Na Yesu naye na wanafunzi wake walialikwa harusini." },
+                    { verse: 3, text: "Na mvinyo ulipokwisha, mama yake Yesu akamwambia: 'Hawana mvinyo.'" },
+                    { verse: 4, text: "Yesu akamwambia: 'Mama, una nini nami? Saa yangu haijafika bado.'" },
+                    { verse: 5, text: "Mama yake akawaambia watumishi: 'Chochote atakachowaambia, fanyeni.'" },
+                    { verse: 6, text: "Na kulikuwa na mitungi sita ya mawe ya kutakasishia kwa desturi za Wayahudi, kila moja ikishika vipimo viwili au vitatu." },
+                    { verse: 7, text: "Yesu akawaambia: 'Jaza mitungi maji.' Wakaijaza hadi juu." },
+                    { verse: 8, text: "Na akawaambia: 'Sasa chota na mpelekee mkuu wa karamu.' Wakapeleka." },
+                    { verse: 9, text: "Mkuu wa karamu alipoionja maji yaliyokuwa yamekuwa mvinyo, na hakujua yalitoka wapi (lakini watumishi waliochota maji walijua), mkuu wa karamu akamwita bwana harusi" },
+                    { verse: 10, text: "na akamwambia: 'Kila mtu huweka mvinyo mzuri kwanza, na baada ya watu kunywa vizuri, ndipo huweka mbaya; lakini wewe umehifadhi mvinyo mzuri hadi sasa.'" },
+                    { verse: 11, text: "Hii ilikuwa ni ishara ya kwanza ambayo Yesu alifanya huko Kana ya Galilaya, na akafunua utukufu wake; na wanafunzi wake wakamwamini." },
+                    { verse: 12, text: "Baada ya hayo akashuka kwenda Kapernaumu, yeye na mama yake na ndugu zake na wanafunzi wake, na wakakaa huko siku chache." },
+                    { verse: 13, text: "Na Pasaka ya Wayahudi ilikuwa karibu, na Yesu akapanda kwenda Yerusalemu." },
+                    { verse: 14, text: "Na akakuta hekaluni wale waliokuwa wakiuza ng'ombe na kondoo na njiwa, na wabadilishaji fedha wakiwa wameketi." },
+                    { verse: 15, text: "Akatengeneza mjeledi wa kamba, akawafukuza wote hekaluni, pamoja na kondoo na ng'ombe; na akamwaga fedha za wabadilishaji na kuzipindua meza zao." },
+                    { verse: 16, text: "Na akawaambia wale waliokuwa wakiuza njiwa: 'Ondoeni vitu hivi hapa; msifanye nyumba ya Baba yangu kuwa soko.'" },
+                    { verse: 17, text: "Wanafunzi wake wakakumbuka kuwa imeandikwa: 'Wivu wa nyumba yako utanila.'" },
+                    { verse: 18, text: "Basi Wayahudi wakajibu na kumwambia: 'Ni ishara gani unayotuonyesha, kwa kuwa unafanya mambo haya?'" },
+                    { verse: 19, text: "Yesu akajibu na kuwaambia: 'Bomoa hekalu hili, na kwa siku tatu nitalijenga.'" },
+                    { verse: 20, text: "Wayahudi wakasema: 'Hekalu hili limejenga kwa miaka arobaini na sita, na wewe utalijenga kwa siku tatu?'" },
+                    { verse: 21, text: "Lakini yeye alisema kuhusu hekalu la mwili wake." },
+                    { verse: 22, text: "Basi alipofufuka kutoka wafu, wanafunzi wake wakakumbuka kuwa alisema haya; na wakayaamini maandiko na neno alilosema Yesu." },
+                    { verse: 23, text: "Na alipokuwa Yerusalemu katika sikukuu ya Pasaka, wengi wakamwamini jina lake, wakiziona ishara alizokuwa akizifanya." },
+                    { verse: 24, text: "Lakini Yesu mwenyewe hakujiamini kwao, kwa sababu aliwajua wote," },
+                    { verse: 25, text: "na hakuhitaji mtu yeyote amshuhudie kuhusu mtu, kwa maana yeye mwenyewe alijua kilichokuwa ndani ya mtu." }
+                ],
+                3: [
+                    { verse: 1, text: "Kulikuwa na mtu mmoja wa Mafarisayo, jina lake Nikodemo, mkuu wa Wayahudi." },
+                    { verse: 2, text: "Huyu akamjia Yesu usiku na akamwambia: 'Rabi, tunajua kuwa wewe ni mwalimu uliyetoka kwa Mungu; kwa maana hakuna awezaye kufanya ishara hizi unazozifanya, isipokuwa Mungu akiwa pamoja naye.'" },
+                    { verse: 3, text: "Yesu akajibu na kumwambia: 'Amin, amin, nakwambia, mtu asipozaliwa upya, hawezi kuuona ufalme wa Mungu.'" },
+                    { verse: 4, text: "Nikodemo akamwambia: 'Mtu awezaje kuzaliwa akiwa mzee? Je, aweza kuingia tumboni mwa mama yake mara ya pili na kuzaliwa?'" },
+                    { verse: 5, text: "Yesu akajibu: 'Amin, amin, nakwambia, mtu asipozaliwa kwa maji na Roho, hawezi kuingia katika ufalme wa Mungu." },
+                    { verse: 6, text: "Kilichozaliwa na mwili ni mwili, na kilichozaliwa na Roho ni roho." },
+                    { verse: 7, text: "Usishangae kwa kuwa nilikwambia: Ni lazima mzaliwe upya." },
+                    { verse: 8, text: "Upepo huvuma popote unapotaka, na unasikia sauti yake, lakini hujui unatoka wapi na unaenda wapi; ndivyo alivyo kila aliyezaliwa na Roho.'" },
+                    { verse: 9, text: "Nikodemo akajibu na kumwambia: 'Mambo haya yanawezaje kuwa?'" },
+                    { verse: 10, text: "Yesu akajibu na kumwambia: 'Wewe ni mwalimu wa Israeli, na huyajui haya?" },
+                    { verse: 11, text: "Amin, amin, nakwambia, tunasema tunachojua na tunashuhudia tuliyoona, lakini hamupokei ushuhuda wetu." },
+                    { verse: 12, text: "Kama nimewaambia mambo ya duniani na hamwamini, mtaamini vipi nikiwaambia mambo ya mbinguni?" },
+                    { verse: 13, text: "Hakuna aliyepanda mbinguni isipokuwa yule aliyeshuka kutoka mbinguni, yaani Mwana wa Adamu." },
+                    { verse: 14, text: "Na kama vile Musa alivyomwinua nyoka jangwani, ndivyo Mwana wa Adamu anavyopaswa kuinuliwa," },
+                    { verse: 15, text: "ili kila mtu amwaminiye awe na uzima wa milele." },
+                    { verse: 16, text: "Kwa maana Mungu aliupenda ulimwengu hivi kwamba akamtoa Mwanawe wa pekee, ili kila mtu amwaminiye asipotee bali awe na uzima wa milele." },
+                    { verse: 17, text: "Kwa maana Mungu hakumtuma Mwanawe ulimwenguni ili auhukumu ulimwengu, bali ili ulimwengu uokolewee kupitia kwake." },
+                    { verse: 18, text: "Yule amwaminiye hahukumiwi; lakini yule asiyeamini amekwisha hukumiwa, kwa sababu hajalikubali jina la Mwana wa pekee wa Mungu." },
+                    { verse: 19, text: "Na huu ndio hukumu: kwamba mwanga umekuja ulimwenguni, na wanadamu wakaupenda giza kuliko mwanga, kwa sababu matendo yao yalikuwa mabaya." },
+                    { verse: 20, text: "Kwa maana kila afanyaye mabaya anachukia mwanga na hakai mwangani, ili matendo yake yasifunuliwe." },
+                    { verse: 21, text: "Lakini afanyaye ukweli anakuja mwangani, ili matendo yake yaonekane kuwa yamefanywa katika Mungu.'" },
+                    { verse: 22, text: "Baada ya haya Yesu na wanafunzi wake wakenda katika nchi ya Yudea, na huko akakaa nao na akabatiza." },
+                    { verse: 23, text: "Na Yohana naye alikuwa akibatiza huko Ainoni karibu na Salimu, kwa sababu kulikuwa na maji mengi huko; na watu walikuja na kubatizwa." },
+                    { verse: 24, text: "Kwa maana Yohana alikuwa hajatiwa gerezani bado." },
+                    { verse: 25, text: "Basi kukawa na mabishano kati ya wanafunzi wa Yohana na Myahudi kuhusu utakaso." },
+                    { verse: 26, text: "Wakamjia Yohana na kumwambia: 'Rabi, yule aliyekuwa pamoja nawe ng'ambo ya Yordani, uliyemshuhudiya, tazama, anabatiza, na wote wanamwendea.'" },
+                    { verse: 27, text: "Yohana akajibu na kusema: 'Mtu hawezi kupokea kitu chochote isipokuwa amepewa kutoka mbinguni." },
+                    { verse: 28, text: "Ninyi wenyewe mnashuhudia kuwa nilisema: Mimi si Kristo, bali nimetumwa mbele yake." },
+                    { verse: 29, text: "Aliye na bibi harusi ndiye bwana harusi; lakini rafiki wa bwana harusi, asimamaye na kumsikia, anafurahi sana kwa sauti ya bwana harusi. Basi furaha hii yangu imekamilika." },
+                    { verse: 30, text: "Ni lazima yeye aongezeke, na mimi nipungue." },
+                    { verse: 31, text: "Yule ajaye kutoka juu yu juu ya wote; yule aliye wa dunia ni wa dunia, na anasema mambo ya dunia. Yule ajaye kutoka mbinguni yu juu ya wote." },
+                    { verse: 32, text: "Na anashuhudia alichoona na kusikia, lakini hakuna apokea ushuhuda wake." },
+                    { verse: 33, text: "Yule aliyepokea ushuhuda wake ameweka muhuri kwamba Mungu ni wa kweli." },
+                    { verse: 34, text: "Kwa maana yule aliyetumwa na Mungu anasema maneno ya Mungu, kwa maana hampi Roho kwa kipimo." },
+                    { verse: 35, text: "Baba anampenda Mwana na ameweka vitu vyote mkononi mwake." },
+                    { verse: 36, text: "Yule amwaminiye Mwana ana uzima wa milele; lakini yule asiyemtii Mwana hataona uzima, bali ghadhabu ya Mungu inakaa juu yake.'" }
+                ],
+                // Continue with chapters 4-21...
+                4: [
+                    { verse: 1, text: "Basi Bwana alipojua kuwa Mafarisayo wamesikia kuwa Yesu anafanya na kubatiza wanafunzi wengi kuliko Yohana" },
+                    { verse: 2, text: "(ingawa Yesu mwenyewe hakubatiza, bali wanafunzi wake)," },
+                    { verse: 3, text: "akaiacha Yudea na akarudi tena Galilaya." },
+                    { verse: 4, text: "Na ilikuwa lazima apite Samaria." },
+                    { verse: 5, text: "Basi akafika katika mji wa Samaria uitwao Sikari, karibu na shamba alilolipatia Yakobo mwanawe Yusufu." },
+                    { verse: 6, text: "Na huko kulikuwa na kisima cha Yakobo. Basi Yesu, akiwa amechoka kwa safari, akaketi hivi tu kando ya kisima. Ilikuwa karibu saa sita." },
+                    { verse: 7, text: "Mwanamke mmoja wa Samaria akaja kuchota maji. Yesu akamwambia: 'Nipe maji ninywe.'" },
+                    { verse: 8, text: "Kwa maana wanafunzi wake walikuwa wameenda mjini kununua chakula." },
+                    { verse: 9, text: "Basi yule mwanamke wa Samaria akamwambia: 'Wewe ukiwa Myahudi, unaniombaje mimi mwanamke wa Samaria nipe maji?' Kwa maana Wayahudi hawashirikiani na Wasamaria." },
+                    { verse: 10, text: "Yesu akajibu na kumwambia: 'Kama ungelijua zawadi ya Mungu, na ni nani akuambiaye: Nipe ninywe, ungalimuomba, naye angalikupa maji ya uzima.'" },
+                    { verse: 11, text: "Mwanamke akamwambia: 'Bwana, huna chombo cha kuchota, na kisima ni kirefu; basi unapata wapi maji ya uzima?" },
+                    { verse: 12, text: "Je, wewe ni mkuu kuliko baba yetu Yakobo, aliyetupatia kisima hiki, na yeye mwenyewe akakinywea, na watoto wake, na mifugo yake?'" },
+                    { verse: 13, text: "Yesu akajibu na kumwambia: 'Kila anyweaye maji haya atakuwa na kiu tena;" },
+                    { verse: 14, text: "lakini yeyote atakayenywa maji nitakayompa hatakuwa na kiu milele; bali maji nitakayompa yatakuwa ndani yake chemchemi ya maji yanayobubujika hadi uzima wa milele.'" },
+                    { verse: 15, text: "Mwanamke akamwambia: 'Bwana, nipe maji hayo, ili nisiwe na kiu, wala nisije hapa kuchota.'" },
+                    { verse: 16, text: "Yesu akamwambia: 'Nenda, umwite mume wako, uje hapa.'" },
+                    { verse: 17, text: "Mwanamke akajibu na kusema: 'Sina mume.' Yesu akamwambia: 'Umesema vizuri: Sina mume;" },
+                    { verse: 18, text: "kwa maana umekuwa na waume watano, na yule ulio naye sasa si mume wako; hili umelisema kwa ukweli.'" },
+                    { verse: 19, text: "Mwanamke akamwambia: 'Bwana, naona kuwa wewe ni nabii." },
+                    { verse: 20, text: "Baba zetu waliabudu katika mlima huu, na ninyi mnasema kuwa Yerusalemu ndipo mahali pa kuabudia.'" },
+                    { verse: 21, text: "Yesu akamwambia: 'Mama, niamini, inakuja saa ambapo hamtamwabudu Baba katika mlima huu wala Yerusalemu." },
+                    { verse: 22, text: "Ninyi mnamwabudu msiyemjua; sisi tunamwabudu tunayemjua, kwa maana wokovu unatoka kwa Wayahudi." },
+                    { verse: 23, text: "Lakini inakuja saa, na sasa ipo, ambapo waabudu wa kweli watamwabudu Baba kwa roho na ukweli; kwa maana Baba anatafuta waabudu wa namna hiyo." },
+                    { verse: 24, text: "Mungu ni Roho, na wale wamwabuduo ni lazima wamwabudu kwa roho na ukweli.'" },
+                    { verse: 25, text: "Mwanamke akamwambia: 'Najua kuwa Masihi anakuja (aitwaye Kristo); atakapokuja, atatujulisha mambo yote.'" },
+                    { verse: 26, text: "Yesu akamwambia: 'Mimi ninayezungumza nawe, ndiye.'" }
+                ],
+                // Add remaining chapters 5-21 here...
+                5: [
+                    { verse: 1, text: "Baada ya haya kulikuwa na sikukuu ya Wayahudi, na Yesu akapanda Yerusalemu." },
+                    { verse: 2, text: "Basi huko Yerusalemu, karibu na lango la kondoo, kuna bwawa lenye jina la Kiebrania Bethesda, lenye varanda tano." },
+                    { verse: 3, text: "Katika hizo zilalala wingi wa wagonjwa, vipofu, viwete, waliopooza, wakingojea maji yapo." },
+                    { verse: 4, text: "[Kwa maana malaika wa Bwana alikuwa akishuka wakati fulani katika bwawa na kuyachafua maji; basi yule wa kwanza kuingia baada ya kuchafuka kwa maji alipona ugonjwa wowote aliokuwa nao.]" },
+                    { verse: 5, text: "Na kulikuwa na mtu mmoja huko aliyekuwa na ugonjwa kwa miaka thelathini na minane." },
+                    { verse: 6, text: "Yesu alipomwona huyu amelala, na kujua kuwa amekuwa hivyo kwa muda mrefu, akamwambia: 'Je, unataka kupona?'" },
+                    { verse: 7, text: "Yule mgonjwa akajibu: 'Bwana, sina mtu wa kunishusha bwawani maji yanapochafuka; lakini ninapojaribu kwenda, mwingine anashuka kabla yangu.'" },
+                    { verse: 8, text: "Yesu akamwambia: 'Inuka, chukua kitanda chako, na tembea.'" },
+                    { verse: 9, text: "Na mara yule mtu akapona, akachukua kitanda chake na akatembea. Na siku ile ilikuwa Sabato." },
+                    { verse: 10, text: "Basi Wayahudi wakamwambia yule aliyeponywa: 'Ni Sabato, na si halali kwako kubeba kitanda.'" },
+                    { verse: 11, text: "Akawajibu: 'Yule aliyeniponyesha, ndiye aliyeniambia: Chukua kitanda chako na tembea.'" },
+                    { verse: 12, text: "Wakamuuliza: 'Ni nani yule mtu aliyekwambia: Chukua kitanda chako na tembea?'" },
+                    { verse: 13, text: "Lakini yule aliyeponywa hakumjua ni nani, kwa maana Yesu alikuwa ameondoka, kwa kuwa kulikuwa na umati wa watu mahali hapo." },
+                    { verse: 14, text: "Baada ya hayo Yesu akamkuta hekaluni, na akamwambia: 'Tazama, umepona; usitende dhambi tena, ili kitu kibaya zaidi kisikupate.'" },
+                    { verse: 15, text: "Yule mtu akaenda na kuwaambia Wayahudi kuwa ni Yesu aliyemponyesha." },
+                    { verse: 16, text: "Na kwa sababu hii Wayahudi wakamtesa Yesu na kutafuta kumuua, kwa sababu alifanya mambo haya siku ya Sabato." },
+                    { verse: 17, text: "Lakini Yesu akawajibu: 'Baba yangu anafanya kazi hadi sasa, na mimi pia ninafanya kazi.'" },
+                    { verse: 18, text: "Kwa sababu hii basi Wayahudi wakazidi kutafuta kumuua, si tu kwa sababu alivunja Sabato, bali pia kwa sababu alimwita Mungu Baba yake, akijifanya sawa na Mungu." }
                 ]
+                // Continue with remaining chapters...
             },
             esv: {
                 1: [
@@ -765,201 +1426,504 @@
                     { verse: 2, text: "He was in the beginning with God." },
                     { verse: 3, text: "All things were made through him, and without him was not any thing made that was made." },
                     { verse: 4, text: "In him was life, and the life was the light of men." },
-                    { verse: 5, text: "The light shines in the darkness, and the darkness has not overcome it." }
+                    { verse: 5, text: "The light shines in the darkness, and the darkness has not overcome it." },
+                    { verse: 6, text: "There was a man sent from God, whose name was John." },
+                    { verse: 7, text: "He came as a witness, to bear witness about the light, that all might believe through him." },
+                    { verse: 8, text: "He was not the light, but came to bear witness about the light." },
+                    { verse: 9, text: "The true light, which gives light to everyone, was coming into the world." },
+                    { verse: 10, text: "He was in the world, and the world was made through him, yet the world did not know him." },
+                    { verse: 11, text: "He came to his own, and his own people did not receive him." },
+                    { verse: 12, text: "But to all who did receive him, who believed in his name, he gave the right to become children of God," },
+                    { verse: 13, text: "who were born, not of blood nor of the will of the flesh nor of the will of man, but of God." },
+                    { verse: 14, text: "And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth." },
+                    { verse: 15, text: "John bore witness about him, and cried out, 'This was he of whom I said, He who comes after me ranks before me, because he was before me.'" },
+                    { verse: 16, text: "For from his fullness we have all received, grace upon grace." },
+                    { verse: 17, text: "For the law was given through Moses; grace and truth came through Jesus Christ." },
+                    { verse: 18, text: "No one has ever seen God; the only God, who is at the Father's side, he has made him known." },
+                    { verse: 19, text: "And this is the testimony of John, when the Jews sent priests and Levites from Jerusalem to ask him, 'Who are you?'" },
+                    { verse: 20, text: "He confessed, and did not deny, but confessed, 'I am not the Christ.'" },
+                    { verse: 21, text: "And they asked him, 'What then? Are you Elijah?' He said, 'I am not.' 'Are you the Prophet?' And he answered, 'No.'" },
+                    { verse: 22, text: "So they said to him, 'Who are you? We need to give an answer to those who sent us. What do you say about yourself?'" },
+                    { verse: 23, text: "He said, 'I am the voice of one crying out in the wilderness, Make straight the way of the Lord, as the prophet Isaiah said.'" },
+                    { verse: 24, text: "Now they had been sent from the Pharisees." },
+                    { verse: 25, text: "They asked him, 'Then why are you baptizing, if you are neither the Christ, nor Elijah, nor the Prophet?'" },
+                    { verse: 26, text: "John answered them, 'I baptize with water, but among you stands one you do not know," },
+                    { verse: 27, text: "even he who comes after me, the strap of whose sandal I am not worthy to untie.'" },
+                    { verse: 28, text: "These things took place in Bethany across the Jordan, where John was baptizing." },
+                    { verse: 29, text: "The next day he saw Jesus coming toward him, and said, 'Behold, the Lamb of God, who takes away the sin of the world!" },
+                    { verse: 30, text: "This is he of whom I said, After me comes a man who ranks before me, because he was before me." },
+                    { verse: 31, text: "I myself did not know him, but for this purpose I came baptizing with water, that he might be revealed to Israel.'" },
+                    { verse: 32, text: "And John bore witness: 'I saw the Spirit descend from heaven like a dove, and it remained on him." },
+                    { verse: 33, text: "I myself did not know him, but he who sent me to baptize with water said to me, He on whom you see the Spirit descend and remain, this is he who baptizes with the Holy Spirit." },
+                    { verse: 34, text: "And I have seen and have borne witness that this is the Son of God.'" },
+                    { verse: 35, text: "The next day again John was standing with two of his disciples," },
+                    { verse: 36, text: "and he looked at Jesus as he walked by and said, 'Behold, the Lamb of God!'" },
+                    { verse: 37, text: "The two disciples heard him say this, and they followed Jesus." },
+                    { verse: 38, text: "Jesus turned and saw them following and said to them, 'What are you seeking?' And they said to him, 'Rabbi' (which means Teacher), 'where are you staying?'" },
+                    { verse: 39, text: "He said to them, 'Come and you will see.' So they came and saw where he was staying, and they stayed with him that day, for it was about the tenth hour." },
+                    { verse: 40, text: "One of the two who heard John speak and followed Jesus was Andrew, Simon Peter's brother." },
+                    { verse: 41, text: "He first found his own brother Simon and said to him, 'We have found the Messiah' (which means Christ)." },
+                    { verse: 42, text: "He brought him to Jesus. Jesus looked at him and said, 'You are Simon the son of John. You shall be called Cephas' (which means Peter)." },
+                    { verse: 43, text: "The next day Jesus decided to go to Galilee. He found Philip and said to him, 'Follow me.'" },
+                    { verse: 44, text: "Now Philip was from Bethsaida, the city of Andrew and Peter." },
+                    { verse: 45, text: "Philip found Nathanael and said to him, 'We have found him of whom Moses in the Law and also the prophets wrote, Jesus of Nazareth, the son of Joseph.'" },
+                    { verse: 46, text: "Nathanael said to him, 'Can anything good come out of Nazareth?' Philip said to him, 'Come and see.'" },
+                    { verse: 47, text: "Jesus saw Nathanael coming toward him and said of him, 'Behold, an Israelite indeed, in whom there is no deceit!'" },
+                    { verse: 48, text: "Nathanael said to him, 'How do you know me?' Jesus answered him, 'Before Philip called you, when you were under the fig tree, I saw you.'" },
+                    { verse: 49, text: "Nathanael answered him, 'Rabbi, you are the Son of God! You are the King of Israel!'" },
+                    { verse: 50, text: "Jesus answered him, 'Because I said to you, I saw you under the fig tree, do you believe? You will see greater things than these.'" },
+                    { verse: 51, text: "And he said to him, 'Truly, truly, I say to you, you will see heaven opened, and the angels of God ascending and descending on the Son of Man.'" }
+                ],
+                // Add remaining ESV chapters here...
+                2: [
+                    { verse: 1, text: "On the third day there was a wedding at Cana in Galilee, and the mother of Jesus was there." },
+                    { verse: 2, text: "Jesus also was invited to the wedding with his disciples." },
+                    { verse: 3, text: "When the wine ran out, the mother of Jesus said to him, 'They have no wine.'" },
+                    { verse: 4, text: "And Jesus said to her, 'Woman, what does this have to do with me? My hour has not yet come.'" },
+                    { verse: 5, text: "His mother said to the servants, 'Do whatever he tells you.'" },
+                    { verse: 6, text: "Now there were six stone water jars there for the Jewish rites of purification, each holding twenty or thirty gallons." },
+                    { verse: 7, text: "Jesus said to the servants, 'Fill the jars with water.' And they filled them up to the brim." },
+                    { verse: 8, text: "And he said to them, 'Now draw some out and take it to the master of the feast.' So they took it." },
+                    { verse: 9, text: "When the master of the feast tasted the water now become wine, and did not know where it came from (though the servants who had drawn the water knew), the master of the feast called the bridegroom" },
+                    { verse: 10, text: "and said to him, 'Everyone serves the good wine first, and when people have drunk freely, then the poor wine. But you have kept the good wine until now.'" },
+                    { verse: 11, text: "This, the first of his signs, Jesus did at Cana in Galilee, and manifested his glory. And his disciples believed in him." },
+                    { verse: 12, text: "After this he went down to Capernaum, with his mother and his brothers and his disciples, and they stayed there for a few days." },
+                    { verse: 13, text: "The Passover of the Jews was at hand, and Jesus went up to Jerusalem." },
+                    { verse: 14, text: "In the temple he found those who were selling oxen and sheep and pigeons, and the money-changers sitting there." },
+                    { verse: 15, text: "And making a whip of cords, he drove them all out of the temple, with the sheep and oxen. And he poured out the coins of the money-changers and overturned their tables." },
+                    { verse: 16, text: "And he told those who sold the pigeons, 'Take these things away; do not make my Father's house a house of trade.'" },
+                    { verse: 17, text: "His disciples remembered that it was written, 'Zeal for your house will consume me.'" },
+                    { verse: 18, text: "So the Jews said to him, 'What sign do you show us for doing these things?'" },
+                    { verse: 19, text: "Jesus answered them, 'Destroy this temple, and in three days I will raise it up.'" },
+                    { verse: 20, text: "The Jews then said, 'It has taken forty-six years to build this temple, and will you raise it up in three days?'" },
+                    { verse: 21, text: "But he was speaking about the temple of his body." },
+                    { verse: 22, text: "When therefore he was raised from the dead, his disciples remembered that he had said this, and they believed the Scripture and the word that Jesus had spoken." },
+                    { verse: 23, text: "Now when he was in Jerusalem at the Passover Feast, many believed in his name when they saw the signs that he was doing." },
+                    { verse: 24, text: "But Jesus on his part did not entrust himself to them, because he knew all people" },
+                    { verse: 25, text: "and needed no one to bear witness about man, for he himself knew what was in man." }
                 ]
+                // Continue with remaining ESV chapters...
             }
         };
 
         // Game Data
         const triviaQuestions = [
             {
-                question: "Who wrote the Gospel of John?",
-                options: ["John the Baptist", "John the Apostle", "John Mark", "John the Elder"],
-                correct: 1
+                question: "Ni nani aliandika Injili ya Yohana?",
+                options: ["Yohana Mbatizaji", "Yohana Mtume", "Yohana Marko", "Yohana Mzee"],
+                correct: 1,
+                explanation: "Yohana Mtume, mmoja wa wanafunzi wa karibu wa Yesu, ndiye aliandika Injili hii."
             },
             {
-                question: "What does 'In the beginning was the Word' refer to?",
-                options: ["The Bible", "Jesus Christ", "God's voice", "Creation"],
-                correct: 1
+                question: "Katika Yohana 3:16, Mungu alifanya nini kwa sababu ya upendo wake?",
+                options: ["Akamtuma Musa", "Akamtoa Mwanawe wa pekee", "Akatunga sheria", "Akajenga hekalu"],
+                correct: 1,
+                explanation: "Mungu aliupenda ulimwengu hivi kwamba akamtoa Mwanawe wa pekee."
             },
             {
-                question: "According to John 1:4, what was in Jesus?",
-                options: ["Wisdom", "Power", "Life", "Glory"],
-                correct: 2
+                question: "Yesu alifanya ishara ya kwanza wapi?",
+                options: ["Yerusalemu", "Kapernaumu", "Kana ya Galilaya", "Nazareti"],
+                correct: 2,
+                explanation: "Yesu alifanya ishara ya kwanza huko Kana ya Galilaya, akibadilisha maji kuwa mvinyo."
+            },
+            {
+                question: "Ni nani alimwambia Yesu: 'Wewe ni Mwana wa Mungu'?",
+                options: ["Petro", "Andrea", "Nathanaeli", "Filipo"],
+                correct: 2,
+                explanation: "Nathanaeli alimwambia Yesu: 'Rabi, wewe ni Mwana wa Mungu! Wewe ni Mfalme wa Israeli!'"
+            },
+            {
+                question: "Katika mazungumzo na Nikodemo, Yesu alisema mtu lazima azaliwe namna gani?",
+                options: ["Upya", "Kwa maji", "Kwa roho", "Vyote hapo juu"],
+                correct: 3,
+                explanation: "Yesu alisema mtu lazima azaliwe upya, kwa maji na Roho."
             }
         ];
 
         const scrambleWords = [
-            { word: "JESUS", scrambled: "SUJSE" },
-            { word: "LIGHT", scrambled: "THGIL" },
-            { word: "WORD", scrambled: "DORW" },
-            { word: "LIFE", scrambled: "EFIL" },
-            { word: "BEGINNING", scrambled: "GNINIGEB" }
+            { word: "YESU", scrambled: "USYE", hint: "Mwokozi wetu" },
+            { word: "UPENDO", scrambled: "NOPUDE", hint: "Kitu kikuu Mungu alichotuonyesha" },
+            { word: "MWANGA", scrambled: "GANGWA", hint: "Yesu ni hiki kwa ulimwengu" },
+            { word: "UZIMA", scrambled: "MAIZU", hint: "Kile Yesu anachokipa" },
+            { word: "NEEMA", scrambled: "MEENA", hint: "Zawadi ya Mungu" },
+            { word: "UKWELI", scrambled: "LIKWEU", hint: "Yesu ni njia, uzima na..." },
+            { word: "IMANI", scrambled: "NAIMI", hint: "Tunahitaji hii kumwamini Yesu" },
+            { word: "WOKOVU", scrambled: "VUKUWO", hint: "Kile Yesu anachokipa" }
         ];
-
-        const memoryCards = ["✝️", "🙏", "❤️", "✨", "📖", "🕊️", "⭐", "🌟"];
 
         // App State
         let currentUser = null;
         let currentVersion = 'sheng';
         let currentChapter = 1;
+        let currentSection = 'dashboard';
         let gameScores = {
-            trivia: 0,
-            scramble: 0,
-            memory: 0,
-            reaction: Infinity
+            trivia: { score: 0, played: 0 },
+            scramble: { score: 0, played: 0 },
+            memory: { bestTime: 0, completed: 0 },
+            quiz: { level: 1, points: 0 }
         };
-
-        // DOM Elements
-        const loginSection = document.getElementById('loginSection');
-        const dashboard = document.getElementById('dashboard');
-        const loginForm = document.getElementById('loginForm');
-        const googleLoginBtn = document.getElementById('googleLogin');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const navButtons = document.querySelectorAll('.nav-btn');
-        const sections = document.querySelectorAll('.section');
-        const versionButtons = document.querySelectorAll('.version-btn');
-        const bibleText = document.getElementById('bibleText');
-        const currentChapterSpan = document.getElementById('currentChapter');
-        const prevChapterBtn = document.getElementById('prevChapter');
-        const nextChapterBtn = document.getElementById('nextChapter');
 
         // Initialize App
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuthState();
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                checkAuthState();
+            }, 2000);
+            
             setupEventListeners();
-            loadBibleText();
         });
 
         function checkAuthState() {
-            const savedUser = localStorage.getItem('currentUser');
+            const savedUser = localStorage.getItem('shengBibleUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
-                showDashboard();
+                showApp();
+            } else {
+                showAuth();
             }
         }
 
         function setupEventListeners() {
-            // Login
-            loginForm.addEventListener('submit', handleLogin);
-            googleLoginBtn.addEventListener('click', handleGoogleLogin);
-            logoutBtn.addEventListener('click', handleLogout);
+            // Auth listeners
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('registerForm').addEventListener('submit', handleRegister);
+            document.getElementById('googleLoginBtn').addEventListener('click', handleGoogleLogin);
+            document.getElementById('facebookLoginBtn').addEventListener('click', handleFacebookLogin);
+            document.getElementById('showRegister').addEventListener('click', showRegisterForm);
+            document.getElementById('showLogin').addEventListener('click', showLoginForm);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
 
-            // Navigation
-            navButtons.forEach(btn => {
-                btn.addEventListener('click', () => switchSection(btn.dataset.section));
+            // App navigation
+            document.getElementById('menuBtn').addEventListener('click', toggleSidebar);
+            document.getElementById('overlay').addEventListener('click', closeSidebar);
+            
+            // Sidebar navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.dataset.section) {
+                    item.addEventListener('click', () => switchSection(item.dataset.section));
+                }
             });
 
             // Bible controls
-            versionButtons.forEach(btn => {
-                btn.addEventListener('click', () => switchVersion(btn.dataset.version));
+            document.getElementById('versionSelector').addEventListener('change', switchVersion);
+            document.getElementById('prevChapter').addEventListener('click', () => changeChapter(-1));
+            document.getElementById('nextChapter').addEventListener('click', () => changeChapter(1));
+
+            // Quick actions
+            document.querySelectorAll('.quick-action').forEach(action => {
+                action.addEventListener('click', handleQuickAction);
             });
 
-            prevChapterBtn.addEventListener('click', () => changeChapter(-1));
-            nextChapterBtn.addEventListener('click', () => changeChapter(1));
-
-            // Games
+            // Game cards
             document.querySelectorAll('.game-card').forEach(card => {
                 card.addEventListener('click', () => openGame(card.dataset.game));
             });
 
-            // Modal close buttons
-            document.querySelectorAll('.close-btn').forEach(btn => {
+            // Modal close
+            document.querySelectorAll('.modal-close').forEach(btn => {
                 btn.addEventListener('click', closeModal);
             });
-
-            // Game specific listeners
-            setupGameListeners();
         }
 
+        // Authentication Functions
         function handleLogin(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
 
-            // Simple validation (in real app, this would be server-side)
             if (email && password) {
-                currentUser = { email, loginMethod: 'email' };
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                showDashboard();
+                currentUser = {
+                    email: email,
+                    name: email.split('@')[0],
+                    loginMethod: 'email',
+                    joinDate: new Date().toISOString()
+                };
+                localStorage.setItem('shengBibleUser', JSON.stringify(currentUser));
+                showApp();
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords hazifanani!');
+                return;
+            }
+
+            if (name && email && password) {
+                currentUser = {
+                    email: email,
+                    name: name,
+                    loginMethod: 'email',
+                    joinDate: new Date().toISOString()
+                };
+                localStorage.setItem('shengBibleUser', JSON.stringify(currentUser));
+                showApp();
             }
         }
 
         function handleGoogleLogin() {
-            // Simulate Google login
-            currentUser = { email: 'user@gmail.com', loginMethod: 'google' };
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            showDashboard();
+            currentUser = {
+                email: 'user@gmail.com',
+                name: 'Google User',
+                loginMethod: 'google',
+                joinDate: new Date().toISOString()
+            };
+            localStorage.setItem('shengBibleUser', JSON.stringify(currentUser));
+            showApp();
+        }
+
+        function handleFacebookLogin() {
+            currentUser = {
+                email: 'user@facebook.com',
+                name: 'Facebook User',
+                loginMethod: 'facebook',
+                joinDate: new Date().toISOString()
+            };
+            localStorage.setItem('shengBibleUser', JSON.stringify(currentUser));
+            showApp();
         }
 
         function handleLogout() {
             currentUser = null;
-            localStorage.removeItem('currentUser');
-            showLogin();
+            localStorage.removeItem('shengBibleUser');
+            showAuth();
         }
 
-        function showDashboard() {
-            loginSection.style.display = 'none';
-            dashboard.classList.add('active');
+        function showRegisterForm() {
+            document.getElementById('loginCard').classList.add('hidden');
+            document.getElementById('registerCard').classList.remove('hidden');
         }
 
-        function showLogin() {
-            dashboard.classList.remove('active');
-            loginSection.style.display = 'flex';
+        function showLoginForm() {
+            document.getElementById('registerCard').classList.add('hidden');
+            document.getElementById('loginCard').classList.remove('hidden');
+        }
+
+        function showAuth() {
+            document.getElementById('authContainer').style.display = 'flex';
+            document.getElementById('appContainer').classList.remove('active');
+        }
+
+        function showApp() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('appContainer').classList.add('active');
+            
+            // Update user info
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            
+            // Load initial content
+            loadBibleText();
+            updateDashboard();
+        }
+
+        // Navigation Functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
         }
 
         function switchSection(sectionName) {
-            navButtons.forEach(btn => btn.classList.remove('active'));
-            sections.forEach(section => section.classList.add('hidden'));
-
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
             document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+
+            // Update sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
             document.getElementById(`${sectionName}Section`).classList.remove('hidden');
+
+            currentSection = sectionName;
+            closeSidebar();
+
+            // Load section-specific content
+            if (sectionName === 'bible') {
+                loadBibleText();
+            }
         }
 
-        function switchVersion(version) {
-            currentVersion = version;
-            versionButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-version="${version}"]`).classList.add('active');
+        // Bible Functions
+        function switchVersion(e) {
+            currentVersion = e.target.value;
             loadBibleText();
         }
 
         function changeChapter(direction) {
             const newChapter = currentChapter + direction;
-            if (newChapter >= 1 && newChapter <= 21) { // John has 21 chapters
+            if (newChapter >= 1 && newChapter <= 21) {
                 currentChapter = newChapter;
-                currentChapterSpan.textContent = `Chapter ${currentChapter}`;
+                updateChapterDisplay();
                 loadBibleText();
             }
         }
 
+        function updateChapterDisplay() {
+            const chapterText = currentVersion === 'sheng' ? `Sehemu ${currentChapter}` : `Chapter ${currentChapter}`;
+            document.getElementById('chapterDisplay').textContent = chapterText;
+            
+            // Update navigation buttons
+            document.getElementById('prevChapter').disabled = currentChapter === 1;
+            document.getElementById('nextChapter').disabled = currentChapter === 21;
+        }
+
         function loadBibleText() {
             const verses = bibleData[currentVersion][currentChapter] || [];
-            bibleText.innerHTML = verses.map(verse => 
-                `<div class="verse">
+            const readerContent = document.getElementById('readerContent');
+            
+            if (verses.length === 0) {
+                readerContent.innerHTML = `
+                    <div class="text-center" style="padding: 40px;">
+                        <h3>Sehemu hii bado haijaongezwa</h3>
+                        <p>Tutaongeza content hii hivi karibuni!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            readerContent.innerHTML = verses.map(verse => `
+                <div class="verse" data-verse="${verse.verse}">
                     <span class="verse-number">${verse.verse}</span>
-                    ${verse.text}
-                </div>`
-            ).join('');
+                    <span class="verse-text">${verse.text}</span>
+                    <div class="verse-actions">
+                        <button class="verse-action" onclick="highlightVerse(${verse.verse})">📝 Highlight</button>
+                        <button class="verse-action" onclick="shareVerse(${verse.verse})">📤 Share</button>
+                        <button class="verse-action" onclick="favoriteVerse(${verse.verse})">❤️ Favorite</button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateChapterDisplay();
+
+            // Add verse click listeners
+            document.querySelectorAll('.verse').forEach(verse => {
+                verse.addEventListener('click', function() {
+                    document.querySelectorAll('.verse').forEach(v => v.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        }
+
+        // Verse Actions
+        function highlightVerse(verseNumber) {
+            const verse = document.querySelector(`[data-verse="${verseNumber}"]`);
+            verse.classList.toggle('highlighted');
+            
+            // Save to localStorage
+            const key = `highlight_${currentVersion}_${currentChapter}_${verseNumber}`;
+            if (verse.classList.contains('highlighted')) {
+                localStorage.setItem(key, 'true');
+            } else {
+                localStorage.removeItem(key);
+            }
+        }
+
+        function shareVerse(verseNumber) {
+            const verse = bibleData[currentVersion][currentChapter].find(v => v.verse === verseNumber);
+            const text = `"${verse.text}" - Yohana ${currentChapter}:${verseNumber}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Sheng Bible Verse',
+                    text: text
+                });
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Verse imecopy kwa clipboard!');
+                });
+            }
+        }
+
+        function favoriteVerse(verseNumber) {
+            const verse = bibleData[currentVersion][currentChapter].find(v => v.verse === verseNumber);
+            const favorite = {
+                version: currentVersion,
+                chapter: currentChapter,
+                verse: verseNumber,
+                text: verse.text,
+                date: new Date().toISOString()
+            };
+            
+            let favorites = JSON.parse(localStorage.getItem('shengBibleFavorites') || '[]');
+            const existingIndex = favorites.findIndex(f => 
+                f.version === currentVersion && f.chapter === currentChapter && f.verse === verseNumber
+            );
+            
+            if (existingIndex >= 0) {
+                favorites.splice(existingIndex, 1);
+                alert('Verse imeondolewa kwa favorites!');
+            } else {
+                favorites.push(favorite);
+                alert('Verse imeongezwa kwa favorites!');
+            }
+            
+            localStorage.setItem('shengBibleFavorites', JSON.stringify(favorites));
+        }
+
+        // Dashboard Functions
+        function updateDashboard() {
+            // Update daily verse (rotate based on day of year)
+            const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+            const verseIndex = dayOfYear % 5; // Rotate through first 5 verses of John 3
+            const dailyVerse = bibleData.sheng[3][verseIndex];
+            
+            if (dailyVerse) {
+                document.getElementById('dailyVerseText').textContent = `"${dailyVerse.text}"`;
+            }
+
+            // Update reading progress
+            const chaptersRead = parseInt(localStorage.getItem('chaptersRead') || '0');
+            const progressPercent = (chaptersRead / 21) * 100;
+            document.querySelector('.progress-fill').style.width = `${progressPercent}%`;
+            document.querySelector('.progress-text').textContent = 
+                `Umesoma sehemu ${chaptersRead} kati ya 21 za Yohana`;
+        }
+
+        // Quick Actions
+        function handleQuickAction(e) {
+            e.preventDefault();
+            const action = e.currentTarget.dataset.action;
+            
+            switch(action) {
+                case 'continue-reading':
+                    switchSection('bible');
+                    break;
+                case 'daily-plan':
+                    switchSection('plans');
+                    break;
+                case 'play-game':
+                    switchSection('games');
+                    break;
+                case 'share-verse':
+                    shareVerse(1); // Share John 1:1
+                    break;
+            }
         }
 
         // Game Functions
         function openGame(gameType) {
             const modal = document.getElementById(`${gameType}Modal`);
-            modal.classList.add('active');
-            
-            switch(gameType) {
-                case 'trivia':
-                    startTrivia();
-                    break;
-                case 'scramble':
-                    startScramble();
-                    break;
-                case 'memory':
-                    startMemory();
-                    break;
-                case 'reaction':
-                    startReaction();
-                    break;
+            if (modal) {
+                modal.classList.add('active');
+                initializeGame(gameType);
+            } else {
+                alert(`Game ya ${gameType} bado haijaongezwa! Tutaongeza hivi karibuni.`);
             }
         }
 
@@ -969,239 +1933,201 @@
             });
         }
 
-        function setupGameListeners() {
-            // Trivia
-            document.getElementById('nextTrivia').addEventListener('click', nextTriviaQuestion);
-
-            // Scramble
-            document.getElementById('submitWord').addEventListener('click', checkScrambleAnswer);
-            document.getElementById('wordInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') checkScrambleAnswer();
-            });
-            document.getElementById('nextScramble').addEventListener('click', nextScrambleWord);
-
-            // Memory
-            document.getElementById('resetMemory').addEventListener('click', startMemory);
-
-            // Reaction
-            document.getElementById('startReaction').addEventListener('click', startReactionGame);
-            document.getElementById('reactionArea').addEventListener('click', handleReactionClick);
+        function initializeGame(gameType) {
+            switch(gameType) {
+                case 'trivia':
+                    startTriviaGame();
+                    break;
+                case 'scramble':
+                    startScrambleGame();
+                    break;
+                case 'memory':
+                    startMemoryGame();
+                    break;
+                case 'quiz':
+                    startQuizGame();
+                    break;
+            }
         }
 
         // Trivia Game
-        let currentTriviaIndex = 0;
+        let currentTriviaQuestion = 0;
         let triviaScore = 0;
 
-        function startTrivia() {
-            currentTriviaIndex = 0;
+        function startTriviaGame() {
+            currentTriviaQuestion = 0;
             triviaScore = 0;
-            document.getElementById('triviaScore').textContent = `Score: ${triviaScore}`;
             showTriviaQuestion();
         }
 
         function showTriviaQuestion() {
-            if (currentTriviaIndex >= triviaQuestions.length) {
-                document.getElementById('triviaQuestion').textContent = `Game Complete! Final Score: ${triviaScore}/${triviaQuestions.length}`;
-                document.getElementById('triviaOptions').innerHTML = '';
+            if (currentTriviaQuestion >= triviaQuestions.length) {
+                showTriviaResults();
                 return;
             }
 
-            const question = triviaQuestions[currentTriviaIndex];
-            document.getElementById('triviaQuestion').textContent = question.question;
+            const question = triviaQuestions[currentTriviaQuestion];
+            const gameContent = document.querySelector('#triviaModal .game-content');
             
-            const optionsHtml = question.options.map((option, index) => 
-                `<div class="option" data-index="${index}">${option}</div>`
-            ).join('');
-            
-            document.getElementById('triviaOptions').innerHTML = optionsHtml;
-
-            document.querySelectorAll('#triviaOptions .option').forEach(option => {
-                option.addEventListener('click', handleTriviaAnswer);
-            });
+            gameContent.innerHTML = `
+                <h2 class="game-title">🧠 Bible Trivia</h2>
+                <div class="score">Swali ${currentTriviaQuestion + 1}/${triviaQuestions.length} | Score: ${triviaScore}</div>
+                <div class="question">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) => `
+                        <button class="option" onclick="answerTrivia(${index})">${option}</button>
+                    `).join('')}
+                </div>
+            `;
         }
 
-        function handleTriviaAnswer(e) {
-            const selectedIndex = parseInt(e.target.dataset.index);
-            const correctIndex = triviaQuestions[currentTriviaIndex].correct;
+        function answerTrivia(selectedIndex) {
+            const question = triviaQuestions[currentTriviaQuestion];
+            const options = document.querySelectorAll('#triviaModal .option');
             
-            document.querySelectorAll('#triviaOptions .option').forEach((option, index) => {
-                if (index === correctIndex) {
+            options.forEach((option, index) => {
+                if (index === question.correct) {
                     option.classList.add('correct');
-                } else if (index === selectedIndex && index !== correctIndex) {
+                } else if (index === selectedIndex) {
                     option.classList.add('wrong');
                 }
-                option.style.pointerEvents = 'none';
+                option.disabled = true;
             });
 
-            if (selectedIndex === correctIndex) {
+            if (selectedIndex === question.correct) {
                 triviaScore++;
-                document.getElementById('triviaScore').textContent = `Score: ${triviaScore}`;
             }
 
-            document.getElementById('nextTrivia').style.display = 'block';
+            setTimeout(() => {
+                currentTriviaQuestion++;
+                showTriviaQuestion();
+            }, 2000);
         }
 
-        function nextTriviaQuestion() {
-            currentTriviaIndex++;
-            document.getElementById('nextTrivia').style.display = 'none';
-            showTriviaQuestion();
+        function showTriviaResults() {
+            const gameContent = document.querySelector('#triviaModal .game-content');
+            const percentage = Math.round((triviaScore / triviaQuestions.length) * 100);
+            
+            gameContent.innerHTML = `
+                <h2 class="game-title">🎉 Game Complete!</h2>
+                <div class="score">Score: ${triviaScore}/${triviaQuestions.length} (${percentage}%)</div>
+                <div class="question">
+                    ${percentage >= 80 ? 'Poa sana! Unajua Biblia vizuri!' : 
+                      percentage >= 60 ? 'Vizuri! Endelea kusoma zaidi.' : 
+                      'Soma zaidi ili ujue Biblia vizuri zaidi!'}
+                </div>
+                <button class="btn btn-primary" onclick="startTriviaGame()">🔄 Cheza Tena</button>
+                <button class="btn btn-primary" onclick="closeModal()">✅ Maliza</button>
+            `;
+
+            // Update stats
+            gameScores.trivia.played++;
+            if (triviaScore > gameScores.trivia.score) {
+                gameScores.trivia.score = triviaScore;
+            }
+            localStorage.setItem('shengBibleGameScores', JSON.stringify(gameScores));
         }
 
         // Scramble Game
-        let currentScrambleIndex = 0;
+        let currentScrambleWord = 0;
         let scrambleScore = 0;
 
-        function startScramble() {
-            currentScrambleIndex = 0;
+        function startScrambleGame() {
+            currentScrambleWord = 0;
             scrambleScore = 0;
-            document.getElementById('scrambleScore').textContent = `Score: ${scrambleScore}`;
             showScrambleWord();
         }
 
         function showScrambleWord() {
-            if (currentScrambleIndex >= scrambleWords.length) {
-                document.getElementById('scrambledWord').textContent = `Game Complete! Score: ${scrambleScore}/${scrambleWords.length}`;
-                document.getElementById('wordInput').style.display = 'none';
-                document.getElementById('submitWord').style.display = 'none';
+            if (currentScrambleWord >= scrambleWords.length) {
+                showScrambleResults();
                 return;
             }
 
-            const word = scrambleWords[currentScrambleIndex];
-            document.getElementById('scrambledWord').textContent = word.scrambled;
-            document.getElementById('wordInput').value = '';
-            document.getElementById('wordInput').focus();
-        }
-
-        function checkScrambleAnswer() {
-            const userAnswer = document.getElementById('wordInput').value.toUpperCase();
-            const correctAnswer = scrambleWords[currentScrambleIndex].word;
+            const word = scrambleWords[currentScrambleWord];
+            const gameContent = document.querySelector('#scrambleModal .game-content');
             
-            if (userAnswer === correctAnswer) {
-                scrambleScore++;
-                document.getElementById('scrambleScore').textContent = `Score: ${scrambleScore}`;
-                document.getElementById('scrambledWord').textContent = '✅ Correct!';
-            } else {
-                document.getElementById('scrambledWord').textContent = `❌ Wrong! Answer: ${correctAnswer}`;
-            }
+            gameContent.innerHTML = `
+                <h2 class="game-title">🔤 Word Scramble</h2>
+                <div class="score">Neno ${currentScrambleWord + 1}/${scrambleWords.length} | Score: ${scrambleScore}</div>
+                <div class="scrambled-word">${word.scrambled}</div>
+                <div class="question">Hint: ${word.hint}</div>
+                <input type="text" class="word-input" id="scrambleInput" placeholder="Type your answer...">
+                <button class="btn btn-primary" onclick="checkScrambleAnswer()">✅ Submit</button>
+            `;
 
-            document.getElementById('nextScramble').style.display = 'block';
-            document.getElementById('submitWord').style.display = 'none';
-        }
-
-        function nextScrambleWord() {
-            currentScrambleIndex++;
-            document.getElementById('nextScramble').style.display = 'none';
-            document.getElementById('submitWord').style.display = 'block';
-            showScrambleWord();
-        }
-
-        // Memory Game
-        let memoryGameCards = [];
-        let flippedCards = [];
-        let memoryMoves = 0;
-
-        function startMemory() {
-            memoryMoves = 0;
-            flippedCards = [];
-            document.getElementById('memoryScore').textContent = `Moves: ${memoryMoves}`;
-            
-            // Create pairs of cards
-            memoryGameCards = [...memoryCards, ...memoryCards].sort(() => Math.random() - 0.5);
-            
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = memoryGameCards.map((card, index) => 
-                `<div class="memory-card" data-index="${index}" data-card="${card}">?</div>`
-            ).join('');
-
-            document.querySelectorAll('.memory-card').forEach(card => {
-                card.addEventListener('click', handleMemoryCardClick);
+            document.getElementById('scrambleInput').focus();
+            document.getElementById('scrambleInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkScrambleAnswer();
+                }
             });
         }
 
-        function handleMemoryCardClick(e) {
-            const card = e.target;
-            const index = parseInt(card.dataset.index);
+        function checkScrambleAnswer() {
+            const userAnswer = document.getElementById('scrambleInput').value.toUpperCase();
+            const correctAnswer = scrambleWords[currentScrambleWord].word;
+            const gameContent = document.querySelector('#scrambleModal .game-content');
             
-            if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
-                card.classList.add('flipped');
-                card.textContent = card.dataset.card;
-                flippedCards.push({ element: card, index, value: card.dataset.card });
-                
-                if (flippedCards.length === 2) {
-                    memoryMoves++;
-                    document.getElementById('memoryScore').textContent = `Moves: ${memoryMoves}`;
-                    
-                    setTimeout(() => {
-                        if (flippedCards[0].value === flippedCards[1].value) {
-                            // Match found
-                            flippedCards = [];
-                            
-                            // Check if game is complete
-                            if (document.querySelectorAll('.memory-card.flipped').length === memoryGameCards.length) {
-                                document.getElementById('memoryScore').textContent = `Complete! Moves: ${memoryMoves}`;
-                            }
-                        } else {
-                            // No match
-                            flippedCards.forEach(card => {
-                                card.element.classList.remove('flipped');
-                                card.element.textContent = '?';
-                            });
-                            flippedCards = [];
-                        }
-                    }, 1000);
+            if (userAnswer === correctAnswer) {
+                scrambleScore++;
+                gameContent.innerHTML += `<div style="color: green; margin-top: 20px;">✅ Correct! The answer is ${correctAnswer}</div>`;
+            } else {
+                gameContent.innerHTML += `<div style="color: red; margin-top: 20px;">❌ Wrong! The answer is ${correctAnswer}</div>`;
+            }
+
+            setTimeout(() => {
+                currentScrambleWord++;
+                showScrambleWord();
+            }, 2000);
+        }
+
+        function showScrambleResults() {
+            const gameContent = document.querySelector('#scrambleModal .game-content');
+            const percentage = Math.round((scrambleScore / scrambleWords.length) * 100);
+            
+            gameContent.innerHTML = `
+                <h2 class="game-title">🎉 Game Complete!</h2>
+                <div class="score">Score: ${scrambleScore}/${scrambleWords.length} (${percentage}%)</div>
+                <div class="question">
+                    ${percentage >= 80 ? 'Excellent! Una vocabulary nzuri!' : 
+                      percentage >= 60 ? 'Good job! Keep practicing!' : 
+                      'Practice more to improve your vocabulary!'}
+                </div>
+                <button class="btn btn-primary" onclick="startScrambleGame()">🔄 Play Again</button>
+                <button class="btn btn-primary" onclick="closeModal()">✅ Done</button>
+            `;
+        }
+
+        // Load saved game scores
+        const savedScores = localStorage.getItem('shengBibleGameScores');
+        if (savedScores) {
+            gameScores = JSON.parse(savedScores);
+        }
+
+        // Auto-save reading progress
+        function markChapterAsRead(chapter) {
+            let readChapters = JSON.parse(localStorage.getItem('readChapters') || '[]');
+            if (!readChapters.includes(chapter)) {
+                readChapters.push(chapter);
+                localStorage.setItem('readChapters', JSON.stringify(readChapters));
+                localStorage.setItem('chaptersRead', readChapters.length.toString());
+                updateDashboard();
+            }
+        }
+
+        // Mark current chapter as read when user scrolls to bottom
+        function setupReadingProgress() {
+            const readerContent = document.getElementById('readerContent');
+            readerContent.addEventListener('scroll', function() {
+                if (readerContent.scrollTop + readerContent.clientHeight >= readerContent.scrollHeight - 10) {
+                    markChapterAsRead(currentChapter);
                 }
-            }
+            });
         }
 
-        // Reaction Game
-        let reactionStartTime = 0;
-        let reactionTimeout = null;
-        let reactionBestTime = Infinity;
-        let reactionGameActive = false;
-
-        function startReaction() {
-            reactionBestTime = localStorage.getItem('reactionBestTime') || Infinity;
-            if (reactionBestTime !== Infinity) {
-                document.getElementById('reactionScore').textContent = `Best Time: ${reactionBestTime}ms`;
-            }
-        }
-
-        function startReactionGame() {
-            const area = document.getElementById('reactionArea');
-            area.textContent = 'Wait for GREEN...';
-            area.classList.remove('active');
-            reactionGameActive = false;
-            
-            const delay = Math.random() * 3000 + 2000; // 2-5 seconds
-            
-            reactionTimeout = setTimeout(() => {
-                area.textContent = 'CLICK NOW!';
-                area.classList.add('active');
-                reactionStartTime = Date.now();
-                reactionGameActive = true;
-            }, delay);
-        }
-
-        function handleReactionClick() {
-            if (reactionGameActive) {
-                const reactionTime = Date.now() - reactionStartTime;
-                reactionGameActive = false;
-                
-                document.getElementById('reactionArea').classList.remove('active');
-                document.getElementById('reactionArea').textContent = `${reactionTime}ms`;
-                
-                if (reactionTime < reactionBestTime) {
-                    reactionBestTime = reactionTime;
-                    localStorage.setItem('reactionBestTime', reactionBestTime);
-                    document.getElementById('reactionScore').textContent = `New Best: ${reactionBestTime}ms`;
-                }
-            } else if (reactionTimeout) {
-                // Clicked too early
-                clearTimeout(reactionTimeout);
-                document.getElementById('reactionArea').textContent = 'Too early! Try again';
-                document.getElementById('reactionArea').classList.remove('active');
-            }
-        }
+        // Initialize reading progress tracking
+        setTimeout(setupReadingProgress, 1000);
     </script>
 </body>
 </html>
