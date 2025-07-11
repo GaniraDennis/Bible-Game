@@ -3,895 +3,530 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bible Adventures - Fun Games for Kids!</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Sign-In API -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>Sheng Bible - Book of John | Youth for Christ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@300;400;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-neon: #00ff88;
+            --secondary-neon: #ff0080;
+            --accent-blue: #00d4ff;
+            --accent-purple: #8b00ff;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+        }
+
         body {
-            font-family: 'Comic Neue', cursive;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, var(--dark-bg), #1a0a1a, #0a1a1a);
+            color: var(--text-light);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        /* Animated Background Elements */
-        .bg-stars {
+        /* Animated Background */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: -1;
+            opacity: 0.1;
         }
 
-        .star {
+        .bg-animation::before {
+            content: '';
             position: absolute;
-            color: #fff;
-            animation: twinkle 2s infinite alternate;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-neon) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.2); }
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* Enhanced Login Page Styles */
-        .auth-container {
+        /* Header */
+        .header {
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px var(--primary-neon);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px var(--primary-neon)); }
+            to { filter: drop-shadow(0 0 40px var(--secondary-neon)); }
+        }
+
+        .tagline {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            font-weight: 300;
+        }
+
+        /* Login Section */
+        .login-section {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 2rem;
+            min-height: 80vh;
+            padding: 40px 0;
         }
 
-        .auth-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            animation: slideInUp 0.8s ease-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .auth-logo {
-            font-family: 'Fredoka One', cursive;
-            font-size: 2.5rem;
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 2rem;
-            background: rgba(0,0,0,0.1);
-            border-radius: 25px;
-            padding: 0.5rem;
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 0.8rem;
-            border: none;
-            background: transparent;
+        .login-card {
+            background: var(--card-bg);
             border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            max-width: 400px;
+            width: 100%;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 2rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #666;
-        }
-
-        .auth-tab.active {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 1rem;
+            margin-bottom: 30px;
+            color: var(--primary-neon);
         }
 
         .form-group {
-            position: relative;
-            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-gray);
         }
 
         .form-input {
             width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
+            padding: 15px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-light);
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #ff6b6b;
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
-            transform: scale(1.02);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
-        .form-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-            font-size: 1.2rem;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
+        .btn {
+            padding: 15px 30px;
             border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        .auth-btn {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 5px 15px rgba(255,107,107,0.4); }
-            100% { box-shadow: 0 5px 25px rgba(255,107,107,0.8); }
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        .auth-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Google Sign-In Button */
-        .google-signin-btn {
-            background: white;
-            color: #333;
-            border: 2px solid #e0e0e0;
-            padding: 1rem 2rem;
-            border-radius: 25px;
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .google-signin-btn:hover {
-            border-color: #4285f4;
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .google-icon {
-            width: 20px;
-            height: 20px;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZD0iTTE3LjY0IDkuMjA0NTQ1NDVjMC0uNjM5NzI3MjctLjA1NzI3MjczLTEuMjUyMjcyNzMtLjE2MzYzNjM2LTEuODQwOTA5MDlIOXY0LjQ2MzYzNjM2aDQuODQ0MDkwOTFjLS4yMDQ1NDU0NSAxLjEyNzI3MjczLS44MjcyNzI3MyAyLjA4MTgxODE4LTEuNzU5MDkwOTEgMi43MjI3MjcyN3YyLjI1OTA5MDkxaDIuODQwOTA5MDljMS42NTQ1NDU0NS0xLjUyNzI3MjczIDIuNjA5MDkwOTEtMy43NzI3MjcyNyAyLjYwOTA5MDkxLTYuNDM2MzYzNjR6IiBmaWxsPSIjNDI4NUY0Ii8+CiAgICA8cGF0aCBkPSJNOSAxOGMxLjYzNjM2MzY0IDAgMy4wMDkwOTA5MS0uNTQ1NDU0NTUgNC4wMDkwOTA5MS0xLjQ3NzI3MjczTDEwLjE2ODEgMTQuMjVDOS40NTQ1NDU0NSAxNC42MzYzNjM2NCA4LjU5MDkwOTA5IDE0Ljg2MzYzNjM2IDkgMTQuODYzNjM2MzZjLTEuNzU5MDkwOTEgMC0zLjI0NTQ1NDU1LTEuMTkwOTA5MDktMy43NzcyNzI3My0yLjc5NTQ1NDU1SDIuMzE4MTgxODJ2Mi4zNDA5MDkwOUM0LjMxODE4MTgyIDE2LjY4MTgxODE4IDYuNDc3MjcyNzMgMTggOSAxOHoiIGZpbGw9IiMzNEE4NTMiLz4KICAgIDxwYXRoIGQ9Ik01LjIyMjcyNzI3IDEyLjA2ODE4MThDNS4wMjI3MjcyNyAxMS40NTQ1NDU0IDQuOTA5MDkwOTEgMTAuODE4MTgxOCA0LjkwOTA5MDkxIDEwLjE4MTgxODJzLjExMzYzNjM2LTEuMjcyNzI3MjcuMzEzNjM2MzYtMS44ODYzNjM2NFY2LjI5NTQ1NDU1SDIuMzE4MTgxODJDMS42ODYzNjM2NCA3LjU1OTA5MDkxIDEuMzYzNjM2MzYgOC44NDA5MDkwOSAxLjM2MzYzNjM2IDEwLjE4MTgxODJzLjMyMjcyNzI3IDIuNjIyNzI3MjcuOTU0NTQ1NDYgMy44ODYzNjM2NGwyLjkwNDU0NTQ1LTIuMjcyNzI3Mjd6IiBmaWxsPSIjRkJCQzA0Ii8+CiAgICA8cGF0aCBkPSJNOSA0LjM2MzYzNjM2YzEuMDIyNzI3MjcgMCAxLjk1NDU0NTQ1LjM2MzYzNjM2IDIuNjgxODE4MTggMS4wNjgxODE4MmwyLjAwOTA5MDkxLTIuMDA5MDkwOTFDMTIuMDA5MDkwOTEgMS45NTQ1NDU0NSAxMC42MzYzNjM2IDEuMzYzNjM2MzYgOSAxLjM2MzYzNjM2Yy0yLjUyMjcyNzI3IDAtNC42ODE4MTgxOCAxLjMxODE4MTgyLTUuNjgxODE4MTggMy4yNzI3MjcyN2wyLjkwNDU0NTQ1IDIuMjcyNzI3MjdDNi43NTQ1NDU0NSA1LjU1NDU0NTQ1IDcuNzU5MDkwOTEgNC4zNjM2MzYzNiA5IDQuMzYzNjM2MzZ6IiBmaWxsPSIjRUE0MzM1Ii8+CiAgPC9nPgo8L3N2Zz4K') no-repeat center;
-            background-size: contain;
-        }
-
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            margin: 1.5rem 0;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .auth-divider::before,
-        .auth-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e0e0e0;
-        }
-
-        .auth-divider span {
-            padding: 0 1rem;
-        }
-
-        /* Avatar Selection Styles */
-        .avatar-section {
-            margin: 1.5rem 0;
-        }
-
-        .avatar-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .avatar-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .avatar-option {
-            aspect-ratio: 1;
-            border: 3px solid transparent;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .avatar-option:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .avatar-option.selected {
-            border-color: #ff6b6b;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(255,107,107,0.4);
-        }
-
-        .avatar-name {
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-top: 0.2rem;
-            text-align: center;
-            line-height: 1;
-        }
-
-        .gender-tabs {
-            display: flex;
-            margin-bottom: 1rem;
-            background: rgba(0,0,0,0.1);
-            border-radius: 20px;
-            padding: 0.3rem;
-        }
-
-        .gender-tab {
-            flex: 1;
-            padding: 0.5rem;
-            border: none;
-            background: transparent;
-            border-radius: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .gender-tab.active {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-        }
-
-        /* Form Validation */
-        .form-error {
-            color: #ff6b6b;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            text-align: left;
-        }
-
-        .form-input.error {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .form-success {
-            color: #4ecdc4;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 0.5rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Instructions Modal */
-        .instructions-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-neon), var(--accent-blue));
+            color: var(--dark-bg);
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            padding: 2rem;
+            margin-bottom: 15px;
         }
 
-        .instructions-content {
-            background: white;
-            border-radius: 30px;
-            padding: 3rem;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideInUp 0.5s ease-out;
-        }
-
-        .instructions-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .instructions-close:hover {
-            background: #ff5252;
-            transform: scale(1.1);
-        }
-
-        .instructions-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 2rem;
-            color: #ff6b6b;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .instructions-step {
-            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-            padding: 1rem;
-            border-radius: 15px;
-            margin: 1rem 0;
-            border-left: 5px solid #4ecdc4;
-        }
-
-        .instructions-step h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .instructions-step p {
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .instructions-btn {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 0.5rem;
-        }
-
-        .instructions-btn:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
         }
 
-        /* Navigation */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid #ff6b6b;
+        .btn-google {
+            background: linear-gradient(45deg, #db4437, #ff6b6b);
+            color: white;
+            width: 100%;
         }
 
-        .nav-container {
+        .btn-google:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(219, 68, 55, 0.4);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .dashboard.active {
+            display: block;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
         }
 
-        .logo {
-            font-family: 'Fredoka One', cursive;
-            font-size: 2rem;
-            color: #ff6b6b;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            animation: bounce 2s infinite;
-        }
-
-        .nav-links {
+        .nav-buttons {
             display: flex;
-            list-style: none;
-            gap: 1rem;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 700;
-            padding: 0.5rem 1rem;
+        .nav-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--primary-neon);
+            color: var(--primary-neon);
             border-radius: 25px;
+            cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        .nav-links a:hover {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.5rem;
-            border: 3px solid white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--primary-neon);
+            color: var(--dark-bg);
+            transform: scale(1.05);
         }
 
         .logout-btn {
-            background: #ff6b6b;
+            background: var(--secondary-neon);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
         .logout-btn:hover {
-            background: #ff5252;
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Section Styles */
-        .section {
-            display: none;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Dashboard Styles */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .dashboard-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
+        /* Bible Section */
+        .bible-section {
+            background: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
         }
 
-        .dashboard-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
+        .bible-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .dashboard-card:hover::before {
-            left: 100%;
+        .version-toggle {
+            display: flex;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 25px;
+            padding: 5px;
         }
 
-        .dashboard-card:hover {
-            transform: translateY(-10px) rotate(2deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .dashboard-icon {
-            font-size: 3rem;
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .dashboard-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        .dashboard-label {
-            color: #666;
-            font-weight: 600;
-        }
-
-        /* Level Progress */
-        .level-progress {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
+        .version-btn {
+            padding: 10px 20px;
+            border: none;
             border-radius: 20px;
-            margin: 2rem 0;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .level-bar {
-            width: 100%;
-            height: 30px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-
-        .level-fill {
-            height: 100%;
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-            border-radius: 15px;
-            transition: width 1s ease-out;
-            position: relative;
-        }
-
-        .level-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Game Styles */
-        .game-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .game-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .game-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 2.5rem;
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-        }
-
-        .difficulty-indicator {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            margin: 0.5rem;
-        }
-
-        .difficulty-easy { background: #4ecdc4; color: white; }
-        .difficulty-medium { background: #feca57; color: white; }
-        .difficulty-hard { background: #ff6b6b; color: white; }
-
-        .question-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: slideInLeft 0.5s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .question-number {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-bottom: 0.5rem;
-        }
-
-        .question-text {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .answers {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .answer-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 1rem;
-            border-radius: 15px;
+            background: transparent;
+            color: var(--text-gray);
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
         }
 
-        .answer-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .version-btn.active {
+            background: var(--primary-neon);
+            color: var(--dark-bg);
         }
 
-        .answer-btn.correct {
-            background: #4ecdc4;
-            border-color: #4ecdc4;
-            animation: correctAnswer 0.6s ease-out;
+        .chapter-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
-        .answer-btn.incorrect {
-            background: #ff6b6b;
-            border-color: #ff6b6b;
-            animation: shake 0.6s ease-out;
+        .chapter-btn {
+            padding: 8px 15px;
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        @keyframes correctAnswer {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        .chapter-btn:hover {
+            transform: scale(1.1);
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+        .bible-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--text-light);
         }
 
-        /* Game Selection Grid */
+        .verse {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .verse:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateX(10px);
+        }
+
+        .verse-number {
+            color: var(--primary-neon);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        /* Games Section */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
         .game-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
+            background: var(--card-bg);
             border-radius: 20px;
+            padding: 30px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,107,107,0.1) 0%, transparent 70%);
-            animation: rotate 10s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .game-card:hover::before {
-            opacity: 1;
         }
 
         .game-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
         }
 
         .game-icon {
-            font-size: 4rem;
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .game-name {
+        .game-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 1rem;
+            margin-bottom: 15px;
+            color: var(--primary-neon);
         }
 
         .game-description {
-            color: #666;
-            margin-bottom: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 20px;
         }
 
-        .play-btn {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 0.8rem 1.5rem;
+        /* Game Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
             border: none;
-            border-radius: 25px;
-            font-weight: 700;
+            color: var(--text-gray);
+            font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .play-btn:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        .close-btn:hover {
+            color: var(--secondary-neon);
+            transform: scale(1.2);
         }
 
-        /* Memory Game Styles */
+        .game-content {
+            text-align: center;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: var(--text-light);
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+        }
+
+        .option:hover {
+            border-color: var(--primary-neon);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .option.correct {
+            background: rgba(0, 255, 136, 0.3);
+            border-color: var(--primary-neon);
+        }
+
+        .option.wrong {
+            background: rgba(255, 0, 128, 0.3);
+            border-color: var(--secondary-neon);
+        }
+
+        .score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-neon);
+            margin-bottom: 20px;
+        }
+
+        /* Word Scramble Game */
+        .scrambled-word {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin: 20px 0;
+            letter-spacing: 3px;
+        }
+
+        .word-input {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid var(--primary-neon);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-light);
+            text-align: center;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        /* Memory Game */
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+            gap: 10px;
             max-width: 400px;
-            margin: 2rem auto;
+            margin: 0 auto;
         }
 
         .memory-card {
             aspect-ratio: 1;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 15px;
+            background: var(--accent-purple);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: white;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            transform-style: preserve-3d;
         }
 
         .memory-card:hover {
@@ -899,618 +534,674 @@
         }
 
         .memory-card.flipped {
-            transform: rotateY(180deg);
+            background: var(--primary-neon);
+            color: var(--dark-bg);
         }
 
-        .memory-card.matched {
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-            animation: matchedCard 0.6s ease-out;
-        }
-
-        @keyframes matchedCard {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* Word Scramble Styles */
-        .scramble-container {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .scrambled-word {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #ff6b6b;
-            margin: 2rem 0;
-            letter-spacing: 0.2em;
-            animation: wiggle 2s infinite;
-        }
-
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(1deg); }
-            75% { transform: rotate(-1deg); }
-        }
-
-        .scramble-input {
-            width: 100%;
-            max-width: 300px;
-            padding: 1rem;
-            font-size: 1.5rem;
-            text-align: center;
-            border: 3px solid #ff6b6b;
-            border-radius: 25px;
-            margin: 1rem 0;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .scramble-input:focus {
-            outline: none;
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
-            transform: scale(1.05);
-        }
-
-        /* Drag and Drop Styles */
-        .drag-container {
+        /* Reaction Game */
+        .reaction-area {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--secondary-neon);
+            margin: 30px auto;
             display: flex;
-            justify-content: space-between;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .drag-source, .drag-target {
-            flex: 1;
-            min-width: 250px;
-            padding: 2rem;
-            border-radius: 20px;
-            min-height: 300px;
-        }
-
-        .drag-source {
-            background: rgba(255, 107, 107, 0.1);
-            border: 3px dashed #ff6b6b;
-        }
-
-        .drag-target {
-            background: rgba(78, 205, 196, 0.1);
-            border: 3px dashed #4ecdc4;
-        }
-
-        .drag-item {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border-radius: 15px;
-            cursor: grab;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
-        .drag-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        .reaction-area:hover {
+            transform: scale(1.1);
         }
 
-        .drag-item.dragging {
-            opacity: 0.5;
-            transform: rotate(5deg);
+        .reaction-area.active {
+            background: var(--primary-neon);
+            animation: pulse 0.5s infinite;
         }
 
-        /* Coin Animation */
-        .coin {
-            position: fixed;
-            font-size: 2rem;
-            color: #feca57;
-            pointer-events: none;
-            z-index: 1000;
-            animation: coinFly 2s ease-out forwards;
-        }
-
-        @keyframes coinFly {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(720deg) scale(0);
-                opacity: 0;
-            }
-        }
-
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            pointer-events: none;
-            z-index: 1000;
-            animation: confettiFall 3s ease-out forwards;
-        }
-
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .auth-card {
-                padding: 2rem;
-                margin: 1rem;
-            }
-            
-            .avatar-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .form-row {
-                flex-direction: column;
-            }
-            
-            .nav-links {
-                gap: 0.5rem;
-            }
-            
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 0.4rem 0.8rem;
-            }
-            
-            .game-title {
+            .logo {
                 font-size: 2rem;
             }
-            
-            .dashboard-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+            .login-card {
+                margin: 20px;
+                padding: 30px 20px;
             }
-            
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .bible-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
             .games-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .drag-container {
-                flex-direction: column;
-            }
-            
-            .memory-grid {
-                grid-template-columns: repeat(3, 1fr);
-                max-width: 300px;
-            }
 
-            .instructions-content {
-                padding: 2rem;
-                margin: 1rem;
+            .modal-content {
+                margin: 20px;
+                padding: 30px 20px;
             }
         }
 
-        /* Sound Toggle */
-        .sound-toggle {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .sound-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Hide elements initially */
-        .app-content {
-            display: none;
-        }
-
-        .auth-page {
-            display: block;
+        /* Hidden class */
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background Stars -->
-    <div class="bg-stars" id="stars"></div>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">SHENG BIBLE</h1>
+            <p class="tagline">Book of John | Youth for Christ</p>
+        </header>
 
-    <!-- Instructions Modal -->
-    <div class="instructions-modal" id="instructionsModal">
-        <div class="instructions-content">
-            <button class="instructions-close" onclick="closeInstructions()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div id="instructionsText"></div>
-        </div>
-    </div>
-
-    <!-- Authentication Page -->
-    <div class="auth-page" id="authPage">
-        <div class="auth-container">
-            <div class="auth-card">
-                <div class="auth-logo">
-                    <i class="fas fa-cross"></i> Bible Adventures
-                </div>
-                <p style="color: #666; margin-bottom: 2rem;">Join the ultimate Bible learning adventure!</p>
-                
-                <!-- Auth Tabs -->
-                <div class="auth-tabs">
-                    <button class="auth-tab active" onclick="switchAuthMode('login')">Login</button>
-                    <button class="auth-tab" onclick="switchAuthMode('register')">Sign Up</button>
-                </div>
-
-                <!-- Login Form -->
-                <div id="loginForm" class="auth-form">
-                    <!-- Google Sign-In Button -->
-                    <button class="google-signin-btn" onclick="signInWithGoogle()">
-                        <div class="google-icon"></div>
-                        Continue with Google
-                    </button>
-                    
-                    <div class="auth-divider">
-                        <span>or</span>
-                    </div>
-
+        <!-- Login Section -->
+        <section class="login-section" id="loginSection">
+            <div class="login-card">
+                <h2 class="login-title">Welcome Fam!</h2>
+                <form id="loginForm">
                     <div class="form-group">
-                        <i class="fas fa-envelope form-icon"></i>
-                        <input type="email" class="form-input" placeholder="Email address" id="loginEmail" required>
-                        <div class="form-error" id="loginEmailError"></div>
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-input" required>
                     </div>
-                    
                     <div class="form-group">
-                        <i class="fas fa-lock form-icon"></i>
-                        <input type="password" class="form-input" placeholder="Password" id="loginPassword" required>
-                        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <div class="form-error" id="loginPasswordError"></div>
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-input" required>
                     </div>
-                    
-                    <button type="button" class="auth-btn" onclick="loginUser()" id="loginBtn">
-                        <i class="fas fa-sign-in-alt"></i> Login to Adventure!
-                    </button>
-                    
-                    <p style="color: #999; font-size: 0.9rem; margin-top: 1rem;">
-                        Forgot your password? <a href="#" style="color: #ff6b6b;">Reset it here</a>
-                    </p>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <button class="btn btn-google" id="googleLogin">🚀 Login with Google</button>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="dashboard" id="dashboard">
+            <nav class="nav-bar">
+                <div class="nav-buttons">
+                    <button class="nav-btn active" data-section="bible">📖 Bible</button>
+                    <button class="nav-btn" data-section="games">🎮 Games</button>
                 </div>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </nav>
 
-                <!-- Registration Form -->
-                <div id="registerForm" class="auth-form" style="display: none;">
-                    <!-- Google Sign-In Button -->
-                    <button class="google-signin-btn" onclick="signInWithGoogle()">
-                        <div class="google-icon"></div>
-                        Sign up with Google
-                    </button>
-                    
-                    <div class="auth-divider">
-                        <span>or</span>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <i class="fas fa-user form-icon"></i>
-                            <input type="text" class="form-input" placeholder="Username" id="registerUsername" required>
-                            <div class="form-error" id="registerUsernameError"></div>
+            <!-- Bible Section -->
+            <div class="section" id="bibleSection">
+                <div class="bible-section">
+                    <div class="bible-controls">
+                        <div class="version-toggle">
+                            <button class="version-btn active" data-version="sheng">Sheng</button>
+                            <button class="version-btn" data-version="esv">ESV</button>
                         </div>
-                        
-                        <div class="form-group">
-                            <i class="fas fa-birthday-cake form-icon"></i>
-                            <input type="number" class="form-input" placeholder="Age" id="registerAge" min="10" required>
-                            <div class="form-error" id="registerAgeError"></div>
+                        <div class="chapter-nav">
+                            <button class="chapter-btn" id="prevChapter">← Prev</button>
+                            <span id="currentChapter">Chapter 1</span>
+                            <button class="chapter-btn" id="nextChapter">Next →</button>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <i class="fas fa-envelope form-icon"></i>
-                        <input type="email" class="form-input" placeholder="Email address" id="registerEmail" required>
-                        <div class="form-error" id="registerEmailError"></div>
+                    <div class="bible-text" id="bibleText">
+                        <!-- Bible content will be loaded here -->
                     </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <i class="fas fa-lock form-icon"></i>
-                            <input type="password" class="form-input" placeholder="Password" id="registerPassword" required>
-                            <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <div class="form-error" id="registerPasswordError"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <i class="fas fa-lock form-icon"></i>
-                            <input type="password" class="form-input" placeholder="Confirm Password" id="confirmPassword" required>
-                            <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <div class="form-error" id="confirmPasswordError"></div>
-                        </div>
-                    </div>
-
-                    <!-- Avatar Selection -->
-                    <div class="avatar-section">
-                        <div class="avatar-title">Choose Your Bible Character Avatar</div>
-                        
-                        <div class="gender-tabs">
-                            <button class="gender-tab active" onclick="switchGender('male')">
-                                <i class="fas fa-mars"></i> Male Characters
-                            </button>
-                            <button class="gender-tab" onclick="switchGender('female')">
-                                <i class="fas fa-venus"></i> Female Characters
-                            </button>
-                        </div>
-
-                        <!-- Male Avatars -->
-                        <div class="avatar-grid" id="maleAvatars">
-                            <div class="avatar-option" data-avatar="david" onclick="selectAvatar('david', '👑')">
-                                <div>👑</div>
-                                <div class="avatar-name">David</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="moses" onclick="selectAvatar('moses', '🏔️')">
-                                <div>🏔️</div>
-                                <div class="avatar-name">Moses</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="noah" onclick="selectAvatar('noah', '🚢')">
-                                <div>🚢</div>
-                                <div class="avatar-name">Noah</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="daniel" onclick="selectAvatar('daniel', '🦁')">
-                                <div>🦁</div>
-                                <div class="avatar-name">Daniel</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="abraham" onclick="selectAvatar('abraham', '⭐')">
-                                <div>⭐</div>
-                                <div class="avatar-name">Abraham</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="jonah" onclick="selectAvatar('jonah', '🐋')">
-                                <div>🐋</div>
-                                <div class="avatar-name">Jonah</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="joshua" onclick="selectAvatar('joshua', '⚔️')">
-                                <div>⚔️</div>
-                                <div class="avatar-name">Joshua</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="solomon" onclick="selectAvatar('solomon', '🏛️')">
-                                <div>🏛️</div>
-                                <div class="avatar-name">Solomon</div>
-                            </div>
-                        </div>
-
-                        <!-- Female Avatars -->
-                        <div class="avatar-grid" id="femaleAvatars" style="display: none;">
-                            <div class="avatar-option" data-avatar="mary" onclick="selectAvatar('mary', '🌹')">
-                                <div>🌹</div>
-                                <div class="avatar-name">Mary</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="esther" onclick="selectAvatar('esther', '👸')">
-                                <div>👸</div>
-                                <div class="avatar-name">Esther</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="ruth" onclick="selectAvatar('ruth', '🌾')">
-                                <div>🌾</div>
-                                <div class="avatar-name">Ruth</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="deborah" onclick="selectAvatar('deborah', '⚖️')">
-                                <div>⚖️</div>
-                                <div class="avatar-name">Deborah</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="sarah" onclick="selectAvatar('sarah', '🏠')">
-                                <div>🏠</div>
-                                <div class="avatar-name">Sarah</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="miriam" onclick="selectAvatar('miriam', '🎵')">
-                                <div>🎵</div>
-                                <div class="avatar-name">Miriam</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="hannah" onclick="selectAvatar('hannah', '🙏')">
-                                <div>🙏</div>
-                                <div class="avatar-name">Hannah</div>
-                            </div>
-                            <div class="avatar-option" data-avatar="lydia" onclick="selectAvatar('lydia', '💜')">
-                                <div>💜</div>
-                                <div class="avatar-name">Lydia</div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-error" id="avatarError"></div>
-                    </div>
-                    
-                    <button type="button" class="auth-btn" onclick="registerUser()" id="registerBtn">
-                        <i class="fas fa-user-plus"></i> Start My Adventure!
-                    </button>
-                    
-                    <p style="color: #999; font-size: 0.9rem; margin-top: 1rem;">
-                        By signing up, you agree to our <a href="#" style="color: #ff6b6b;">Terms of Service</a>
-                    </p>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Main App Content -->
-    <div class="app-content" id="appContent">
-        <!-- Navigation -->
-        <nav>
-            <div class="nav-container">
-                <div class="logo">
-                    <i class="fas fa-cross"></i> Bible Adventures
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#" onclick="showSection('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li><a href="#" onclick="showSection('games')"><i class="fas fa-gamepad"></i> Games</a></li>
-                    <li><a href="#" onclick="showSection('quiz')"><i class="fas fa-question-circle"></i> Bible Quiz</a></li>
-                    <li><a href="#" onclick="showSection('memory')"><i class="fas fa-brain"></i> Memory</a></li>
-                    <li><a href="#" onclick="showSection('scramble')"><i class="fas fa-spell-check"></i> Word Scramble</a></li>
-                    <li><a href="#" onclick="showSection('dragdrop')"><i class="fas fa-hand-rock"></i> Match Game</a></li>
-                    <li><a href="#" onclick="showSection('story')"><i class="fas fa-book-open"></i> Story Builder</a></li>
-                    <li><a href="#" onclick="showSection('rewards')"><i class="fas fa-gift"></i> Rewards</a></li>
-                </ul>
-                <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">👑</div>
-                    <div>
-                        <div style="font-weight: 700;" id="userName">Player</div>
-                        <div style="font-size: 0.8rem; color: #666;">Level <span id="userLevel">1</span></div>
-                    </div>
-                    <button class="logout-btn" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Sound Toggle -->
-        <button class="sound-toggle" onclick="toggleSound()" id="soundBtn">
-            <i class="fas fa-volume-up"></i>
-        </button>
-
-        <div class="container">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="section active">
-                <div class="game-header">
-                    <h1 class="game-title">
-                        <i class="fas fa-tachometer-alt"></i> Your Bible Adventure Dashboard
-                    </h1>
-                    <p style="font-size: 1.2rem; color: #666;">Track your progress and achievements!</p>
-                </div>
-
-                <!-- Level Progress -->
-                <div class="level-progress">
-                    <h3 style="text-align: center; color: #ff6b6b; margin-bottom: 1rem;">
-                        <i class="fas fa-star"></i> Level Progress
-                    </h3>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <span style="font-weight: 700;">Level <span id="currentLevel">1</span></span>
-                        <span style="font-weight: 700;"><span id="currentXP">0</span> / <span id="nextLevelXP">100</span> XP</span>
-                    </div>
-                    <div class="level-bar">
-                        <div class="level-fill" id="levelFill" style="width: 0%;"></div>
-                    </div>
-                    <div class="difficulty-indicator" id="difficultyLevel">Easy Mode</div>
-                </div>
-
-                <!-- Stats Grid -->
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <div class="dashboard-icon"><i class="fas fa-star"></i></div>
-                        <div class="dashboard-value" id="totalScore">0</div>
-                        <div class="dashboard-label">Total Score</div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="dashboard-icon"><i class="fas fa-coins"></i></div>
-                        <div class="dashboard-value" id="totalCoins">0</div>
-                        <div class="dashboard-label">Coins Earned</div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="dashboard-icon"><i class="fas fa-gamepad"></i></div>
-                        <div class="dashboard-value" id="gamesPlayed">0</div>
-                        <div class="dashboard-label">Games Played</div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="dashboard-icon"><i class="fas fa-check-circle"></i></div>
-                        <div class="dashboard-value" id="correctAnswers">0</div>
-                        <div class="dashboard-label">Correct Answers</div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="dashboard-icon"><i class="fas fa-fire"></i></div>
-                        <div class="dashboard-value" id="currentStreak">0</div>
-                        <div class="dashboard-label">Current Streak</div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="dashboard-icon"><i class="fas fa-trophy"></i></div>
-                        <div class="dashboard-value" id="achievements">0</div>
-                        <div class="dashboard-label">Achievements</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Games Selection Section -->
-            <section id="games" class="section">
-                <div class="game-header">
-                    <h1 class="game-title">
-                        <i class="fas fa-gamepad"></i> Choose Your Adventure!
-                    </h1>
-                    <p style="font-size: 1.2rem; color: #666;">Pick a game and start learning God's Word!</p>
-                </div>
-
+            <!-- Games Section -->
+            <div class="section hidden" id="gamesSection">
                 <div class="games-grid">
-                    <div class="game-card" onclick="showSection('quiz')">
-                        <div class="game-icon"><i class="fas fa-question-circle"></i></div>
-                        <div class="game-name">Bible Quiz Challenge</div>
-                        <div class="game-description">Test your Bible knowledge with progressive difficulty levels!</div>
-                        <button class="instructions-btn" onclick="showInstructions('quiz')">
-                            <i class="fas fa-info-circle"></i> How to Play
-                        </button>
-                        <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
+                    <div class="game-card" data-game="trivia">
+                        <span class="game-icon">🧠</span>
+                        <h3 class="game-title">Bible Trivia</h3>
+                        <p class="game-description">Test your knowledge of John's Gospel</p>
+                        <button class="btn btn-primary">Play Now</button>
                     </div>
-                    
-                    <div class="game-card" onclick="showSection('memory')">
-                        <div class="game-icon"><i class="fas fa-brain"></i></div>
-                        <div class="game-name">Memory Match</div>
-                        <div class="game-description">Match Bible characters, verses, and stories!</div>
-                        <button class="instructions-btn" onclick="showInstructions('memory')">
-                            <i class="fas fa-info-circle"></i> How to Play
-                        </button>
-                        <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
+                    <div class="game-card" data-game="scramble">
+                        <span class="game-icon">🔤</span>
+                        <h3 class="game-title">Word Scramble</h3>
+                        <p class="game-description">Unscramble biblical words</p>
+                        <button class="btn btn-primary">Play Now</button>
                     </div>
-                    
-                    <div class="game-card" onclick="showSection('scramble')">
-                        <div class="game-icon"><i class="fas fa-spell-check"></i></div>
-                        <div class="game-name">Word Scramble</div>
-                        <div class="game-description">Unscramble Bible words and verses!</div>
-                        <button class="instructions-btn" onclick="showInstructions('scramble')">
-                            <i class="fas fa-info-circle"></i> How to Play
-                        </button>
-                        <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
+                    <div class="game-card" data-game="memory">
+                        <span class="game-icon">🧩</span>
+                        <h3 class="game-title">Memory Match</h3>
+                        <p class="game-description">Match biblical concepts</p>
+                        <button class="btn btn-primary">Play Now</button>
                     </div>
-                    
-                    <div class="game-card" onclick="showSection('dragdrop')">
-                        <div class="game-icon"><i class="fas fa-hand-rock"></i></div>
-                        <div class="game-name">Bible Match</div>
-                        <div class="game-description">Drag and drop to match Bible facts!</div>
-                        <button class="instructions-btn" onclick="showInstructions('dragdrop')">
-                            <i class="fas fa-info-circle"></i> How to Play
-                        </button>
-                        <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
-                    </div>
-                    
-                    <div class="game-card" onclick="showSection('story')">
-                        <div class="game-icon"><i class="fas fa-book-open"></i></div>
-                        <div class="game-name">Story Builder</div>
-                        <div class="game-description">Put Bible stories in the right order!</div>
-                        <button class="instructions-btn" onclick="showInstructions('story')">
-                            <i class="fas fa-info-circle"></i> How to Play
-                        </button>
-                        <button class="play-btn"><i class="fas fa-play"></i> Play Now</button>
+                    <div class="game-card" data-game="reaction">
+                        <span class="game-icon">⚡</span>
+                        <h3 class="game-title">Quick React</h3>
+                        <p class="game-description">Test your reaction time</p>
+                        <button class="btn btn-primary">Play Now</button>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
+    </div>
 
-            <!-- Bible Quiz Section -->
-            <section id="quiz" class="section">
-                <div class="game-container">
-                    <div class="game
+    <!-- Game Modals -->
+    <div class="modal" id="triviaModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div class="game-content">
+                <h2 class="game-title">Bible Trivia</h2>
+                <div class="score" id="triviaScore">Score: 0</div>
+                <div class="question" id="triviaQuestion"></div>
+                <div class="options" id="triviaOptions"></div>
+                <button class="btn btn-primary" id="nextTrivia" style="display: none;">Next Question</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="scrambleModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div class="game-content">
+                <h2 class="game-title">Word Scramble</h2>
+                <div class="score" id="scrambleScore">Score: 0</div>
+                <div class="scrambled-word" id="scrambledWord"></div>
+                <input type="text" class="word-input" id="wordInput" placeholder="Type your answer...">
+                <button class="btn btn-primary" id="submitWord">Submit</button>
+                <button class="btn btn-primary" id="nextScramble" style="display: none;">Next Word</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="memoryModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div class="game-content">
+                <h2 class="game-title">Memory Match</h2>
+                <div class="score" id="memoryScore">Moves: 0</div>
+                <div class="memory-grid" id="memoryGrid"></div>
+                <button class="btn btn-primary" id="resetMemory">Reset Game</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="reactionModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div class="game-content">
+                <h2 class="game-title">Quick React</h2>
+                <div class="score" id="reactionScore">Best Time: --</div>
+                <div class="reaction-area" id="reactionArea">Click when GREEN!</div>
+                <button class="btn btn-primary" id="startReaction">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Bible Data
+        const bibleData = {
+            sheng: {
+                1: [
+                    { verse: 1, text: "Hapo mwanzo kulikuwa na Neno, na Neno alikuwa pamoja na Mungu, na Neno alikuwa Mungu." },
+                    { verse: 2, text: "Yeye alikuwa mwanzoni pamoja na Mungu." },
+                    { verse: 3, text: "Vitu vyote viliumbwa kupitia kwake, na bila yeye hakuna kitu kilichoumbwa." },
+                    { verse: 4, text: "Ndani yake kulikuwa na uhai, na uhai huo ulikuwa mwanga wa wanadamu." },
+                    { verse: 5, text: "Mwanga huo unaangaza gizani, na giza halikuweza kuushinda." }
+                ]
+            },
+            esv: {
+                1: [
+                    { verse: 1, text: "In the beginning was the Word, and the Word was with God, and the Word was God." },
+                    { verse: 2, text: "He was in the beginning with God." },
+                    { verse: 3, text: "All things were made through him, and without him was not any thing made that was made." },
+                    { verse: 4, text: "In him was life, and the life was the light of men." },
+                    { verse: 5, text: "The light shines in the darkness, and the darkness has not overcome it." }
+                ]
+            }
+        };
+
+        // Game Data
+        const triviaQuestions = [
+            {
+                question: "Who wrote the Gospel of John?",
+                options: ["John the Baptist", "John the Apostle", "John Mark", "John the Elder"],
+                correct: 1
+            },
+            {
+                question: "What does 'In the beginning was the Word' refer to?",
+                options: ["The Bible", "Jesus Christ", "God's voice", "Creation"],
+                correct: 1
+            },
+            {
+                question: "According to John 1:4, what was in Jesus?",
+                options: ["Wisdom", "Power", "Life", "Glory"],
+                correct: 2
+            }
+        ];
+
+        const scrambleWords = [
+            { word: "JESUS", scrambled: "SUJSE" },
+            { word: "LIGHT", scrambled: "THGIL" },
+            { word: "WORD", scrambled: "DORW" },
+            { word: "LIFE", scrambled: "EFIL" },
+            { word: "BEGINNING", scrambled: "GNINIGEB" }
+        ];
+
+        const memoryCards = ["✝️", "🙏", "❤️", "✨", "📖", "🕊️", "⭐", "🌟"];
+
+        // App State
+        let currentUser = null;
+        let currentVersion = 'sheng';
+        let currentChapter = 1;
+        let gameScores = {
+            trivia: 0,
+            scramble: 0,
+            memory: 0,
+            reaction: Infinity
+        };
+
+        // DOM Elements
+        const loginSection = document.getElementById('loginSection');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const googleLoginBtn = document.getElementById('googleLogin');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+        const versionButtons = document.querySelectorAll('.version-btn');
+        const bibleText = document.getElementById('bibleText');
+        const currentChapterSpan = document.getElementById('currentChapter');
+        const prevChapterBtn = document.getElementById('prevChapter');
+        const nextChapterBtn = document.getElementById('nextChapter');
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthState();
+            setupEventListeners();
+            loadBibleText();
+        });
+
+        function checkAuthState() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showDashboard();
+            }
+        }
+
+        function setupEventListeners() {
+            // Login
+            loginForm.addEventListener('submit', handleLogin);
+            googleLoginBtn.addEventListener('click', handleGoogleLogin);
+            logoutBtn.addEventListener('click', handleLogout);
+
+            // Navigation
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => switchSection(btn.dataset.section));
+            });
+
+            // Bible controls
+            versionButtons.forEach(btn => {
+                btn.addEventListener('click', () => switchVersion(btn.dataset.version));
+            });
+
+            prevChapterBtn.addEventListener('click', () => changeChapter(-1));
+            nextChapterBtn.addEventListener('click', () => changeChapter(1));
+
+            // Games
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('click', () => openGame(card.dataset.game));
+            });
+
+            // Modal close buttons
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', closeModal);
+            });
+
+            // Game specific listeners
+            setupGameListeners();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simple validation (in real app, this would be server-side)
+            if (email && password) {
+                currentUser = { email, loginMethod: 'email' };
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showDashboard();
+            }
+        }
+
+        function handleGoogleLogin() {
+            // Simulate Google login
+            currentUser = { email: 'user@gmail.com', loginMethod: 'google' };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showDashboard();
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showLogin();
+        }
+
+        function showDashboard() {
+            loginSection.style.display = 'none';
+            dashboard.classList.add('active');
+        }
+
+        function showLogin() {
+            dashboard.classList.remove('active');
+            loginSection.style.display = 'flex';
+        }
+
+        function switchSection(sectionName) {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            sections.forEach(section => section.classList.add('hidden'));
+
+            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+            document.getElementById(`${sectionName}Section`).classList.remove('hidden');
+        }
+
+        function switchVersion(version) {
+            currentVersion = version;
+            versionButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-version="${version}"]`).classList.add('active');
+            loadBibleText();
+        }
+
+        function changeChapter(direction) {
+            const newChapter = currentChapter + direction;
+            if (newChapter >= 1 && newChapter <= 21) { // John has 21 chapters
+                currentChapter = newChapter;
+                currentChapterSpan.textContent = `Chapter ${currentChapter}`;
+                loadBibleText();
+            }
+        }
+
+        function loadBibleText() {
+            const verses = bibleData[currentVersion][currentChapter] || [];
+            bibleText.innerHTML = verses.map(verse => 
+                `<div class="verse">
+                    <span class="verse-number">${verse.verse}</span>
+                    ${verse.text}
+                </div>`
+            ).join('');
+        }
+
+        // Game Functions
+        function openGame(gameType) {
+            const modal = document.getElementById(`${gameType}Modal`);
+            modal.classList.add('active');
+            
+            switch(gameType) {
+                case 'trivia':
+                    startTrivia();
+                    break;
+                case 'scramble':
+                    startScramble();
+                    break;
+                case 'memory':
+                    startMemory();
+                    break;
+                case 'reaction':
+                    startReaction();
+                    break;
+            }
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.classList.remove('active');
+            });
+        }
+
+        function setupGameListeners() {
+            // Trivia
+            document.getElementById('nextTrivia').addEventListener('click', nextTriviaQuestion);
+
+            // Scramble
+            document.getElementById('submitWord').addEventListener('click', checkScrambleAnswer);
+            document.getElementById('wordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkScrambleAnswer();
+            });
+            document.getElementById('nextScramble').addEventListener('click', nextScrambleWord);
+
+            // Memory
+            document.getElementById('resetMemory').addEventListener('click', startMemory);
+
+            // Reaction
+            document.getElementById('startReaction').addEventListener('click', startReactionGame);
+            document.getElementById('reactionArea').addEventListener('click', handleReactionClick);
+        }
+
+        // Trivia Game
+        let currentTriviaIndex = 0;
+        let triviaScore = 0;
+
+        function startTrivia() {
+            currentTriviaIndex = 0;
+            triviaScore = 0;
+            document.getElementById('triviaScore').textContent = `Score: ${triviaScore}`;
+            showTriviaQuestion();
+        }
+
+        function showTriviaQuestion() {
+            if (currentTriviaIndex >= triviaQuestions.length) {
+                document.getElementById('triviaQuestion').textContent = `Game Complete! Final Score: ${triviaScore}/${triviaQuestions.length}`;
+                document.getElementById('triviaOptions').innerHTML = '';
+                return;
+            }
+
+            const question = triviaQuestions[currentTriviaIndex];
+            document.getElementById('triviaQuestion').textContent = question.question;
+            
+            const optionsHtml = question.options.map((option, index) => 
+                `<div class="option" data-index="${index}">${option}</div>`
+            ).join('');
+            
+            document.getElementById('triviaOptions').innerHTML = optionsHtml;
+
+            document.querySelectorAll('#triviaOptions .option').forEach(option => {
+                option.addEventListener('click', handleTriviaAnswer);
+            });
+        }
+
+        function handleTriviaAnswer(e) {
+            const selectedIndex = parseInt(e.target.dataset.index);
+            const correctIndex = triviaQuestions[currentTriviaIndex].correct;
+            
+            document.querySelectorAll('#triviaOptions .option').forEach((option, index) => {
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== correctIndex) {
+                    option.classList.add('wrong');
+                }
+                option.style.pointerEvents = 'none';
+            });
+
+            if (selectedIndex === correctIndex) {
+                triviaScore++;
+                document.getElementById('triviaScore').textContent = `Score: ${triviaScore}`;
+            }
+
+            document.getElementById('nextTrivia').style.display = 'block';
+        }
+
+        function nextTriviaQuestion() {
+            currentTriviaIndex++;
+            document.getElementById('nextTrivia').style.display = 'none';
+            showTriviaQuestion();
+        }
+
+        // Scramble Game
+        let currentScrambleIndex = 0;
+        let scrambleScore = 0;
+
+        function startScramble() {
+            currentScrambleIndex = 0;
+            scrambleScore = 0;
+            document.getElementById('scrambleScore').textContent = `Score: ${scrambleScore}`;
+            showScrambleWord();
+        }
+
+        function showScrambleWord() {
+            if (currentScrambleIndex >= scrambleWords.length) {
+                document.getElementById('scrambledWord').textContent = `Game Complete! Score: ${scrambleScore}/${scrambleWords.length}`;
+                document.getElementById('wordInput').style.display = 'none';
+                document.getElementById('submitWord').style.display = 'none';
+                return;
+            }
+
+            const word = scrambleWords[currentScrambleIndex];
+            document.getElementById('scrambledWord').textContent = word.scrambled;
+            document.getElementById('wordInput').value = '';
+            document.getElementById('wordInput').focus();
+        }
+
+        function checkScrambleAnswer() {
+            const userAnswer = document.getElementById('wordInput').value.toUpperCase();
+            const correctAnswer = scrambleWords[currentScrambleIndex].word;
+            
+            if (userAnswer === correctAnswer) {
+                scrambleScore++;
+                document.getElementById('scrambleScore').textContent = `Score: ${scrambleScore}`;
+                document.getElementById('scrambledWord').textContent = '✅ Correct!';
+            } else {
+                document.getElementById('scrambledWord').textContent = `❌ Wrong! Answer: ${correctAnswer}`;
+            }
+
+            document.getElementById('nextScramble').style.display = 'block';
+            document.getElementById('submitWord').style.display = 'none';
+        }
+
+        function nextScrambleWord() {
+            currentScrambleIndex++;
+            document.getElementById('nextScramble').style.display = 'none';
+            document.getElementById('submitWord').style.display = 'block';
+            showScrambleWord();
+        }
+
+        // Memory Game
+        let memoryGameCards = [];
+        let flippedCards = [];
+        let memoryMoves = 0;
+
+        function startMemory() {
+            memoryMoves = 0;
+            flippedCards = [];
+            document.getElementById('memoryScore').textContent = `Moves: ${memoryMoves}`;
+            
+            // Create pairs of cards
+            memoryGameCards = [...memoryCards, ...memoryCards].sort(() => Math.random() - 0.5);
+            
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = memoryGameCards.map((card, index) => 
+                `<div class="memory-card" data-index="${index}" data-card="${card}">?</div>`
+            ).join('');
+
+            document.querySelectorAll('.memory-card').forEach(card => {
+                card.addEventListener('click', handleMemoryCardClick);
+            });
+        }
+
+        function handleMemoryCardClick(e) {
+            const card = e.target;
+            const index = parseInt(card.dataset.index);
+            
+            if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
+                card.classList.add('flipped');
+                card.textContent = card.dataset.card;
+                flippedCards.push({ element: card, index, value: card.dataset.card });
+                
+                if (flippedCards.length === 2) {
+                    memoryMoves++;
+                    document.getElementById('memoryScore').textContent = `Moves: ${memoryMoves}`;
+                    
+                    setTimeout(() => {
+                        if (flippedCards[0].value === flippedCards[1].value) {
+                            // Match found
+                            flippedCards = [];
+                            
+                            // Check if game is complete
+                            if (document.querySelectorAll('.memory-card.flipped').length === memoryGameCards.length) {
+                                document.getElementById('memoryScore').textContent = `Complete! Moves: ${memoryMoves}`;
+                            }
+                        } else {
+                            // No match
+                            flippedCards.forEach(card => {
+                                card.element.classList.remove('flipped');
+                                card.element.textContent = '?';
+                            });
+                            flippedCards = [];
+                        }
+                    }, 1000);
+                }
+            }
+        }
+
+        // Reaction Game
+        let reactionStartTime = 0;
+        let reactionTimeout = null;
+        let reactionBestTime = Infinity;
+        let reactionGameActive = false;
+
+        function startReaction() {
+            reactionBestTime = localStorage.getItem('reactionBestTime') || Infinity;
+            if (reactionBestTime !== Infinity) {
+                document.getElementById('reactionScore').textContent = `Best Time: ${reactionBestTime}ms`;
+            }
+        }
+
+        function startReactionGame() {
+            const area = document.getElementById('reactionArea');
+            area.textContent = 'Wait for GREEN...';
+            area.classList.remove('active');
+            reactionGameActive = false;
+            
+            const delay = Math.random() * 3000 + 2000; // 2-5 seconds
+            
+            reactionTimeout = setTimeout(() => {
+                area.textContent = 'CLICK NOW!';
+                area.classList.add('active');
+                reactionStartTime = Date.now();
+                reactionGameActive = true;
+            }, delay);
+        }
+
+        function handleReactionClick() {
+            if (reactionGameActive) {
+                const reactionTime = Date.now() - reactionStartTime;
+                reactionGameActive = false;
+                
+                document.getElementById('reactionArea').classList.remove('active');
+                document.getElementById('reactionArea').textContent = `${reactionTime}ms`;
+                
+                if (reactionTime < reactionBestTime) {
+                    reactionBestTime = reactionTime;
+                    localStorage.setItem('reactionBestTime', reactionBestTime);
+                    document.getElementById('reactionScore').textContent = `New Best: ${reactionBestTime}ms`;
+                }
+            } else if (reactionTimeout) {
+                // Clicked too early
+                clearTimeout(reactionTimeout);
+                document.getElementById('reactionArea').textContent = 'Too early! Try again';
+                document.getElementById('reactionArea').classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
